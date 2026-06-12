@@ -10,8 +10,8 @@
 
 Pinoo_DcMotor::Pinoo_DcMotor(MotorChannel channel) {
     if (channel == LEFT_MOTOR) {
-        _in1 = 10;
-        _in2 = 11;
+        _in1 = 11;
+        _in2 = 10;
         _isRight = false;
     } else {
         _in1 = 5;

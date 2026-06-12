@@ -31,11 +31,11 @@ public:
      * @brief Constructor for compile-time validated Port connections.
      * @tparam PortType The structure type representing the Pinoo Port.
      * @param port     The constexpr Port instance (e.g., DOOR1).
-     * @param activeLow true  → button is pressed when pin reads LOW (default, most push-buttons).
-     *                  false → button is pressed when pin reads HIGH.
+     * @param activeLow false → button is pressed when pin reads HIGH (default for RJ11 door buttons).
+     *                  true  → button is pressed when pin reads LOW (for active-LOW wiring).
      */
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
-    Pinoo_Button(PortType port, bool activeLow = true) {
+    Pinoo_Button(PortType port, bool activeLow = false) {
         PINOO_ASSERT_DIGITAL(PortType);
         _pin          = PortType::pin4;
         _activeLow    = activeLow;
@@ -57,7 +57,8 @@ public:
     /**
      * @brief Constructor for raw Arduino pin connections.
      * @param pin       The Arduino pin number (e.g., 2 or A7).
-     * @param activeLow true  → button is pressed when pin reads LOW (default).
+     * @param activeLow true  → button is pressed when pin reads LOW (default — for the
+     *                          on-board internal button which is active-LOW / pull-up wired).
      *                  false → button is pressed when pin reads HIGH.
      */
     Pinoo_Button(uint8_t pin, bool activeLow = true);

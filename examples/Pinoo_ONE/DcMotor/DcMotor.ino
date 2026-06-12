@@ -29,8 +29,8 @@ void loop() {
   delay(1000);
 
   // Motorları geri yarım hız sür / Drive motors backward half speed
-  leftMotor.setSpeed(-128);
-  rightMotor.setSpeed(-128);
+  leftMotor.setSpeed(-255);
+  rightMotor.setSpeed(-255);
   delay(2000);
 
   // Motorları kilitle (aktif fren) / Actively brake motors
