@@ -1,9 +1,9 @@
 /**
  * @file Pinoo_Shield_Pins.h
- * @brief Placeholder pin mapping for the Pinoo Shield board.
+ * @brief Dedicated pin mappings for the Pinoo Shield board.
  * 
- * NOTE: Pin definitions in this file are placeholders.
- * They will be fully mapped to the physical Pinoo Shield schematics in a future update.
+ * This file defines the hardware pin constants for on-board components
+ * and the RJ11 port interfaces of the Pinoo Shield board.
  * 
  * @author Pinoo Robotics
  * @copyright Copyright (c) 2026 Pinoo Robotics
@@ -14,16 +14,70 @@
 
 #include <Arduino.h>
 
-// On-Board Internal Components (Placeholders)
-#define PINOO_SHIELD_INTERNAL_LED     13
-#define PINOO_SHIELD_INTERNAL_IR      12
-#define PINOO_SHIELD_INTERNAL_BUTTON  A7
-#define PINOO_SHIELD_INTERNAL_LDR     A6
-#define PINOO_SHIELD_INTERNAL_BUZZER  9
+// =============================================================================
+// On-Board Internal Components
+// =============================================================================
 
-// RJ11 Doors Matrix (Placeholders - replicating ONE template for compilation sanity)
+/** @brief On-board USER LED pin (connected to digital pin 13) */
+#define PINOO_SHIELD_INTERNAL_LED     13
+
+/** @brief On-board Infrared Receiver (IR-R) pin (connected to digital pin 12) */
+#define PINOO_SHIELD_INTERNAL_IR      12
+
+/** @brief On-board USER BUTTON pin (Not supported on Pinoo Shield) */
+#define PINOO_SHIELD_INTERNAL_BUTTON  -1
+
+/** @brief On-board LDR light sensor pin (Not supported on Pinoo Shield) */
+#define PINOO_SHIELD_INTERNAL_LDR     -1
+
+/** @brief On-board Passive Buzzer pin (Not supported on Pinoo Shield) */
+#define PINOO_SHIELD_INTERNAL_BUZZER  -1
+
+
+// =============================================================================
+// RJ11 Ports Matrix (Digital & Analog Interfaces)
+// =============================================================================
+
+// Port 1 (Pink/Purple) -> Pin 4: D2
+#define PINOO_SHIELD_PORT1_PIN4       2
+
+// Port 2 (Pink/Purple) -> Pin 4: D3 (PWM/Interrupt)
+#define PINOO_SHIELD_PORT2_PIN4       3
+
+// Port 3 (Pink/Purple) -> Pin 4: D4
+#define PINOO_SHIELD_PORT3_PIN4       4
+
+// Port 4 (Pink/Purple) -> Pin 4: D7
+#define PINOO_SHIELD_PORT4_PIN4       7
+
+// Port 5 (Pink/Purple) -> Pin 4: D8
+#define PINOO_SHIELD_PORT5_PIN4       8
+#define PINOO_SHIELD_PORT5_PIN2       9
+
+// Port 6 (Green/Red) -> Pin 4: D12, Pin 2: D13 (Dual Signal)
+#define PINOO_SHIELD_PORT6_PIN4       12
+#define PINOO_SHIELD_PORT6_PIN2       13
+
+// Port 7 (Red) -> Pin 4: A0
+#define PINOO_SHIELD_PORT7_PIN4       A0
+
+// Port 8 (Red) -> Pin 4: A1
+#define PINOO_SHIELD_PORT8_PIN4       A1
+
+// Port 9 (Yellow/Red) -> Pin 4: A2, Pin 2: A3 (Dual Signal)
+#define PINOO_SHIELD_PORT9_PIN4       A2
+#define PINOO_SHIELD_PORT9_PIN2       A3
+
+// Port 10 (White/Red) -> Pin 4: A4 (SDA), Pin 2: A5 (SCL) [Hardware I2C]
+#define PINOO_SHIELD_PORT10_PIN4      A4
+#define PINOO_SHIELD_PORT10_PIN2      A5
+
+// =============================================================================
+// RJ11 Port Compile-Time Type-Safe Abstraction System
+// =============================================================================
+
 struct PinooShieldDoor1 {
-    static constexpr uint8_t pin4 = 2;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT1_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
@@ -34,7 +88,7 @@ struct PinooShieldDoor1 {
 };
 
 struct PinooShieldDoor2 {
-    static constexpr uint8_t pin4 = 3;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT2_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
@@ -45,7 +99,7 @@ struct PinooShieldDoor2 {
 };
 
 struct PinooShieldDoor3 {
-    static constexpr uint8_t pin4 = 4;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT3_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
@@ -56,7 +110,7 @@ struct PinooShieldDoor3 {
 };
 
 struct PinooShieldDoor4 {
-    static constexpr uint8_t pin4 = 7;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT4_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
@@ -67,8 +121,8 @@ struct PinooShieldDoor4 {
 };
 
 struct PinooShieldDoor5 {
-    static constexpr uint8_t pin4 = 8;
-    static constexpr uint8_t pin2 = 9;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT5_PIN4;
+    static constexpr uint8_t pin2 = PINOO_SHIELD_PORT5_PIN2;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
     static constexpr bool is_pwm = true;
@@ -78,8 +132,8 @@ struct PinooShieldDoor5 {
 };
 
 struct PinooShieldDoor6 {
-    static constexpr uint8_t pin4 = 12;
-    static constexpr uint8_t pin2 = 13;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT6_PIN4;
+    static constexpr uint8_t pin2 = PINOO_SHIELD_PORT6_PIN2;
     static constexpr bool is_digital = true;
     static constexpr bool is_analog = false;
     static constexpr bool is_pwm = false;
@@ -89,7 +143,7 @@ struct PinooShieldDoor6 {
 };
 
 struct PinooShieldDoor7 {
-    static constexpr uint8_t pin4 = A0;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT7_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
     static constexpr bool is_analog = true;
@@ -100,7 +154,7 @@ struct PinooShieldDoor7 {
 };
 
 struct PinooShieldDoor8 {
-    static constexpr uint8_t pin4 = A1;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT8_PIN4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
     static constexpr bool is_analog = true;
@@ -111,8 +165,8 @@ struct PinooShieldDoor8 {
 };
 
 struct PinooShieldDoor9 {
-    static constexpr uint8_t pin4 = A2;
-    static constexpr uint8_t pin2 = A3;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT9_PIN4;
+    static constexpr uint8_t pin2 = PINOO_SHIELD_PORT9_PIN2;
     static constexpr bool is_digital = false;
     static constexpr bool is_analog = true;
     static constexpr bool is_pwm = false;
@@ -122,8 +176,8 @@ struct PinooShieldDoor9 {
 };
 
 struct PinooShieldDoor10 {
-    static constexpr uint8_t pin4 = A4;
-    static constexpr uint8_t pin2 = A5;
+    static constexpr uint8_t pin4 = PINOO_SHIELD_PORT10_PIN4;
+    static constexpr uint8_t pin2 = PINOO_SHIELD_PORT10_PIN2;
     static constexpr bool is_digital = false;
     static constexpr bool is_analog = true;
     static constexpr bool is_pwm = false;
@@ -132,7 +186,7 @@ struct PinooShieldDoor10 {
     static constexpr bool is_i2c = true;
 };
 
-// Global constexpr door objects mapped to Shield doors
+// Global constexpr door objects
 constexpr PinooShieldDoor1 DOOR1{};
 constexpr PinooShieldDoor2 DOOR2{};
 constexpr PinooShieldDoor3 DOOR3{};

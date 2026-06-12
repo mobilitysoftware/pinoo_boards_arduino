@@ -80,6 +80,7 @@ namespace Pinoo {
 #include "modules/Pinoo_Buzzer.h"
 #include "modules/Pinoo_Servo.h"
 #include "modules/Pinoo_DcMotor.h"
+#include "modules/Pinoo_Stepper.h"
 #include "modules/Pinoo_DistanceSensor.h"
 #include "modules/Pinoo_WaterSensor.h"
 #include "modules/Pinoo_SoilMoisture.h"

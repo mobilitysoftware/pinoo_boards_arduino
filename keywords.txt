@@ -20,6 +20,7 @@ Pinoo_Joystick	KEYWORD1
 Pinoo_Lcd	KEYWORD1
 Pinoo_Bluetooth	KEYWORD1
 Pinoo_LineTracker	KEYWORD1
+Pinoo_Stepper	KEYWORD1
 Pinoo	KEYWORD1
 
 # Function and Method Names (KEYWORD2)
@@ -36,6 +37,8 @@ read	KEYWORD2
 detach	KEYWORD2
 setSpeed	KEYWORD2
 brake	KEYWORD2
+stepCW	KEYWORD2
+stepCCW	KEYWORD2
 getDistance	KEYWORD2
 readValue	KEYWORD2
 getMoisturePercentage	KEYWORD2
