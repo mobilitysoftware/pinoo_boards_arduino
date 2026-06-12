@@ -24,6 +24,37 @@
 #include "Pinoo_Errors.h"
 
 // =============================================================================
+// Lightweight Type Traits Helpers (C++11 compatibility fallback for AVR)
+// =============================================================================
+namespace Pinoo {
+    template <bool B, typename T = void>
+    struct enable_if {};
+
+    template <typename T>
+    struct enable_if<true, T> {
+        typedef T type;
+    };
+
+    template <typename T>
+    struct is_integral {
+        static constexpr bool value = false;
+    };
+
+    template <> struct is_integral<bool> { static constexpr bool value = true; };
+    template <> struct is_integral<char> { static constexpr bool value = true; };
+    template <> struct is_integral<signed char> { static constexpr bool value = true; };
+    template <> struct is_integral<unsigned char> { static constexpr bool value = true; };
+    template <> struct is_integral<short> { static constexpr bool value = true; };
+    template <> struct is_integral<unsigned short> { static constexpr bool value = true; };
+    template <> struct is_integral<int> { static constexpr bool value = true; };
+    template <> struct is_integral<unsigned int> { static constexpr bool value = true; };
+    template <> struct is_integral<long> { static constexpr bool value = true; };
+    template <> struct is_integral<unsigned long> { static constexpr bool value = true; };
+    template <> struct is_integral<long long> { static constexpr bool value = true; };
+    template <> struct is_integral<unsigned long long> { static constexpr bool value = true; };
+}
+
+// =============================================================================
 // Automatic Architecture & Board Detection
 // =============================================================================
 

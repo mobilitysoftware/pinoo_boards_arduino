@@ -15,7 +15,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-#include <type_traits>
+
 #include "../Pinoo_Config.h"
 
 class Pinoo_Lcd {
@@ -26,12 +26,12 @@ public:
      * @param port The constexpr Port instance (must be PORT10).
      * @param address I2C address of the LCD (defaults to 0x27).
      */
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_Lcd(PortType port, uint8_t address = 0x27) : _lcd(address, 16, 2) {
         PINOO_ASSERT_I2C(PortType);
     }
 
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_Lcd(PortType port, bool bypass, uint8_t address = 0x27) : _lcd(address, 16, 2) {
     }

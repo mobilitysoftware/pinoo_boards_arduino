@@ -12,7 +12,7 @@
 #define PINOO_DISTANCE_SENSOR_H
 
 #include <Arduino.h>
-#include <type_traits>
+
 #include "../Pinoo_Config.h"
 
 class Pinoo_DistanceSensor {
@@ -22,18 +22,20 @@ public:
      * @tparam PortType The structure type representing the Pinoo Port.
      * @param port The constexpr Port instance (e.g., PORT5).
      */
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_DistanceSensor(PortType port) {
         PINOO_ASSERT_DUAL(PortType);
-        _trigPin = PortType::pin4;
-        _echoPin = PortType::pin2;
+        // On Pinoo ONE DOOR5: pin2=D9 (TRIG), pin4=D8 (ECHO)
+        // Matches Pinoo Studio reference: pinMode(9, OUTPUT), pinMode(8, INPUT)
+        _trigPin = PortType::pin2;
+        _echoPin = PortType::pin4;
     }
 
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_DistanceSensor(PortType port, bool bypass) {
-        _trigPin = PortType::pin4;
-        _echoPin = PortType::pin2;
+        _trigPin = PortType::pin2;
+        _echoPin = PortType::pin4;
     }
 
     /**

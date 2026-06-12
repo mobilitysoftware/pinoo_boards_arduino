@@ -12,7 +12,7 @@
 #define PINOO_LED_H
 
 #include <Arduino.h>
-#include <type_traits>
+
 #include "../Pinoo_Config.h"
 
 class Pinoo_Led {
@@ -22,14 +22,14 @@ public:
      * @tparam PortType The structure type representing the Pinoo Port.
      * @param port The constexpr Port instance (e.g., PORT1).
      */
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_Led(PortType port) {
         PINOO_ASSERT_DIGITAL(PortType);
         _pin = PortType::pin4;
         _state = false;
     }
 
-    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
+    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_Led(PortType port, bool bypass) {
         _pin = PortType::pin4;
