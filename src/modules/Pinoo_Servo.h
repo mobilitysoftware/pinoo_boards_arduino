@@ -66,6 +66,7 @@ public:
 private:
     uint8_t _pin;
     Servo _servo;
+    int _angle;
 };
 
 #endif // PINOO_SERVO_H

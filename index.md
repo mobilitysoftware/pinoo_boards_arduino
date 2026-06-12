@@ -13,8 +13,12 @@ Welcome to the Pinoo SDK codebase directory index. Below you will find organized
 - **Pinoo ONE**: [Pinoo_ONE_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_ONE_Pins.h)
 - **Pinoo Shield**: [Pinoo_Shield_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_Shield_Pins.h)
 - **Pinoo Bricky**: [Pinoo_Bricky_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_Bricky_Pins.h)
-- **Pinoo Moto** (Deferred): [Pinoo_Moto_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_Moto_Pins.h)
+- **Pinoo Moto**: [Pinoo_Moto_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_Moto_Pins.h)
 - **Pinoo ESP32** (Deferred): [Pinoo_ESP32_Pins.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_ESP32_Pins.h)
+
+### 🏎️ Moto Board PCA9685 Internal Driver
+- Header: [Pinoo_MOTO_PCA9685.h](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_MOTO_PCA9685.h)
+- Source: [Pinoo_MOTO_PCA9685.cpp](file:///d:/Projeler/pinoo_sdk/src/boards/Pinoo_MOTO_PCA9685.cpp)
 
 ---
 
@@ -24,6 +28,7 @@ To avoid confusion, each board has its own dedicated examples directory. The mod
 - 📐 **Pinoo ONE Examples**: [examples/Pinoo_ONE/](file:///d:/Projeler/pinoo_sdk/examples/Pinoo_ONE)
 - 🛡️ **Pinoo Shield Examples**: [examples/Pinoo_Shield/](file:///d:/Projeler/pinoo_sdk/examples/Pinoo_Shield)
 - 🧱 **Pinoo Bricky Examples**: [examples/Pinoo_Bricky/](file:///d:/Projeler/pinoo_sdk/examples/Pinoo_Bricky)
+- 🏎️ **Pinoo Moto Examples**: [examples/Pinoo_Moto/](file:///d:/Projeler/pinoo_sdk/examples/Pinoo_Moto)
 
 ---
 

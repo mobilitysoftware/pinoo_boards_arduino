@@ -15,7 +15,15 @@
 
 enum MotorChannel {
     LEFT_MOTOR,
-    RIGHT_MOTOR
+    RIGHT_MOTOR,
+    MOTOR1,
+    MOTOR2,
+    MOTOR3,
+    MOTOR4,
+    MOTOR5,
+    MOTOR6,
+    MOTOR7,
+    MOTOR8
 };
 
 class Pinoo_DcMotor {

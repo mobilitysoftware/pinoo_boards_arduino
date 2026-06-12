@@ -11,10 +11,23 @@
 #ifndef PINOO_STEPPER_H
 #define PINOO_STEPPER_H
 
-#include <Arduino.h>
+#include "../Pinoo_Config.h"
+
+#if defined(PINOO_BOARD_MOTO)
+enum StepperChannel {
+    STEPPER1,
+    STEPPER2,
+    STEPPER3,
+    STEPPER4
+};
+#endif
 
 class Pinoo_Stepper {
 public:
+#if defined(PINOO_BOARD_MOTO)
+    Pinoo_Stepper(StepperChannel channel);
+#endif
+
     /**
      * @brief Constructor for Pinoo_Stepper.
      * @param in1 Stepper motor control pin 1 (defaults to 11).
