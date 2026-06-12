@@ -2,14 +2,14 @@
  * @file SoilMoisture.ino
  * @brief Bilingual (TR/EN) example for Pinoo Soil Moisture Sensor module.
  * 
- * Bu örnek Port 8'e bağlı Toprak Nem Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of Soil Moisture Sensor module connected to Port 8.
+ * Bu örnek Door 8'e bağlı Toprak Nem Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of Soil Moisture Sensor module connected to Door 8.
  */
 
 #include <Pinoo.h>
 
-// Port 8'e bağlı Toprak Nem Sensörü / Soil Moisture Sensor connected to Port 8 (Analog)
-Pinoo_SoilMoisture soilSensor(PORT8);
+// Door 8'e bağlı Toprak Nem Sensörü / Soil Moisture Sensor connected to Door 8 (Analog)
+Pinoo_SoilMoisture soilSensor(DOOR8);
 
 void setup() {
   Serial.begin(9600);

@@ -2,14 +2,14 @@
  * @file DistanceSensor.ino
  * @brief Bilingual (TR/EN) example for Pinoo Distance Sensor module.
  * 
- * Bu örnek Port 5'e bağlı HC-SR04 Mesafe Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of HC-SR04 Distance Sensor module connected to Port 5.
+ * Bu örnek Door 5'e bağlı HC-SR04 Mesafe Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of HC-SR04 Distance Sensor module connected to Door 5.
  */
 
 #include <Pinoo.h>
 
-// Port 5'e bağlı Mesafe Sensörü / Distance Sensor connected to Port 5 (Dual Signal)
-Pinoo_DistanceSensor distanceSensor(PORT5);
+// Door 5'e bağlı Mesafe Sensörü / Distance Sensor connected to Door 5 (Dual Signal)
+Pinoo_DistanceSensor distanceSensor(DOOR5);
 
 void setup() {
   Serial.begin(9600);

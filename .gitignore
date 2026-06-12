@@ -4,7 +4,11 @@
 pinoostudiodan_cekilen_libraries/
 
 # Hardware definition/files copy
-hardware/
+hardware/*
+!hardware/avr/
+!hardware/esp32/
+hardware/avr/1.0.0/libraries/
+hardware/esp32/1.0.0/libraries/
 
 # Temporary and build artifacts
 build/

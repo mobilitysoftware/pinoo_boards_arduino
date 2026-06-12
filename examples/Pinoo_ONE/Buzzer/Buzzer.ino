@@ -2,14 +2,14 @@
  * @file Buzzer.ino
  * @brief Bilingual (TR/EN) example for Pinoo Buzzer module.
  * 
- * Bu örnek Port 2'ye bağlı Pasif Buzzer modülünün nasıl kontrol edileceğini gösterir.
- * This example demonstrates how to control a Passive Buzzer module connected to Port 2.
+ * Bu örnek Door 2'ye bağlı Pasif Buzzer modülünün nasıl kontrol edileceğini gösterir.
+ * This example demonstrates how to control a Passive Buzzer module connected to Door 2.
  */
 
 #include <Pinoo.h>
 
-// Port 2'ye bağlı Pasif Buzzer / Passive Buzzer module connected to Port 2
-Pinoo_Buzzer buzzer(PORT2, PASSIVE_BUZZER);
+// Door 2'ye bağlı Pasif Buzzer / Passive Buzzer module connected to Door 2
+Pinoo_Buzzer buzzer(DOOR2, PASSIVE_BUZZER);
 
 void setup() {
   buzzer.begin(); // Buzzer'ı başlat / Initialize Buzzer

@@ -17,7 +17,7 @@ Pinoo_RgbLed dahiliRgb;
 
 // Not: Harici bir RGB LED şeridi kullanıyorsanız, port ve LED sayısını belirtebilirsiniz:
 // Note: If using an external RGB LED strip, you can specify the port and LED count:
-// Pinoo_RgbLed hariciRgb(PORT1, 4); // Port 1'e bağlı 4 LED'li RGB modülü
+// Pinoo_RgbLed hariciRgb(DOOR1, 4); // Door 1'e bağlı 4 LED'li RGB modülü
 
 void setup() {
   Serial.begin(9600);

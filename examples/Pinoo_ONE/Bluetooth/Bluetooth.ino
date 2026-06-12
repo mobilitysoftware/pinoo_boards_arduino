@@ -12,7 +12,7 @@
 // Bluetooth module (Uses the dedicated on-board RX/TX socket)
 Pinoo_Bluetooth bluetooth;
 
-Pinoo_Led led(PORT1); // Örnek olarak Port 1'e bir LED bağladık / Connected a LED to Port 1
+Pinoo_Led led(DOOR1); // Örnek olarak Door 1'e bir LED bağladık / Connected a LED to Door 1
 
 void setup() {
   bluetooth.begin(9600); // Bluetooth iletişimini başlat / Start Bluetooth

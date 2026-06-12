@@ -14,6 +14,7 @@
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
+#include <type_traits>
 #include "../Pinoo_Config.h"
 
 class Pinoo_RgbLed {
@@ -24,13 +25,13 @@ public:
      * @param port The constexpr Port instance (e.g., PORT1).
      * @param count Number of RGB LEDs in the chain (defaults to 2 for on-board RGB).
      */
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     Pinoo_RgbLed(PortType port, uint16_t count = 2) 
         : _strip(count, PortType::pin4, NEO_GRB + NEO_KHZ800) {
         PINOO_ASSERT_DIGITAL(PortType);
     }
 
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_RgbLed(PortType port, bool bypass, uint16_t count = 2) 
         : _strip(count, PortType::pin4, NEO_GRB + NEO_KHZ800) {

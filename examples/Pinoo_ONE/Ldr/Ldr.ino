@@ -2,14 +2,14 @@
  * @file Ldr.ino
  * @brief Bilingual (TR/EN) example for Pinoo Ldr light sensor module.
  * 
- * Bu örnek Port 7'ye bağlı Işık (LDR) Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of Light (LDR) Sensor module connected to Port 7.
+ * Bu örnek Door 7'ye bağlı Işık (LDR) Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of Light (LDR) Sensor module connected to Door 7.
  */
 
 #include <Pinoo.h>
 
-// Port 7'ye bağlı Işık Sensörü / Light Sensor connected to Port 7 (Analog)
-Pinoo_Ldr ldr(PORT7);
+// Door 7'ye bağlı Işık Sensörü / Light Sensor connected to Door 7 (Analog)
+Pinoo_Ldr ldr(DOOR7);
 
 void setup() {
   Serial.begin(9600);

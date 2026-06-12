@@ -2,14 +2,14 @@
  * @file WaterSensor.ino
  * @brief Bilingual (TR/EN) example for Pinoo Water Sensor module.
  * 
- * Bu örnek Port 7'ye bağlı Su Seviyesi Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of Water Level Sensor module connected to Port 7.
+ * Bu örnek Door 7'ye bağlı Su Seviyesi Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of Water Level Sensor module connected to Door 7.
  */
 
 #include <Pinoo.h>
 
-// Port 7'ye bağlı Su Seviyesi Sensörü / Water Level Sensor connected to Port 7 (Analog)
-Pinoo_WaterSensor waterSensor(PORT7);
+// Door 7'ye bağlı Su Seviyesi Sensörü / Water Level Sensor connected to Door 7 (Analog)
+Pinoo_WaterSensor waterSensor(DOOR7);
 
 void setup() {
   Serial.begin(9600);

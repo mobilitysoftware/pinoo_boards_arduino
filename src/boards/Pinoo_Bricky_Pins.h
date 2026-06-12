@@ -21,8 +21,8 @@
 #define PINOO_BRICKY_INTERNAL_LDR     A6
 #define PINOO_BRICKY_INTERNAL_BUZZER  9
 
-// RJ11 Ports Matrix (Placeholders - replicating ONE template for compilation sanity)
-struct PinooBrickyPort1 {
+// RJ11 Doors Matrix (Placeholders - replicating ONE template for compilation sanity)
+struct PinooBrickyDoor1 {
     static constexpr uint8_t pin4 = 2;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -33,7 +33,7 @@ struct PinooBrickyPort1 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort2 {
+struct PinooBrickyDoor2 {
     static constexpr uint8_t pin4 = 3;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -44,7 +44,7 @@ struct PinooBrickyPort2 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort3 {
+struct PinooBrickyDoor3 {
     static constexpr uint8_t pin4 = 4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -55,7 +55,7 @@ struct PinooBrickyPort3 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort4 {
+struct PinooBrickyDoor4 {
     static constexpr uint8_t pin4 = 7;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -66,7 +66,7 @@ struct PinooBrickyPort4 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort5 {
+struct PinooBrickyDoor5 {
     static constexpr uint8_t pin4 = 8;
     static constexpr uint8_t pin2 = 9;
     static constexpr bool is_digital = true;
@@ -77,7 +77,7 @@ struct PinooBrickyPort5 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort6 {
+struct PinooBrickyDoor6 {
     static constexpr uint8_t pin4 = 12;
     static constexpr uint8_t pin2 = 13;
     static constexpr bool is_digital = true;
@@ -88,7 +88,7 @@ struct PinooBrickyPort6 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort7 {
+struct PinooBrickyDoor7 {
     static constexpr uint8_t pin4 = A0;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -99,7 +99,7 @@ struct PinooBrickyPort7 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort8 {
+struct PinooBrickyDoor8 {
     static constexpr uint8_t pin4 = A1;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -110,7 +110,7 @@ struct PinooBrickyPort8 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort9 {
+struct PinooBrickyDoor9 {
     static constexpr uint8_t pin4 = A2;
     static constexpr uint8_t pin2 = A3;
     static constexpr bool is_digital = false;
@@ -121,7 +121,7 @@ struct PinooBrickyPort9 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooBrickyPort10 {
+struct PinooBrickyDoor10 {
     static constexpr uint8_t pin4 = A4;
     static constexpr uint8_t pin2 = A5;
     static constexpr bool is_digital = false;
@@ -132,16 +132,16 @@ struct PinooBrickyPort10 {
     static constexpr bool is_i2c = true;
 };
 
-// Global constexpr port objects mapped to Bricky ports
-constexpr PinooBrickyPort1 PORT1{};
-constexpr PinooBrickyPort2 PORT2{};
-constexpr PinooBrickyPort3 PORT3{};
-constexpr PinooBrickyPort4 PORT4{};
-constexpr PinooBrickyPort5 PORT5{};
-constexpr PinooBrickyPort6 PORT6{};
-constexpr PinooBrickyPort7 PORT7{};
-constexpr PinooBrickyPort8 PORT8{};
-constexpr PinooBrickyPort9 PORT9{};
-constexpr PinooBrickyPort10 PORT10{};
+// Global constexpr door objects mapped to Bricky doors
+constexpr PinooBrickyDoor1 DOOR1{};
+constexpr PinooBrickyDoor2 DOOR2{};
+constexpr PinooBrickyDoor3 DOOR3{};
+constexpr PinooBrickyDoor4 DOOR4{};
+constexpr PinooBrickyDoor5 DOOR5{};
+constexpr PinooBrickyDoor6 DOOR6{};
+constexpr PinooBrickyDoor7 DOOR7{};
+constexpr PinooBrickyDoor8 DOOR8{};
+constexpr PinooBrickyDoor9 DOOR9{};
+constexpr PinooBrickyDoor10 DOOR10{};
 
 #endif // PINOO_BRICKY_PINS_H

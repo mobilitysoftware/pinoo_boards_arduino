@@ -17,7 +17,7 @@ Pinoo_IrReceiver kizilotesi;
 
 // Not: Harici bir IR alıcı modülünü RJ11 portuna bağlıyorsanız:
 // Note: If you are connecting an external IR receiver module to an RJ11 port:
-// Pinoo_IrReceiver kizilotesiHarici(PORT1);
+// Pinoo_IrReceiver kizilotesiHarici(DOOR1);
 
 void setup() {
   Serial.begin(9600);

@@ -27,7 +27,30 @@
 // Automatic Architecture & Board Detection
 // =============================================================================
 
-// 1. Check if the user manually chose a board. If not, auto-detect by architecture.
+// 1. Resolve board selection from compiler board macro flags (-DARDUINO_PINOO_*)
+#if defined(ARDUINO_PINOO_ESP32) || defined(PINOO_BOARD_ESP32)
+    #ifndef PINOO_BOARD_ESP32
+        #define PINOO_BOARD_ESP32
+    #endif
+#elif defined(ARDUINO_PINOO_SHIELD) || defined(PINOO_BOARD_SHIELD)
+    #ifndef PINOO_BOARD_SHIELD
+        #define PINOO_BOARD_SHIELD
+    #endif
+#elif defined(ARDUINO_PINOO_BRICKY) || defined(PINOO_BOARD_BRICKY)
+    #ifndef PINOO_BOARD_BRICKY
+        #define PINOO_BOARD_BRICKY
+    #endif
+#elif defined(ARDUINO_PINOO_MOTO) || defined(PINOO_BOARD_MOTO)
+    #ifndef PINOO_BOARD_MOTO
+        #define PINOO_BOARD_MOTO
+    #endif
+#elif defined(ARDUINO_PINOO_ONE) || defined(PINOO_BOARD_ONE)
+    #ifndef PINOO_BOARD_ONE
+        #define PINOO_BOARD_ONE
+    #endif
+#endif
+
+// 2. Fallback auto-detection if no specific Pinoo board is defined (e.g., using generic Uno/Nano profiles)
 #if !defined(PINOO_BOARD_ONE) && !defined(PINOO_BOARD_SHIELD) && !defined(PINOO_BOARD_BRICKY) && !defined(PINOO_BOARD_MOTO) && !defined(PINOO_BOARD_ESP32)
     #if defined(ESP32) || defined(ARDUINO_ARCH_ESP32)
         #define PINOO_BOARD_ESP32

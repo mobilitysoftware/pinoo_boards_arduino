@@ -20,9 +20,9 @@
 namespace Pinoo {
 
     /**
-     * @brief Reads digital value from a Pinoo Port.
-     * @tparam PortType The structure type of the Pinoo Port.
-     * @param port The constexpr Port object (e.g., PORT1).
+     * @brief Reads digital value from a Pinoo Door.
+     * @tparam PortType The structure type of the Pinoo Door.
+     * @param port The constexpr Door object (e.g., DOOR1).
      * @return HIGH or LOW.
      */
     template <typename PortType>
@@ -31,9 +31,9 @@ namespace Pinoo {
     }
 
     /**
-     * @brief Writes digital value to a Pinoo Port.
-     * @tparam PortType The structure type of the Pinoo Port.
-     * @param port The constexpr Port object (e.g., PORT1).
+     * @brief Writes digital value to a Pinoo Door.
+     * @tparam PortType The structure type of the Pinoo Door.
+     * @param port The constexpr Door object (e.g., DOOR1).
      * @param value HIGH or LOW.
      */
     template <typename PortType>
@@ -42,9 +42,9 @@ namespace Pinoo {
     }
 
     /**
-     * @brief Reads analog value from an analog-capable Pinoo Port.
-     * @tparam PortType The structure type of the Pinoo Port.
-     * @param port The constexpr Port object (e.g., PORT7).
+     * @brief Reads analog value from an analog-capable Pinoo Door.
+     * @tparam PortType The structure type of the Pinoo Door.
+     * @param port The constexpr Door object (e.g., DOOR7).
      * @return Analog value (0 to 1023 on AVR).
      */
     template <typename PortType>
@@ -54,9 +54,9 @@ namespace Pinoo {
     }
 
     /**
-     * @brief Writes analog PWM duty cycle to a PWM-capable Pinoo Port.
-     * @tparam PortType The structure type of the Pinoo Port.
-     * @param port The constexpr Port object (e.g., PORT2).
+     * @brief Writes analog PWM duty cycle to a PWM-capable Pinoo Door.
+     * @tparam PortType The structure type of the Pinoo Door.
+     * @param port The constexpr Door object (e.g., DOOR2).
      * @param value PWM duty cycle (0 to 255).
      */
     template <typename PortType>

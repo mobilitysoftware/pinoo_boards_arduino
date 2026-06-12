@@ -2,14 +2,14 @@
  * @file TempHumidity.ino
  * @brief Bilingual (TR/EN) example for Pinoo Temperature & Humidity Sensor.
  * 
- * Bu örnek Port 1'e bağlı Sıcaklık-Nem (DHT11) Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of Temp-Humidity (DHT11) Sensor module connected to Port 1.
+ * Bu örnek Door 1'e bağlı Sıcaklık-Nem (DHT11) Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of Temp-Humidity (DHT11) Sensor module connected to Door 1.
  */
 
 #include <Pinoo.h>
 
-// Port 1'e bağlı Sıcaklık-Nem Sensörü / DHT11 connected to Port 1 (Digital)
-Pinoo_TempHumidity dht(PORT1);
+// Door 1'e bağlı Sıcaklık-Nem Sensörü / DHT11 connected to Door 1 (Digital)
+Pinoo_TempHumidity dht(DOOR1);
 
 void setup() {
   Serial.begin(9600);

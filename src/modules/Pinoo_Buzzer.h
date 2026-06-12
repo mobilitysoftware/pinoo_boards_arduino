@@ -12,6 +12,7 @@
 #define PINOO_BUZZER_H
 
 #include <Arduino.h>
+#include <type_traits>
 #include "../Pinoo_Config.h"
 
 enum BuzzerMode {
@@ -27,13 +28,13 @@ public:
      * @param port The constexpr Port instance (e.g., PORT1).
      * @param mode Active or Passive buzzer mode (defaults to PASSIVE_BUZZER).
      */
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     Pinoo_Buzzer(PortType port, BuzzerMode mode = PASSIVE_BUZZER) : _mode(mode) {
         PINOO_ASSERT_DIGITAL(PortType);
         _pin = PortType::pin4;
     }
 
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_Buzzer(PortType port, bool bypass, BuzzerMode mode = PASSIVE_BUZZER) : _mode(mode) {
         _pin = PortType::pin4;

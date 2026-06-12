@@ -21,8 +21,8 @@
 #define PINOO_ESP32_INTERNAL_LDR     36
 #define PINOO_ESP32_INTERNAL_BUZZER  5
 
-// RJ11 Ports Matrix (Placeholders - replicating ONE template for compilation sanity)
-struct PinooESP32Port1 {
+// RJ11 Doors Matrix (Placeholders - replicating ONE template for compilation sanity)
+struct PinooESP32Door1 {
     static constexpr uint8_t pin4 = 12;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -33,7 +33,7 @@ struct PinooESP32Port1 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port2 {
+struct PinooESP32Door2 {
     static constexpr uint8_t pin4 = 13;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -44,7 +44,7 @@ struct PinooESP32Port2 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port3 {
+struct PinooESP32Door3 {
     static constexpr uint8_t pin4 = 14;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -55,7 +55,7 @@ struct PinooESP32Port3 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port4 {
+struct PinooESP32Door4 {
     static constexpr uint8_t pin4 = 27;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -66,7 +66,7 @@ struct PinooESP32Port4 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port5 {
+struct PinooESP32Door5 {
     static constexpr uint8_t pin4 = 26;
     static constexpr uint8_t pin2 = 25;
     static constexpr bool is_digital = true;
@@ -77,7 +77,7 @@ struct PinooESP32Port5 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port6 {
+struct PinooESP32Door6 {
     static constexpr uint8_t pin4 = 33;
     static constexpr uint8_t pin2 = 32;
     static constexpr bool is_digital = true;
@@ -88,7 +88,7 @@ struct PinooESP32Port6 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port7 {
+struct PinooESP32Door7 {
     static constexpr uint8_t pin4 = 34; // Input-only ADC pin on ESP32
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -99,7 +99,7 @@ struct PinooESP32Port7 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port8 {
+struct PinooESP32Door8 {
     static constexpr uint8_t pin4 = 35; // Input-only ADC pin on ESP32
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -110,7 +110,7 @@ struct PinooESP32Port8 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port9 {
+struct PinooESP32Door9 {
     static constexpr uint8_t pin4 = 36; // Input-only ADC pin on ESP32
     static constexpr uint8_t pin2 = 39; // Input-only ADC pin on ESP32
     static constexpr bool is_digital = false;
@@ -121,7 +121,7 @@ struct PinooESP32Port9 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooESP32Port10 {
+struct PinooESP32Door10 {
     static constexpr uint8_t pin4 = 21; // SDA on ESP32
     static constexpr uint8_t pin2 = 22; // SCL on ESP32
     static constexpr bool is_digital = false;
@@ -132,16 +132,16 @@ struct PinooESP32Port10 {
     static constexpr bool is_i2c = true;
 };
 
-// Global constexpr port objects mapped to ESP32 ports
-constexpr PinooESP32Port1 PORT1{};
-constexpr PinooESP32Port2 PORT2{};
-constexpr PinooESP32Port3 PORT3{};
-constexpr PinooESP32Port4 PORT4{};
-constexpr PinooESP32Port5 PORT5{};
-constexpr PinooESP32Port6 PORT6{};
-constexpr PinooESP32Port7 PORT7{};
-constexpr PinooESP32Port8 PORT8{};
-constexpr PinooESP32Port9 PORT9{};
-constexpr PinooESP32Port10 PORT10{};
+// Global constexpr door objects mapped to ESP32 doors
+constexpr PinooESP32Door1 DOOR1{};
+constexpr PinooESP32Door2 DOOR2{};
+constexpr PinooESP32Door3 DOOR3{};
+constexpr PinooESP32Door4 DOOR4{};
+constexpr PinooESP32Door5 DOOR5{};
+constexpr PinooESP32Door6 DOOR6{};
+constexpr PinooESP32Door7 DOOR7{};
+constexpr PinooESP32Door8 DOOR8{};
+constexpr PinooESP32Door9 DOOR9{};
+constexpr PinooESP32Door10 DOOR10{};
 
 #endif // PINOO_ESP32_PINS_H

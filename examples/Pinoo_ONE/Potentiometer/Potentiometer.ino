@@ -2,14 +2,14 @@
  * @file Potentiometer.ino
  * @brief Bilingual (TR/EN) example for Pinoo Potentiometer module.
  * 
- * Bu örnek Port 7'ye bağlı Potansiyometre modülünün kullanımını gösterir.
- * This example demonstrates usage of Potentiometer module connected to Port 7.
+ * Bu örnek Door 7'ye bağlı Potansiyometre modülünün kullanımını gösterir.
+ * This example demonstrates usage of Potentiometer module connected to Door 7.
  */
 
 #include <Pinoo.h>
 
-// Port 7'ye bağlı Potansiyometre / Potentiometer connected to Port 7 (Analog)
-Pinoo_Potentiometer pot(PORT7);
+// Door 7'ye bağlı Potansiyometre / Potentiometer connected to Door 7 (Analog)
+Pinoo_Potentiometer pot(DOOR7);
 
 void setup() {
   Serial.begin(9600);

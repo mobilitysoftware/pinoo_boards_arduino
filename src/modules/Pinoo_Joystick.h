@@ -12,6 +12,7 @@
 #define PINOO_JOYSTICK_H
 
 #include <Arduino.h>
+#include <type_traits>
 #include "../Pinoo_Config.h"
 
 class Pinoo_Joystick {
@@ -21,7 +22,7 @@ public:
      * @tparam PortType The structure type representing the Pinoo Port.
      * @param port The constexpr Port instance (e.g., PORT9).
      */
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     Pinoo_Joystick(PortType port) {
         PINOO_ASSERT_JOYSTICK(PortType);
         _xPin = PortType::pin4;
@@ -30,7 +31,7 @@ public:
         _hasButton = false;
     }
 
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_Joystick(PortType port, bool bypass) {
         _xPin = PortType::pin4;

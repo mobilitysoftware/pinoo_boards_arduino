@@ -21,8 +21,8 @@
 #define PINOO_MOTO_INTERNAL_LDR     A6
 #define PINOO_MOTO_INTERNAL_BUZZER  9
 
-// RJ11 Ports Matrix (Placeholders - replicating ONE template for compilation sanity)
-struct PinooMotoPort1 {
+// RJ11 Doors Matrix (Placeholders - replicating ONE template for compilation sanity)
+struct PinooMotoDoor1 {
     static constexpr uint8_t pin4 = 2;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -33,7 +33,7 @@ struct PinooMotoPort1 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort2 {
+struct PinooMotoDoor2 {
     static constexpr uint8_t pin4 = 3;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -44,7 +44,7 @@ struct PinooMotoPort2 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort3 {
+struct PinooMotoDoor3 {
     static constexpr uint8_t pin4 = 4;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -55,7 +55,7 @@ struct PinooMotoPort3 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort4 {
+struct PinooMotoDoor4 {
     static constexpr uint8_t pin4 = 7;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = true;
@@ -66,7 +66,7 @@ struct PinooMotoPort4 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort5 {
+struct PinooMotoDoor5 {
     static constexpr uint8_t pin4 = 8;
     static constexpr uint8_t pin2 = 9;
     static constexpr bool is_digital = true;
@@ -77,7 +77,7 @@ struct PinooMotoPort5 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort6 {
+struct PinooMotoDoor6 {
     static constexpr uint8_t pin4 = 12;
     static constexpr uint8_t pin2 = 13;
     static constexpr bool is_digital = true;
@@ -88,7 +88,7 @@ struct PinooMotoPort6 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort7 {
+struct PinooMotoDoor7 {
     static constexpr uint8_t pin4 = A0;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -99,7 +99,7 @@ struct PinooMotoPort7 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort8 {
+struct PinooMotoDoor8 {
     static constexpr uint8_t pin4 = A1;
     static constexpr uint8_t pin2 = 0;
     static constexpr bool is_digital = false;
@@ -110,7 +110,7 @@ struct PinooMotoPort8 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort9 {
+struct PinooMotoDoor9 {
     static constexpr uint8_t pin4 = A2;
     static constexpr uint8_t pin2 = A3;
     static constexpr bool is_digital = false;
@@ -121,7 +121,7 @@ struct PinooMotoPort9 {
     static constexpr bool is_i2c = false;
 };
 
-struct PinooMotoPort10 {
+struct PinooMotoDoor10 {
     static constexpr uint8_t pin4 = A4;
     static constexpr uint8_t pin2 = A5;
     static constexpr bool is_digital = false;
@@ -132,16 +132,16 @@ struct PinooMotoPort10 {
     static constexpr bool is_i2c = true;
 };
 
-// Global constexpr port objects mapped to Moto ports
-constexpr PinooMotoPort1 PORT1{};
-constexpr PinooMotoPort2 PORT2{};
-constexpr PinooMotoPort3 PORT3{};
-constexpr PinooMotoPort4 PORT4{};
-constexpr PinooMotoPort5 PORT5{};
-constexpr PinooMotoPort6 PORT6{};
-constexpr PinooMotoPort7 PORT7{};
-constexpr PinooMotoPort8 PORT8{};
-constexpr PinooMotoPort9 PORT9{};
-constexpr PinooMotoPort10 PORT10{};
+// Global constexpr door objects mapped to Moto doors
+constexpr PinooMotoDoor1 DOOR1{};
+constexpr PinooMotoDoor2 DOOR2{};
+constexpr PinooMotoDoor3 DOOR3{};
+constexpr PinooMotoDoor4 DOOR4{};
+constexpr PinooMotoDoor5 DOOR5{};
+constexpr PinooMotoDoor6 DOOR6{};
+constexpr PinooMotoDoor7 DOOR7{};
+constexpr PinooMotoDoor8 DOOR8{};
+constexpr PinooMotoDoor9 DOOR9{};
+constexpr PinooMotoDoor10 DOOR10{};
 
 #endif // PINOO_MOTO_PINS_H

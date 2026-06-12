@@ -2,14 +2,14 @@
  * @file Lcd.ino
  * @brief Bilingual (TR/EN) example for Pinoo LCD Screen module.
  * 
- * Bu örnek Port 10'a bağlı I2C LCD Ekran modülünün kullanımını gösterir.
- * This example demonstrates usage of I2C LCD Screen module connected to Port 10.
+ * Bu örnek Door 10'a bağlı I2C LCD Ekran modülünün kullanımını gösterir.
+ * This example demonstrates usage of I2C LCD Screen module connected to Door 10.
  */
 
 #include <Pinoo.h>
 
-// Port 10'a bağlı I2C LCD ekran / I2C LCD screen connected to Port 10 (Hardware I2C)
-Pinoo_Lcd lcd(PORT10);
+// Door 10'a bağlı I2C LCD ekran / I2C LCD screen connected to Door 10 (Hardware I2C)
+Pinoo_Lcd lcd(DOOR10);
 
 void setup() {
   lcd.begin(); // Ekranı başlat / Initialize LCD

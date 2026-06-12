@@ -2,14 +2,14 @@
  * @file LineTracker.ino
  * @brief Bilingual (TR/EN) example for Pinoo Line Tracker module.
  * 
- * Bu örnek Port 5'e bağlı Çizgi İzleme Sensörü modülünün kullanımını gösterir.
- * This example demonstrates usage of Line Tracker module connected to Port 5.
+ * Bu örnek Door 5'e bağlı Çizgi İzleme Sensörü modülünün kullanımını gösterir.
+ * This example demonstrates usage of Line Tracker module connected to Door 5.
  */
 
 #include <Pinoo.h>
 
-// Port 5'e bağlı Çizgi İzleme Sensörü / Line Tracker connected to Port 5 (Dual Signal)
-Pinoo_LineTracker tracker(PORT5);
+// Door 5'e bağlı Çizgi İzleme Sensörü / Line Tracker connected to Door 5 (Dual Signal)
+Pinoo_LineTracker tracker(DOOR5);
 
 void setup() {
   Serial.begin(9600);

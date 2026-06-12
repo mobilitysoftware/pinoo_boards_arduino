@@ -2,14 +2,14 @@
  * @file Button.ino
  * @brief Bilingual (TR/EN) example for Pinoo Button module.
  * 
- * Bu örnek Port 1'e bağlı Buton modülünün kullanımını gösterir.
- * This example demonstrates usage of Button module connected to Port 1.
+ * Bu örnek Door 1'e bağlı Buton modülünün kullanımını gösterir.
+ * This example demonstrates usage of Button module connected to Door 1.
  */
 
 #include <Pinoo.h>
 
-// Port 1'e bağlı Buton modülü / Button module connected to Port 1 (Digital)
-Pinoo_Button button(PORT1);
+// Door 1'e bağlı Buton modülü / Button module connected to Door 1 (Digital)
+Pinoo_Button button(DOOR1);
 
 void setup() {
   Serial.begin(9600);

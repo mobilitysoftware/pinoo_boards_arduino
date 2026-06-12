@@ -14,6 +14,7 @@
 
 #include <Arduino.h>
 #include <IRremote.hpp>
+#include <type_traits>
 #include "../Pinoo_Config.h"
 
 class Pinoo_IrReceiver {
@@ -23,12 +24,12 @@ public:
      * @tparam PortType The structure type representing the Pinoo Port.
      * @param port The constexpr Port instance (e.g., PORT1).
      */
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     Pinoo_IrReceiver(PortType port) : _pin(PortType::pin4), _irrecv(PortType::pin4) {
         PINOO_ASSERT_DIGITAL(PortType);
     }
 
-    template <typename PortType>
+    template <typename PortType, typename = typename std::enable_if<!std::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_IrReceiver(PortType port, bool bypass) : _pin(PortType::pin4), _irrecv(PortType::pin4) {
     }

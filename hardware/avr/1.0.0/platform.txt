@@ -1,0 +1,2 @@
+name=Pinoo AVR Boards
+version=1.0.0

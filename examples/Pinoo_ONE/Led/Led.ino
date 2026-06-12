@@ -2,14 +2,14 @@
  * @file Led.ino
  * @brief Bilingual (TR/EN) example for Pinoo Led module.
  * 
- * Bu örnek Port 1'e bağlı bir Led modülünün nasıl kontrol edileceğini gösterir.
- * This example demonstrates how to control a Led module connected to Port 1.
+ * Bu örnek Door 1'e bağlı bir Led modülünün nasıl kontrol edileceğini gösterir.
+ * This example demonstrates how to control a Led module connected to Door 1.
  */
 
 #include <Pinoo.h>
 
-// Port 1'e bağlı LED modülü / LED module connected to Port 1
-Pinoo_Led led(PORT1);
+// Door 1'e bağlı LED modülü / LED module connected to Door 1
+Pinoo_Led led(DOOR1);
 
 void setup() {
   led.begin(); // LED'i başlat / Initialize LED

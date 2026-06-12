@@ -1,0 +1,59 @@
+# =============================================================================
+# Pinoo AVR Boards configuration file
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Pinoo ONE
+# -----------------------------------------------------------------------------
+pinoo_one.name=Pinoo ONE
+pinoo_one.upload.tool=arduino:avrdude
+pinoo_one.upload.protocol=arduino
+pinoo_one.upload.maximum_size=32256
+pinoo_one.upload.speed=115200
+pinoo_one.build.mcu=atmega328p
+pinoo_one.build.f_cpu=16000000L
+pinoo_one.build.board=PINOO_ONE
+pinoo_one.build.core=arduino:arduino
+pinoo_one.build.variant=arduino:standard
+
+# -----------------------------------------------------------------------------
+# Pinoo Shield
+# -----------------------------------------------------------------------------
+pinoo_shield.name=Pinoo Shield
+pinoo_shield.upload.tool=arduino:avrdude
+pinoo_shield.upload.protocol=arduino
+pinoo_shield.upload.maximum_size=30720
+pinoo_shield.upload.speed=115200
+pinoo_shield.build.mcu=atmega328p
+pinoo_shield.build.f_cpu=16000000L
+pinoo_shield.build.board=PINOO_SHIELD
+pinoo_shield.build.core=arduino:arduino
+pinoo_shield.build.variant=arduino:eightanaloginputs
+
+# -----------------------------------------------------------------------------
+# Pinoo Bricky
+# -----------------------------------------------------------------------------
+pinoo_bricky.name=Pinoo Bricky
+pinoo_bricky.upload.tool=arduino:avrdude
+pinoo_bricky.upload.protocol=arduino
+pinoo_bricky.upload.maximum_size=30720
+pinoo_bricky.upload.speed=115200
+pinoo_bricky.build.mcu=atmega328p
+pinoo_bricky.build.f_cpu=16000000L
+pinoo_bricky.build.board=PINOO_BRICKY
+pinoo_bricky.build.core=arduino:arduino
+pinoo_bricky.build.variant=arduino:eightanaloginputs
+
+# -----------------------------------------------------------------------------
+# Pinoo Moto
+# -----------------------------------------------------------------------------
+pinoo_moto.name=Pinoo Moto
+pinoo_moto.upload.tool=arduino:avrdude
+pinoo_moto.upload.protocol=arduino
+pinoo_moto.upload.maximum_size=32256
+pinoo_moto.upload.speed=115200
+pinoo_moto.build.mcu=atmega328p
+pinoo_moto.build.f_cpu=16000000L
+pinoo_moto.build.board=PINOO_MOTO
+pinoo_moto.build.core=arduino:arduino
+pinoo_moto.build.variant=arduino:standard
