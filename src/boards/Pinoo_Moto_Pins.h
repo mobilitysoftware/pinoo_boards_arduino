@@ -58,16 +58,16 @@
 // =============================================================================
 
 // Port 1 (Purple/Green) -> Pin 4: D13, Pin 2: D12
-#define PINOO_MOTO_PORT1_PIN4         13
-#define PINOO_MOTO_PORT1_PIN2         12
+#define PINOO_MOTO_PORT1_PIN4         12
+#define PINOO_MOTO_PORT1_PIN2         13
 
 // Port 2 (Purple/Green) -> Pin 4: D11 (PWM), Pin 2: D10 (PWM)
-#define PINOO_MOTO_PORT2_PIN4         11
-#define PINOO_MOTO_PORT2_PIN2         10
+#define PINOO_MOTO_PORT2_PIN4         10
+#define PINOO_MOTO_PORT2_PIN2         11
 
 // Port 3 (Red/Yellow) -> Pin 4: A7 (Analog-only), Pin 2: A6 (Analog-only)
-#define PINOO_MOTO_PORT3_PIN4         A7
-#define PINOO_MOTO_PORT3_PIN2         A6
+#define PINOO_MOTO_PORT3_PIN4         A6
+#define PINOO_MOTO_PORT3_PIN2         A7
 
 // Port 4 (Red/White) -> Pin 4: A4 (SDA), Pin 2: A5 (SCL) [Hardware I2C]
 #define PINOO_MOTO_PORT4_PIN4         A4
