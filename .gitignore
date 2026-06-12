@@ -1,0 +1,26 @@
+# Pinoo SDK - Ignored Files
+
+# Local external library dependencies copy (Pinoo Studio files)
+pinoostudiodan_cekilen_libraries/
+
+# Hardware definition/files copy
+hardware/
+
+# Temporary and build artifacts
+build/
+bin/
+out/
+*.local.txt
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.pdb
+*.ipch
+*.log
+
+# Arduino compilation files
+*.o
+*.a
+*.d

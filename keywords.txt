@@ -1,0 +1,83 @@
+###########################################
+# Syntax Coloring Map For Pinoo SDK
+###########################################
+
+# Class Names (KEYWORD1)
+Pinoo_Led	KEYWORD1
+Pinoo_Buzzer	KEYWORD1
+Pinoo_Servo	KEYWORD1
+Pinoo_DcMotor	KEYWORD1
+Pinoo_DistanceSensor	KEYWORD1
+Pinoo_WaterSensor	KEYWORD1
+Pinoo_SoilMoisture	KEYWORD1
+Pinoo_Ldr	KEYWORD1
+Pinoo_TempHumidity	KEYWORD1
+Pinoo_Tilt	KEYWORD1
+Pinoo_Pir	KEYWORD1
+Pinoo_Button	KEYWORD1
+Pinoo_Potentiometer	KEYWORD1
+Pinoo_Joystick	KEYWORD1
+Pinoo_Lcd	KEYWORD1
+Pinoo_Bluetooth	KEYWORD1
+Pinoo_LineTracker	KEYWORD1
+Pinoo	KEYWORD1
+
+# Function and Method Names (KEYWORD2)
+begin	KEYWORD2
+turnOn	KEYWORD2
+turnOff	KEYWORD2
+toggle	KEYWORD2
+setBrightness	KEYWORD2
+isOn	KEYWORD2
+playTone	KEYWORD2
+stop	KEYWORD2
+write	KEYWORD2
+read	KEYWORD2
+detach	KEYWORD2
+setSpeed	KEYWORD2
+brake	KEYWORD2
+getDistance	KEYWORD2
+readValue	KEYWORD2
+getMoisturePercentage	KEYWORD2
+getLightPercentage	KEYWORD2
+getTemperature	KEYWORD2
+getHumidity	KEYWORD2
+isTilted	KEYWORD2
+isMotionDetected	KEYWORD2
+isPressed	KEYWORD2
+getValuePercentage	KEYWORD2
+getX	KEYWORD2
+getY	KEYWORD2
+isButtonPressed	KEYWORD2
+clear	KEYWORD2
+home	KEYWORD2
+setCursor	KEYWORD2
+print	KEYWORD2
+backlight	KEYWORD2
+noBacklight	KEYWORD2
+available	KEYWORD2
+println	KEYWORD2
+readLeft	KEYWORD2
+readRight	KEYWORD2
+isOnLineLeft	KEYWORD2
+isOnLineRight	KEYWORD2
+digitalRead	KEYWORD2
+digitalWrite	KEYWORD2
+analogRead	KEYWORD2
+analogWrite	KEYWORD2
+
+# Constants & Ports (LITERAL1)
+PORT1	LITERAL1
+PORT2	LITERAL1
+PORT3	LITERAL1
+PORT4	LITERAL1
+PORT5	LITERAL1
+PORT6	LITERAL1
+PORT7	LITERAL1
+PORT8	LITERAL1
+PORT9	LITERAL1
+PORT10	LITERAL1
+LEFT_MOTOR	LITERAL1
+RIGHT_MOTOR	LITERAL1
+PASSIVE_BUZZER	LITERAL1
+ACTIVE_BUZZER	LITERAL1

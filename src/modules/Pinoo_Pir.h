@@ -1,0 +1,63 @@
+/**
+ * @file Pinoo_Pir.h
+ * @brief PIR Motion Sensor module class.
+ * 
+ * Supports both compile-time validated digital Port structures and raw pin numbers.
+ * 
+ * @author Semih Aydın <semih@mobilitysoftware.net>
+ * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software
+ */
+
+#ifndef PINOO_PIR_H
+#define PINOO_PIR_H
+
+#include <Arduino.h>
+#include "../Pinoo_Config.h"
+
+class Pinoo_Pir {
+public:
+    /**
+     * @brief Constructor for compile-time validated Port connections.
+     * @tparam PortType The structure type representing the Pinoo Port.
+     * @param port The constexpr Port instance (e.g., PORT1).
+     */
+    template <typename PortType>
+    Pinoo_Pir(PortType port) {
+        PINOO_ASSERT_DIGITAL(PortType);
+        _pin = PortType::pin4;
+    }
+
+    template <typename PortType>
+    [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
+    Pinoo_Pir(PortType port, bool bypass) {
+        _pin = PortType::pin4;
+    }
+
+    /**
+     * @brief Constructor for raw Arduino pin connections.
+     * @param pin The Arduino pin number (e.g., 2).
+     */
+    Pinoo_Pir(uint8_t pin);
+
+    /**
+     * @brief Initializes the sensor. Must be called in setup().
+     */
+    void begin();
+
+    /**
+     * @brief Reads the raw digital state of the sensor.
+     * @return HIGH or LOW.
+     */
+    int readValue();
+
+    /**
+     * @brief Checks if motion is currently detected.
+     * @return true if motion detected, false otherwise.
+     */
+    bool isMotionDetected();
+
+private:
+    uint8_t _pin;
+};
+
+#endif // PINOO_PIR_H
