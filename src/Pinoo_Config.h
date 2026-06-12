@@ -108,6 +108,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_ESP32_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_ESP32_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_ESP32_INTERNAL_BUZZER
+    #define PINOO_INTERNAL_RGB     -1
 
 #elif defined(PINOO_BOARD_SHIELD)
     #include "boards/Pinoo_Shield_Pins.h"
@@ -116,6 +117,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_SHIELD_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_SHIELD_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_SHIELD_INTERNAL_BUZZER
+    #define PINOO_INTERNAL_RGB     -1
 
 #elif defined(PINOO_BOARD_BRICKY)
     #include "boards/Pinoo_Bricky_Pins.h"
@@ -124,6 +126,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_BRICKY_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_BRICKY_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_BRICKY_INTERNAL_BUZZER
+    #define PINOO_INTERNAL_RGB     -1
 
 #elif defined(PINOO_BOARD_MOTO)
     #include "boards/Pinoo_Moto_Pins.h"
@@ -132,6 +135,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_MOTO_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_MOTO_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_MOTO_INTERNAL_BUZZER
+    #define PINOO_INTERNAL_RGB     PINOO_MOTO_INTERNAL_RGB
 
 #else // PINOO_BOARD_ONE or generic fallback
     #include "boards/Pinoo_ONE_Pins.h"
@@ -140,6 +144,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_ONE_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_ONE_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_ONE_INTERNAL_BUZZER
+    #define PINOO_INTERNAL_RGB     13
 #endif
 
 #endif // PINOO_CONFIG_H

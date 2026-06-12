@@ -73,7 +73,7 @@ public:
      * @brief Constructor for raw Arduino pin connections.
      * @param pin The Arduino pin number (defaults to 12 for the internal IR receiver).
      */
-    explicit Pinoo_IrReceiver(uint8_t pin = 12);
+    explicit Pinoo_IrReceiver(uint8_t pin = PINOO_INTERNAL_IR);
 
     ~Pinoo_IrReceiver();
 

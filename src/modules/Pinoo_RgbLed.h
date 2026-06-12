@@ -42,7 +42,7 @@ public:
      * @param pin The Arduino pin number (defaults to 13 for internal RGB LED).
      * @param count Number of RGB LEDs in the chain (defaults to 2 for internal RGB).
      */
-    Pinoo_RgbLed(uint8_t pin = 13, uint16_t count = 2);
+    Pinoo_RgbLed(uint8_t pin = PINOO_INTERNAL_RGB, uint16_t count = 2);
 
     /**
      * @brief Initializes the RGB LED pin. Must be called in setup().

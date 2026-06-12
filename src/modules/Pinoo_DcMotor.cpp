@@ -93,6 +93,7 @@ void Pinoo_DcMotor::setSpeed(int speed) {
 
 void Pinoo_DcMotor::stop() {
 #if defined(PINOO_BOARD_MOTO)
+    PinooMotoDriver::setPWM(_in1, 0, 0);
     PinooMotoDriver::setPWM(_in2, 0, 0);
 #else
     digitalWrite(_in1, LOW);
@@ -102,7 +103,8 @@ void Pinoo_DcMotor::stop() {
 
 void Pinoo_DcMotor::brake() {
 #if defined(PINOO_BOARD_MOTO)
-    PinooMotoDriver::setPWM(_in2, 0, 0);
+    PinooMotoDriver::setPWM(_in1, 0, 4095);
+    PinooMotoDriver::setPWM(_in2, 0, 4095);
 #else
     digitalWrite(_in1, HIGH);
     digitalWrite(_in2, HIGH);
