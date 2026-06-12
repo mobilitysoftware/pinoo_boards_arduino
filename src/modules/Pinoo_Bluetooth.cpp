@@ -11,9 +11,7 @@
 Pinoo_Bluetooth::Pinoo_Bluetooth() {}
 
 void Pinoo_Bluetooth::begin(long baud) {
-    if (!Serial) {
-        Serial.begin(baud);
-    }
+    Serial.begin(baud);
 }
 
 int Pinoo_Bluetooth::available() {
