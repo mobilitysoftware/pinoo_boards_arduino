@@ -2,7 +2,8 @@
  * @file Pinoo_DcMotor.h
  * @brief DC Motor module class. Handles direction and speed control for DC motors.
  * 
- * Supports predefined Left/Right motors and custom pin mappings.
+ * On Pinoo Moto, channels MOTOR1-MOTOR8 map to PCA9685 channels via PinooMotoDriver.
+ * On other boards, LEFT_MOTOR / RIGHT_MOTOR map to direct PWM Arduino pins.
  * 
  * @author Semih Aydın <semih@mobilitysoftware.net>
  * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software
@@ -12,6 +13,11 @@
 #define PINOO_DC_MOTOR_H
 
 #include <Arduino.h>
+// Pinoo_Config.h must be included here so that the ARDUINO_PINOO_MOTO compiler
+// flag (set by boards.txt build.board=PINOO_MOTO) is translated to
+// PINOO_BOARD_MOTO before any #if defined(PINOO_BOARD_MOTO) checks in this
+// header or its corresponding .cpp file.
+#include "../Pinoo_Config.h"
 
 enum MotorChannel {
     LEFT_MOTOR,
