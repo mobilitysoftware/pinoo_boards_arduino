@@ -140,18 +140,17 @@ $IndexContent = Get-Content $IndexTemplatePath -Raw -Encoding UTF8
 # AVR değerleri
 $IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-avr-[^"]+\.zip"', "`"url`": `"$AvrUrl`""
 $IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-avr-[^"]*\.zip"', "`"archiveFileName`": `"$AvrZipName`""
-$IndexContent = $IndexContent -replace '"checksum": "SHA-256:PLACEHOLDER_AVR_CHECKSUM"', "`"checksum`": `"$AvrChecksum`""
-$IndexContent = $IndexContent -replace '"size": "PLACEHOLDER_AVR_SIZE"', "`"size`": `"$AvrSize`""
+$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-avr-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`$1$AvrChecksum`$2$AvrSize`$3"
 
 # ESP32 değerleri
 $IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-esp32-[^"]+\.zip"', "`"url`": `"$Esp32Url`""
 $IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-esp32-[^"]*\.zip"', "`"archiveFileName`": `"$Esp32ZipName`""
-$IndexContent = $IndexContent -replace '"checksum": "SHA-256:PLACEHOLDER_ESP32_CHECKSUM"', "`"checksum`": `"$Esp32Checksum`""
-$IndexContent = $IndexContent -replace '"size": "PLACEHOLDER_ESP32_SIZE"', "`"size`": `"$Esp32Size`""
+$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-esp32-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`$1$Esp32Checksum`$2$Esp32Size`$3"
 
 # Çıkış JSON'ı yaz
 $OutputIndexPath = Join-Path $OutputDir "package_pinoo_index.json"
-$IndexContent | Set-Content -Path $OutputIndexPath -Encoding UTF8
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($OutputIndexPath, $IndexContent, $utf8NoBom)
 
 Write-Host "[OK] JSON guncellendi: $OutputIndexPath" -ForegroundColor Green
 

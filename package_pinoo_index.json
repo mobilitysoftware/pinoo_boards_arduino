@@ -16,8 +16,8 @@
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.0/pinoo-avr-1.0.0.zip",
                                                "archiveFileName":  "pinoo-avr-1.0.0.zip",
-                                               "checksum":  "SHA-256:FF0D2C8E00E987164DA4338C24B548FCDE0DFE3F0E47571BCD42F1EA2F6C4A9E",
-                                               "size":  "1123980",
+                                               "checksum":  "SHA-256:2CA40E6006F92D6539E1C8780F828BABA342292D21DC43FE9F58283F479FD43A",
+                                               "size":  "1126468",
                                                "help":  {
                                                             "online":  "https://pinoo.io/"
                                                         },
@@ -60,8 +60,8 @@
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.0/pinoo-esp32-1.0.0.zip",
                                                "archiveFileName":  "pinoo-esp32-1.0.0.zip",
-                                               "checksum":  "SHA-256:1C1465C571F0F2FAC246442F067D9A20994DE507F717FB2926D732602ADB1AAD",
-                                               "size":  "1126619",
+                                               "checksum":  "SHA-256:F74D53422070501197BCB60B09B0F8A01D5C74F48C01D98A7988DEE1E71327A9",
+                                               "size":  "19212638",
                                                "help":  {
                                                             "online":  "https://pinoo.io/"
                                                         },
