@@ -15,5 +15,6 @@ void Pinoo_WaterSensor::begin() {
 }
 
 int Pinoo_WaterSensor::readValue() {
-    return analogRead(_pin);
+    // PINOO_ANALOG_READ normalises 12-bit ESP32 ADC to 10-bit for cross-platform consistency.
+    return PINOO_ANALOG_READ(_pin);
 }

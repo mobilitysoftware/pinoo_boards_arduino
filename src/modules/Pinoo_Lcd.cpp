@@ -14,7 +14,7 @@ Pinoo_Lcd::Pinoo_Lcd(uint8_t address, uint8_t cols, uint8_t rows)
     : _lcd(address, cols, rows) {}
 
 void Pinoo_Lcd::begin() {
-    _lcd.init(); // Initialize the LCD screen
+    _lcd.begin(); // Initialize the LCD screen (compatible with fdebrabander & marcoschwartz forks)
     _lcd.backlight(); // Turn on backlight by default
 }
 

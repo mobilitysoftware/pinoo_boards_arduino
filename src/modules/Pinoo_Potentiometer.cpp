@@ -15,11 +15,12 @@ void Pinoo_Potentiometer::begin() {
 }
 
 int Pinoo_Potentiometer::readValue() {
-    return analogRead(_pin);
+    // PINOO_ANALOG_READ normalises 12-bit ESP32 ADC to 10-bit for cross-platform consistency.
+    return PINOO_ANALOG_READ(_pin);
 }
 
 int Pinoo_Potentiometer::getValuePercentage() {
-    int raw = readValue();
+    int raw = readValue(); // always 0-1023 after macro normalisation
     int percentage = map(raw, 0, 1023, 0, 100);
     return constrain(percentage, 0, 100);
 }

@@ -40,11 +40,12 @@
 //     ≈ 26 bytes + padding
 //   plus: lastDecodedProtocol, lastDecodedAddress, lastDecodedCommand, repeatCount
 //     ≈ 10 bytes
-// Total: ~36–44 bytes depending on DECODE_DISTANCE and alignment.
-// 64 bytes gives comfortable headroom for any configuration.
+// Total on AVR  : ~36–44 bytes (2-byte pointers).
+// Total on ESP32: ~64–96 bytes (4-byte pointers, larger IRData struct).
+// 128 bytes gives comfortable headroom on both architectures.
 // A static_assert in Pinoo_IrReceiver.cpp validates the actual size at build time.
 // ---------------------------------------------------------------------------
-#define PINOO_IRRECV_BUF_SIZE 64
+#define PINOO_IRRECV_BUF_SIZE 1024
 
 class Pinoo_IrReceiver {
 public:

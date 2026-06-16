@@ -32,10 +32,12 @@
 // returns the provided pointer, which is exactly what placement new must do.
 // Defining it here keeps the definition in exactly one TU (this file).
 // ---------------------------------------------------------------------------
+#if defined(__AVR__)
 #ifndef PINOO_PLACEMENT_NEW_DEFINED
 #define PINOO_PLACEMENT_NEW_DEFINED
 inline void* operator new(size_t, void* ptr) noexcept { return ptr; }
 inline void  operator delete(void*, void*) noexcept {}  // required companion
+#endif
 #endif
 
 // Validate that the PIMPL buffer declared in the header is large enough.
