@@ -28,3 +28,4 @@ out/
 *.o
 *.a
 *.d
+/release_output
