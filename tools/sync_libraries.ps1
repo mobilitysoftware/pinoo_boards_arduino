@@ -29,6 +29,10 @@ Write-Host ""
 Write-Host "[1/4] Syncing src/ -> installed Pinoo library..." -ForegroundColor Yellow
 $srcDir = Join-Path $sdkRoot "src"
 $dstLib = Join-Path $installedPkg "libraries\Pinoo\src"
+if (Test-Path $dstLib) {
+    Remove-Item $dstLib -Recurse -Force
+}
+New-Item -ItemType Directory -Force -Path $dstLib | Out-Null
 Copy-Item "$srcDir\*" $dstLib -Recurse -Force
 Write-Host "      Done." -ForegroundColor Green
 
@@ -45,7 +49,11 @@ Get-ChildItem $hwLibs -Directory | ForEach-Object {
     $libName = $_.Name
     $srcLib  = $_.FullName
     $dstLib2 = Join-Path $dstLibs $libName
-    Copy-Item $srcLib $dstLib2 -Recurse -Force
+    if (Test-Path $dstLib2) {
+        Remove-Item $dstLib2 -Recurse -Force
+    }
+    New-Item -ItemType Directory -Force -Path $dstLib2 | Out-Null
+    Copy-Item "$srcLib\*" $dstLib2 -Recurse -Force
     Write-Host "      $libName" -ForegroundColor DarkGray
 }
 Write-Host "      Done." -ForegroundColor Green

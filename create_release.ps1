@@ -140,12 +140,12 @@ $IndexContent = Get-Content $IndexTemplatePath -Raw -Encoding UTF8
 # AVR değerleri
 $IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-avr-[^"]+\.zip"', "`"url`": `"$AvrUrl`""
 $IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-avr-[^"]*\.zip"', "`"archiveFileName`": `"$AvrZipName`""
-$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-avr-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`$1$AvrChecksum`$2$AvrSize`$3"
+$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-avr-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`${1}$AvrChecksum`${2}$AvrSize`${3}"
 
 # ESP32 değerleri
 $IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-esp32-[^"]+\.zip"', "`"url`": `"$Esp32Url`""
 $IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-esp32-[^"]*\.zip"', "`"archiveFileName`": `"$Esp32ZipName`""
-$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-esp32-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`$1$Esp32Checksum`$2$Esp32Size`$3"
+$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-esp32-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`${1}$Esp32Checksum`${2}$Esp32Size`${3}"
 
 # Çıkış JSON'ı yaz
 $OutputIndexPath = Join-Path $OutputDir "package_pinoo_index.json"

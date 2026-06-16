@@ -78,7 +78,7 @@ Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "Deploying to active IDE folders..." -ForegroundColor Cyan
 
 # 1. AppData packages directory (for Arduino IDE 2.x)
-$AppDataHardware = "C:\Users\SemihNoir\AppData\Local\Arduino15\packages\pinoo_sdk\hardware"
+$AppDataHardware = "C:\Users\SemihNoir\AppData\Local\Arduino15\packages\pinoo\hardware"
 if (Test-Path "C:\Users\SemihNoir\AppData\Local\Arduino15") {
     Write-Host "Syncing to AppData (IDE 2.x): $AppDataHardware" -ForegroundColor Gray
     if (Test-Path $AppDataHardware) { Remove-Item -Path $AppDataHardware -Recurse -Force }
