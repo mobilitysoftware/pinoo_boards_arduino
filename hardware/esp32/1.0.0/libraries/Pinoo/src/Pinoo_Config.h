@@ -108,7 +108,7 @@ namespace Pinoo {
     #define PINOO_INTERNAL_BUTTON  PINOO_ESP32_INTERNAL_BUTTON
     #define PINOO_INTERNAL_LDR     PINOO_ESP32_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_ESP32_INTERNAL_BUZZER
-    #define PINOO_INTERNAL_RGB     -1
+    #define PINOO_INTERNAL_RGB     PINOO_ESP32_INTERNAL_RGB  // GPIO 13 — same pin as Pinoo ONE
 
 #elif defined(PINOO_BOARD_SHIELD)
     #include "boards/Pinoo_Shield_Pins.h"
@@ -145,6 +145,22 @@ namespace Pinoo {
     #define PINOO_INTERNAL_LDR     PINOO_ONE_INTERNAL_LDR
     #define PINOO_INTERNAL_BUZZER  PINOO_ONE_INTERNAL_BUZZER
     #define PINOO_INTERNAL_RGB     13
+#endif
+
+// =============================================================================
+// Cross-Platform Analog Read Helper
+// =============================================================================
+// ESP32 ADC is 12-bit (0-4095). All other Pinoo boards use AVR 10-bit (0-1023).
+// PINOO_ANALOG_READ(pin) normalises the result to 10-bit on all platforms so
+// that block-based code runs identically regardless of the target architecture.
+//
+// Usage inside module .cpp files:
+//   int value = PINOO_ANALOG_READ(_pin);
+// =============================================================================
+#if defined(ARDUINO_ARCH_ESP32)
+    #define PINOO_ANALOG_READ(pin) (analogRead(pin) >> 2)  // 12-bit -> 10-bit
+#else
+    #define PINOO_ANALOG_READ(pin) (analogRead(pin))       // AVR native 10-bit
 #endif
 
 #endif // PINOO_CONFIG_H

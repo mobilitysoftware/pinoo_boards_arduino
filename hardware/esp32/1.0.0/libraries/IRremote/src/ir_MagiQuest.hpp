@@ -4,17 +4,12 @@
  *  Contains functions for receiving and sending MagiQuest Protocol
  *  Based off the Magiquest fork of Arduino-IRremote by mpflaga https://github.com/mpflaga/Arduino-IRremote/
  *
- *  RESULT:
- *  The 31 bit wand ID is available in decodedRawData.
- *  The lower 16 bit of the ID is available in address.
- *  The magnitude is available in command.
- *
  *  This file is part of Arduino-IRremote https://github.com/Arduino-IRremote/Arduino-IRremote.
  *
  ************************************************************************************
  * MIT License
  *
- * Copyright (c) 2017-2025 E. Stuart Hicks <ehicks@binarymagi.com>, Armin Joachimsmeyer
+ * Copyright (c) 2017-2022 E. Stuart Hicks <ehicks@binarymagi.com>, Armin Joachimsmeyer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,65 +33,43 @@
 #ifndef _IR_MAGIQUEST_HPP
 #define _IR_MAGIQUEST_HPP
 
-// This block must be located after the includes of other *.hpp files
-//#define LOCAL_DEBUG // This enables debug output only for this file - only for development
-#include "LocalDebugLevelStart.h"
+#include <Arduino.h>
 
-/** \addtogroup Decoder Decoders and encoders for different protocols
- * @{
- */
+#include "IRremoteInt.h" // evaluates the DEBUG for IR_DEBUG_PRINT
+
 //
 //==============================================================================
 //
-//       M   M   AA    GGG   III   QQQ    U   U  EEEE   SSS  TTTTTT
-//       MM MM  A  A  G       I   Q   Q   U   U  E     S       TT
-//       M M M  AAAA  G  GG   I   Q   Q   U   U  EEE    SSS    TT
-//       M   M  A  A  G   G   I   Q  QQ   U   U  E         S   TT
-//       M   M  A  A   GGG   III   QQQQ    UUU   EEEE  SSSS    TT
-//                                     Q
+//                            M A G I Q U E S T
+//
 //==============================================================================
-/*
- * https://github.com/kitlaan/Arduino-IRremote/blob/master/ir_Magiquest.cpp
- * https://github.com/Arduino-IRremote/Arduino-IRremote/issues/1015#issuecomment-1222247231
+// MSB first, 8 Start bits (zero), 32 wand id bits, 16 magnitude bits, one stop bit
+// Not all start bits must be received, since protocol is MSB first and so the LSB ends up always at the right position.
 
- Protocol=MagiQuest Address=0xFF00 Command=0x176 Raw-Data=0x6BCDFF00 56 bits MSB first
- + 250,- 800 + 250,- 850 + 250,- 850 + 250,- 850 // 8 zero start bits
- + 250,- 850 + 300,- 800 + 250,- 850 + 250,- 850
+#if !defined (DOXYGEN)
+// MagiQuest packet is both Wand ID and magnitude of swish and flick
+union magiquest_t {
+    uint64_t llword;
+    struct {
+        uint16_t magnitude;
+        uint32_t wand_id;
+        uint8_t StartBits;  // first 8 MSB start bits are zero.
+        uint8_t HighByte;   // just to pad the struct out to 64 bits so we can union with llword
+    } cmd;
+};
+#endif // !defined (DOXYGEN)
 
- // 31 ID bits
- + 550,- 600 + 550,- 550 + 350,- 800 + 600,- 600 // 110 1 6
- + 200,- 950 + 550,- 600 + 550,- 600 + 550,- 600 // 011 1 B - 1(from above)011 => B
- + 550,- 600 + 250,- 900 + 300,- 850 + 550,- 600 // 100 1 C
- + 550,- 600 + 300,- 850 + 550,- 600 + 550,- 600
- + 550,- 600 + 550,- 600 + 550,- 600 + 550,- 600
- + 550,- 600 + 550,- 600 + 550,- 600 + 300,- 800
- + 350,- 850 + 300,- 850 + 300,- 850 + 300,- 850
- + 300,- 850 + 300,- 850 + 300,- 850 + 550,- 600 // 000 1 - 3 LSB ID bits 000 + 1 MSB magnitude bit 1
-
- // 8 bit magnitude
- + 300,- 850 + 550,- 600 + 550,- 600 + 550,- 600
- + 300,- 850 + 550,- 600 + 550,- 600 + 250,- 900
-
- // Checksum (+ sum of the 5 bytes before == 0)
- + 250,- 900 + 300,- 900 + 250,- 850 + 550,- 600
- + 600,- 550 + 300,- 900 + 250,- 850 + 550
-
- // No stop bit!
- */
-// MSB first, 8 start bits (zero), 31 wand id bits, 9 magnitude bits 8 checksum bits and no stop bit => 56 bits
-#define MAGIQUEST_CHECKSUM_BITS     8   // magiquest_t.cmd.checksum
-#define MAGIQUEST_MAGNITUDE_BITS    9   // magiquest_t.cmd.magnitude
-#define MAGIQUEST_WAND_ID_BITS     31   // magiquest_t.cmd.wand_id -> wand-id is handled as 32 bit and always even
+#define MAGIQUEST_MAGNITUDE_BITS   16   // magiquest_t.cmd.magnitude
+#define MAGIQUEST_WAND_ID_BITS     32   // magiquest_t.cmd.wand_id
 #define MAGIQUEST_START_BITS        8    // magiquest_t.cmd.StartBits
 
-#define MAGIQUEST_PERIOD         1150   // Time for a full MagiQuest "bit" (1100 - 1200 usec)
+#define MAGIQUEST_PERIOD      1150   // Time for a full MagiQuest "bit" (1100 - 1200 usec)
 
-#define MAGIQUEST_DATA_BITS     (MAGIQUEST_CHECKSUM_BITS + MAGIQUEST_MAGNITUDE_BITS + MAGIQUEST_WAND_ID_BITS) // 48 Size of the command without the start bits
-#define MAGIQUEST_BITS          (MAGIQUEST_CHECKSUM_BITS + MAGIQUEST_MAGNITUDE_BITS + MAGIQUEST_WAND_ID_BITS + MAGIQUEST_START_BITS) // 56 Size of the command with the start bits
+#define MAGIQUEST_BITS        (MAGIQUEST_MAGNITUDE_BITS + MAGIQUEST_WAND_ID_BITS) // 48 Size of the command without the start bits
+// The maximum size of a packet is the sum of all 3 expected fields * 2
+#define MAGIQUEST_PACKET_SIZE (MAGIQUEST_MAGNITUDE_BITS + MAGIQUEST_WAND_ID_BITS + MAGIQUEST_START_BITS) // 56
 
 /*
- * Protocol is Pulse Distance Width not pure Pulse Distance and a longer space is not a one but a zero
- *
  * 0 = 25% mark & 75% space across 1 period
  *     1150 * 0.25 = 288 usec mark
  *     1150 - 288 = 862 usec space
@@ -104,136 +77,104 @@
  *     1150 * 0.5 = 575 usec mark
  *     1150 - 575 = 575 usec space
  */
-#define MAGIQUEST_UNIT          (MAGIQUEST_PERIOD / 4) // 287.5
+#define MAGIQUEST_UNIT          (MAGIQUEST_PERIOD / 4)
 
 #define MAGIQUEST_ONE_MARK      (2 * MAGIQUEST_UNIT) // 576
 #define MAGIQUEST_ONE_SPACE     (2 * MAGIQUEST_UNIT) // 576
-#define MAGIQUEST_ZERO_MARK     MAGIQUEST_UNIT       // 287.5
+#define MAGIQUEST_ZERO_MARK     MAGIQUEST_UNIT
 #define MAGIQUEST_ZERO_SPACE    (3 * MAGIQUEST_UNIT) // 864
 
-// assume 110 as repeat period.
-struct PulseDistanceWidthProtocolConstants const MagiQuestProtocolConstants PROGMEM = {MAGIQUEST, 38, MAGIQUEST_ZERO_MARK, MAGIQUEST_ZERO_SPACE,
-    MAGIQUEST_ONE_MARK, MAGIQUEST_ONE_SPACE, MAGIQUEST_ZERO_MARK, MAGIQUEST_ZERO_SPACE,
-    PROTOCOL_IS_MSB_FIRST | PROTOCOL_IS_PULSE_DISTANCE_WIDTH | SUPPRESS_STOP_BIT, 110, nullptr};
 //+=============================================================================
 //
-/**
- * @param aWandId       31 bit ID
- * @param aMagnitude    9 bit Magnitude
- */
-void IRsend::sendMagiQuest(uint32_t aWandId, uint16_t aMagnitude) {
+void IRsend::sendMagiQuest(uint32_t wand_id, uint16_t magnitude) {
 
     // Set IR carrier frequency
     enableIROut(38);
 
-    aMagnitude &= 0x1FF; // we have 9 bit
-    LongUnion tWandId;
-    tWandId.ULong = aWandId << 1;
-    uint8_t tChecksum = (tWandId.Bytes[0]) + tWandId.Bytes[1] + tWandId.Bytes[2] + tWandId.Bytes[3];
-    tChecksum += aMagnitude + (aMagnitude >> 8);
-    tChecksum = ~tChecksum + 1;
-
     // 8 start bits
-    sendPulseDistanceWidthData_P(&MagiQuestProtocolConstants, 0, 8);
-    // 48 bit data
-    sendPulseDistanceWidthData_P(&MagiQuestProtocolConstants, aWandId, MAGIQUEST_WAND_ID_BITS); // send only 31 bit, do not send MSB here
-    sendPulseDistanceWidthData_P(&MagiQuestProtocolConstants, aMagnitude, MAGIQUEST_MAGNITUDE_BITS);
-    sendPulseDistanceWidthData_P(&MagiQuestProtocolConstants, tChecksum, MAGIQUEST_CHECKSUM_BITS);
+    sendPulseDistanceWidthData(
+    MAGIQUEST_ONE_MARK, MAGIQUEST_ONE_SPACE, MAGIQUEST_ZERO_MARK, MAGIQUEST_ZERO_SPACE, 0, 8, PROTOCOL_IS_MSB_FIRST);
 
-    // must be after sending, in order not to destroy the send timing
-    DEBUG_PRINT(F("MagiQuest checksum=0x"));
-    DEBUG_PRINTLN(tChecksum, HEX);
+    // Data
+    sendPulseDistanceWidthData(
+    MAGIQUEST_ONE_MARK, MAGIQUEST_ONE_SPACE, MAGIQUEST_ZERO_MARK, MAGIQUEST_ZERO_SPACE, wand_id, MAGIQUEST_WAND_ID_BITS,
+    PROTOCOL_IS_MSB_FIRST);
+    sendPulseDistanceWidthData(
+    MAGIQUEST_ONE_MARK, MAGIQUEST_ONE_SPACE, MAGIQUEST_ZERO_MARK, MAGIQUEST_ZERO_SPACE, magnitude, MAGIQUEST_MAGNITUDE_BITS,
+    PROTOCOL_IS_MSB_FIRST,
+    SEND_STOP_BIT);
+    IrReceiver.restartAfterSend();
 }
 
 //+=============================================================================
 //
 /*
  * decodes a 56 bit result, which is not really compatible with standard decoder layout
- * magnitude is stored in command
- * 31 bit wand_id is stored in decodedRawData
- * lower 16 bit of wand_id is stored in address
  */
 bool IRrecv::decodeMagiQuest() {
+    magiquest_t data;  // Somewhere to build our code
+    unsigned int tOffset = 1;  // Skip the gap between packets
 
-    // Check we have the right amount of data, magnitude and ID bits and 8 start bits + 0 stop bit
-    if (decodedIRData.rawlen != (2 * MAGIQUEST_BITS)) {
-        DEBUG_PRINT(F("MagiQuest: Data length="));
-        DEBUG_PRINT(decodedIRData.rawlen);
-        DEBUG_PRINTLN(F(" is not 112"));
+    unsigned int tMark;
+    unsigned int tSpace;
+
+#if defined(DEBUG)
+    char bitstring[(MAGIQUEST_PACKET_SIZE + 1)];
+    bitstring[MAGIQUEST_PACKET_SIZE] = '\0';
+#endif
+
+    // Check we have the right amount of data, magnitude and ID bits and at least 2 start bits + 1 stop bit
+    if (decodedIRData.rawDataPtr->rawlen < (2 * (MAGIQUEST_BITS + 3))
+            || decodedIRData.rawDataPtr->rawlen > (2 * (MAGIQUEST_PACKET_SIZE + 1))) {
+        IR_DEBUG_PRINT(F("MagiQuest: "));
+        IR_DEBUG_PRINT(F("Data length="));
+        IR_DEBUG_PRINT(decodedIRData.rawDataPtr->rawlen);
+        IR_DEBUG_PRINTLN(F(" is not between 102 and 114"));
         return false;
     }
 
-    /*
-     * Check for 8 zero header bits
-     */
-    decodePulseDistanceWidthData_P(&MagiQuestProtocolConstants, MAGIQUEST_START_BITS, 1);
-#if defined(USE_THRESHOLD_DECODER)
-    if (decodedIRData.decodedRawData != 0xFF) // For Magiquest a small pause is a 1 which is inverse to threshold decoding
-#else
-    if (decodedIRData.decodedRawData != 0)
+    // Read the bits in
+    data.llword = 0;
+    while (tOffset < (unsigned int) (decodedIRData.rawDataPtr->rawlen - 1)) {
+        // get one mark and space pair
+        tMark = decodedIRData.rawDataPtr->rawbuf[tOffset++];
+        tSpace = decodedIRData.rawDataPtr->rawbuf[tOffset++];
+
+        IR_TRACE_PRINT(F("MagiQuest: mark="));
+        IR_TRACE_PRINT(tMark * MICROS_PER_TICK);
+        IR_TRACE_PRINT(F(" space="));
+        IR_TRACE_PRINTLN(tSpace * MICROS_PER_TICK);
+
+        if (matchMark(tSpace + tMark, MAGIQUEST_PERIOD)) {
+            if (tSpace > tMark) {
+                // It's a 0
+                data.llword <<= 1;
+#if defined(DEBUG)
+                bitstring[(tOffset / 2) - 1] = '0';
 #endif
-            {
-        DEBUG_PRINT(F("MagiQuest: Not 8 leading zero start bits received, RawData=0x"));
-        DEBUG_PRINTLN(decodedIRData.decodedRawData, HEX);
-        return false;
+            } else {
+                // It's a 1
+                data.llword = (data.llword << 1) | 1;
+#if defined(DEBUG)
+                bitstring[(tOffset / 2) - 1] = '1';
+#endif
+            }
+        } else {
+            IR_DEBUG_PRINTLN(F("Mark and space does not match the constant MagiQuest period"));
+            return false;
+        }
     }
-
-    /*
-     * Decode the 31 bit ID
-     */
-    decodePulseDistanceWidthData_P(&MagiQuestProtocolConstants, MAGIQUEST_WAND_ID_BITS, (MAGIQUEST_START_BITS * 2) + 1);
-#if defined(USE_THRESHOLD_DECODER)
-    decodedIRData.decodedRawData = decodedIRData.decodedRawData ^ 0x7FFFFFFF; // We have 31 bit. For Magiquest a small pause is a 1 which is inverse to threshold decoding
+#if defined(DEBUG)
+    Serial.println(bitstring);
 #endif
-
-    LongUnion tDecodedRawData;
-    uint32_t tWandId = decodedIRData.decodedRawData; // save tWandId for later use
-    tDecodedRawData.ULong = decodedIRData.decodedRawData << 1; // shift for checksum computation
-    uint8_t tChecksum = tDecodedRawData.Bytes[0] + tDecodedRawData.Bytes[1] + tDecodedRawData.Bytes[2] + tDecodedRawData.Bytes[3];
-
-    DEBUG_PRINT(F("31 bit WandId=0x"));
-    DEBUG_PRINT(decodedIRData.decodedRawData, HEX);
-    DEBUG_PRINT(F(" shifted=0x"));
-    DEBUG_PRINTLN(tDecodedRawData.ULong, HEX);
-
-    /*
-     * Decode the 9 bit Magnitude + 8 bit checksum
-     */
-    decodePulseDistanceWidthData_P(&MagiQuestProtocolConstants, MAGIQUEST_MAGNITUDE_BITS + MAGIQUEST_CHECKSUM_BITS,
-            ((MAGIQUEST_WAND_ID_BITS + MAGIQUEST_START_BITS) * 2) + 1);
-
-#if defined(USE_THRESHOLD_DECODER)
-    decodedIRData.decodedRawData = decodedIRData.decodedRawData ^ 0x0001FFFF; // We have 17 bit. For Magiquest a small pause is a 1 which is inverse to threshold decoding
-
-#endif
-
-    DEBUG_PRINT(F("Magnitude + checksum=0x"));
-    DEBUG_PRINTLN(decodedIRData.decodedRawData, HEX);
-
-    tDecodedRawData.ULong = decodedIRData.decodedRawData;
-    decodedIRData.command = tDecodedRawData.UBytes[1] | tDecodedRawData.UBytes[2] << 8; // Values observed are 0x102,01,04,37,05,38,2D| 02,06,04|03,103,12,18,0E|09
-
-    tChecksum += tDecodedRawData.UBytes[2] /* only one bit */+ tDecodedRawData.UBytes[1] + tDecodedRawData.UBytes[0];
-    if (tChecksum != 0) {
-        decodedIRData.flags |= IRDATA_FLAGS_PARITY_FAILED;
-        DEBUG_PRINT(F("Checksum 0x"));
-        DEBUG_PRINT(tChecksum, HEX);
-        DEBUG_PRINTLN(F(" is not 0"));
-    }
 
     // Success
-    decodedIRData.decodedRawData = tWandId;     // 31 bit wand_id
-    decodedIRData.address = tWandId;            // lower 16 bit of wand_id
-    decodedIRData.extra = tWandId >> 16;        // upper 15 bit of wand_id
-
     decodedIRData.protocol = MAGIQUEST;
-    decodedIRData.numberOfBits = MAGIQUEST_BITS;
-    decodedIRData.flags = IRDATA_FLAGS_IS_MSB_FIRST;
+    decodedIRData.numberOfBits = tOffset / 2;
+    decodedIRData.flags = IRDATA_FLAGS_EXTRA_INFO | IRDATA_FLAGS_IS_MSB_FIRST;
+    decodedIRData.extra = data.cmd.magnitude;
+    decodedIRData.decodedRawData = data.cmd.wand_id;
 
     return true;
 }
-
-/** @}*/
-#include "LocalDebugLevelEnd.h"
-
 #endif // _IR_MAGIQUEST_HPP

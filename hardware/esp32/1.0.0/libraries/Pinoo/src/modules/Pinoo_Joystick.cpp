@@ -20,11 +20,12 @@ void Pinoo_Joystick::begin() {
 }
 
 int Pinoo_Joystick::getX() {
-    return analogRead(_xPin);
+    // PINOO_ANALOG_READ normalises 12-bit ESP32 ADC to 10-bit for cross-platform consistency.
+    return PINOO_ANALOG_READ(_xPin);
 }
 
 int Pinoo_Joystick::getY() {
-    return analogRead(_yPin);
+    return PINOO_ANALOG_READ(_yPin);
 }
 
 bool Pinoo_Joystick::isButtonPressed() {

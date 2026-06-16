@@ -15,11 +15,13 @@ void Pinoo_SoilMoisture::begin() {
 }
 
 int Pinoo_SoilMoisture::readValue() {
-    return analogRead(_pin);
+    // PINOO_ANALOG_READ normalises 12-bit ESP32 ADC to 10-bit for cross-platform consistency.
+    return PINOO_ANALOG_READ(_pin);
 }
 
 int Pinoo_SoilMoisture::getMoisturePercentage() {
-    int raw = readValue();
+    int raw = readValue(); // always 0-1023 after macro normalisation
+    // Inverted: dry soil = high resistance = high ADC value → low moisture %
     int percentage = map(raw, 1023, 0, 0, 100);
     return constrain(percentage, 0, 100);
 }

@@ -2,6 +2,16 @@
  * @file Pinoo_Buzzer.cpp
  * @brief Buzzer module source implementation.
  * 
+ * ## ESP32 Compatibility Note
+ * 
+ * AVR Arduino provides tone()/noTone() as built-in functions backed by a
+ * hardware timer. On ESP32, the Arduino-ESP32 core (v2.x+) provides these
+ * same functions via the LEDC peripheral, so tone()/noTone() work without
+ * change. No conditional compilation is required.
+ * 
+ * If using an older ESP32 core (v1.x) that lacks tone() support, upgrade
+ * to Arduino-ESP32 v2.0 or later.
+ * 
  * @author Semih Aydın <semih@mobilitysoftware.net>
  * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software
  */
@@ -19,6 +29,7 @@ void Pinoo_Buzzer::turnOn() {
     if (_mode == ACTIVE_BUZZER) {
         digitalWrite(_pin, HIGH);
     } else {
+        // tone() is available on both AVR and ESP32-Arduino core v2.x+
         tone(_pin, 1000);
     }
 }

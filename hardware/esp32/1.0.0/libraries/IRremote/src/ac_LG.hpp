@@ -34,11 +34,12 @@
 #define _AC_LG_HPP
 #include <Arduino.h>
 
-// This block must be located after the includes of other *.hpp files
-//#define LOCAL_INFO  // This enables info output only for this file
-//#define LOCAL_DEBUG // This enables debug output only for this file - only for development
-#include "LocalDebugLevelStart.h"
-
+#if defined(INFO) && !defined(LOCAL_INFO)
+#define LOCAL_INFO
+#else
+//#define LOCAL_INFO // This enables info output only for this file
+#endif
+//#define DEBUG // for more output from the LG-AC driver.
 #include "IRremoteInt.h"
 #include "ac_LG.h" // useful constants
 #include "LongUnion.h"
@@ -62,8 +63,10 @@ const int AC_FAN_WALL[SIZE_OF_FAN_SPEED_MAPPING_TABLE] = { 0, 2, 4, 5 }; // 0 ->
 
 void Aircondition_LG::setType(bool aIsWallType) {
     ACIsWallType = aIsWallType;
-    INFO_PRINT(F("Set wall type to "));
-    INFO_PRINTLN(aIsWallType);
+#if defined(LOCAL_INFO)
+    Serial.print(F("Set wall type to "));
+    Serial.println(aIsWallType);
+#endif
 }
 
 void Aircondition_LG::printMenu(Print *aSerial) {
@@ -110,7 +113,7 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
         return true;
 
     case LG_COMMAND_JET:
-        DEBUG_PRINTLN(F("Send jet on"));
+        IR_DEBUG_PRINTLN(F("Send jet on"));
         sendIRCommand(LG_JET_ON);
         return true;
 
@@ -148,7 +151,7 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
      * Now the commands which require a parameter
      */
     if (aParameter < 0) {
-        DEBUG_PRINT(F("Error: Parameter is less than 0"));
+        IR_DEBUG_PRINT(F("Error: Parameter is less than 0"));
         return false;
     }
     switch (aCommand) {
@@ -159,8 +162,8 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
         break;
 
     case LG_COMMAND_SWING:
-        DEBUG_PRINT(F("Send air swing="));
-        DEBUG_PRINTLN(aParameter);
+        IR_DEBUG_PRINT(F("Send air swing="));
+        IR_DEBUG_PRINTLN(aParameter);
         if (ACIsWallType) {
             if (aParameter) {
                 sendIRCommand(LG_WALL_SWING_ON);
@@ -177,8 +180,8 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
         break;
 
     case LG_COMMAND_AUTO_CLEAN:
-        DEBUG_PRINT(F("Send auto clean="));
-        DEBUG_PRINTLN(aParameter);
+        IR_DEBUG_PRINT(F("Send auto clean="));
+        IR_DEBUG_PRINTLN(aParameter);
         if (aParameter) {
             sendIRCommand(LG_AUTO_CLEAN_ON);
         } else {
@@ -187,8 +190,8 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
         break;
 
     case LG_COMMAND_ENERGY:
-        DEBUG_PRINT(F("Send energy saving on="));
-        DEBUG_PRINTLN(aParameter);
+        IR_DEBUG_PRINT(F("Send energy saving on="));
+        IR_DEBUG_PRINTLN(aParameter);
         if (aParameter) {
             sendIRCommand(LG_ENERGY_SAVING_ON);
         } else {
@@ -248,13 +251,14 @@ bool Aircondition_LG::sendCommandAndParameter(char aCommand, int aParameter) {
 
 void Aircondition_LG::sendIRCommand(uint16_t aCommand) {
 
-    INFO(F("Send code=0x"));
-    INFO_PRINT(aCommand, HEX);
-    INFO_PRINT(F(" | 0b"));
-    INFO_PRINTLN(aCommand, BIN);
+#if defined(LOCAL_INFO)
+    Serial.print(F("Send code=0x"));
+    Serial.print(aCommand, HEX);
+    Serial.print(F(" | 0b"));
+    Serial.println(aCommand, BIN);
+#endif
 
-
-    IrSender.sendLG((uint8_t) LG_ADDRESS, aCommand, 0);
+    IrSender.sendLG((uint8_t) LG_ADDRESS, aCommand, 0, false, useLG2Protocol);
 }
 
 /*
@@ -263,13 +267,14 @@ void Aircondition_LG::sendIRCommand(uint16_t aCommand) {
 void Aircondition_LG::sendTemperatureFanSpeedAndMode() {
 
     uint8_t tTemperature = Temperature;
-    INFO_PRINT(F("Send temperature="));
-    INFO_PRINT(tTemperature);
-    INFO_PRINT(F(" fan intensity="));
-    INFO_PRINT(FanIntensity);
-    INFO_PRINT(F(" mode="));
-    INFO_PRINTLN((char )Mode);
-
+#if defined(LOCAL_INFO)
+    Serial.print(F("Send temperature="));
+    Serial.print(tTemperature);
+    Serial.print(F(" fan intensity="));
+    Serial.print(FanIntensity);
+    Serial.print(F(" mode="));
+    Serial.println((char )Mode);
+#endif
 
     WordUnion tIRCommand;
     tIRCommand.UWord = 0;
@@ -314,6 +319,4 @@ void Aircondition_LG::sendTemperatureFanSpeedAndMode() {
 }
 
 /** @}*/
-#include "LocalDebugLevelEnd.h"
-
 #endif // _AC_LG_HPP

@@ -6,14 +6,12 @@
  *  it sends multiple Samsung32 frames with appropriate delays in between.
  *  This serves as a Netflix-key emulation for my old Samsung H5273 TV.
  *
- *  Tested on a digispark ATTiny85 board using AttinyCore https://github.com/SpenceKonde/ATTinyCore
- *
  *  This file is part of Arduino-IRremote https://github.com/Arduino-IRremote/Arduino-IRremote.
  *
  ************************************************************************************
  * MIT License
  *
- * Copyright (c) 2020-2025 Armin Joachimsmeyer
+ * Copyright (c) 2020-2022 Armin Joachimsmeyer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,67 +34,21 @@
  */
 
 // Digispark ATMEL ATTINY85
-// Piezo speaker must have a 270 ohm resistor in series for USB programming and running at the Samsung TV.
-// IR LED has a 270 ohm resistor in series.
+// Piezo speaker must have a 270 Ohm resistor in series for USB programming and running at the Samsung TV.
+// IR LED has a 270 Ohm resistor in series.
 //                                                    +-\/-+
 //                                   !RESET (5) PB5  1|    |8  Vcc
 // USB+ 3.6V Z-Diode, 1.5kOhm to VCC  Piezo (3) PB3  2|    |7  PB2 (2) TX Debug output
 // USB- 3.6V Z-Diode              IR Output (4) PB4  3|    |6  PB1 (1) Feedback LED
 //                                              GND  4|    |5  PB0 (0) IR Input
 //                                                    +----+
-/* SAUMSUMG REMOTE CODES (Model: BN59-01180A) - Address is 0x07
- * Power Button - 0x2
- * Power Off - 0x98
- * 1 - 0x4
- * 2 - 0x5
- * 3 - 0x6
- * 4 - 0x8
- * 5 - 0x9
- * 6 - 0xa
- * 7 - 0xc
- * 8 - 0xd
- * 9 - 0xe
- * CH List - 0x6b
- * Vol + - 0x7
- * Vol - - 0xb
- * Mute - 0xf
- * Source - 0x1
- * Ch + - 0x12
- * Ch - - 0x10
- * Menu - 0x1a
- * Home - 0x79
- * MagicInfo Player - 0x30
- * Tools - 0x4b
- * Info - 0x1f
- * Up arrow - 0x60
- * Left arrow - 0x65
- * Right arrow - 0x62
- * Down arrow - 0x61
- * Return - 0x58
- * Exit - 0x2d
- * A - 0x6c
- * B - 0x14
- * C - 0x15
- * D - 0x16
- * Set - 0xab
- * Unset - 0xac
- * Lock - 0x77
- * Stop (square) - 0x46
- * Rewind (arrows) - 0x45
- * Play (triangle) - 0x47
- * Pause (bars) - 0x4a
- * Fast Forward (arrows) - 0x48
- */
-
 #include <Arduino.h>
-
-//#define NO_LED_FEEDBACK_CODE          // Saves 104 bytes program memory
 
 // select only Samsung protocol for sending and receiving
 #define DECODE_SAMSUNG
-#define ADDRESS_OF_SAMSUNG_REMOTE   0x07 // The value you see as address in printIRResultShort()
+#define ADDRESS_OF_SAMSUNG_REMOTE   0x0707 // The value you see as address in printIRResultShort()
 
-#include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc. Sets FLASHEND and RAMSIZE and evaluates value of SEND_PWM_BY_TIMER.
+#include "PinDefinitionsAndMore.h" //Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
 void sendSamsungSmartHubMacro(bool aDoSelect);
@@ -106,18 +58,14 @@ void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
 
     Serial.begin(115200);
-
-#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/ \
-    || defined(SERIALUSB_PID)  || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_attiny3217)
+#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/|| defined(SERIALUSB_PID) || defined(ARDUINO_attiny3217)
     delay(4000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
 #endif
     // Just to know which program is running on my Arduino
     Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
 
     // tone before IR setup, since it kills the IR timer settings
-#if defined(TONE_PIN)
     tone(TONE_PIN, 2200, 400);
-#endif
     digitalWrite(LED_BUILTIN, HIGH);
     delay(400);
     digitalWrite(LED_BUILTIN, LOW);
@@ -125,15 +73,12 @@ void setup() {
     // Start the receiver and if not 3. parameter specified, take LED_BUILTIN pin from the internal boards definition as default feedback LED
     IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
 
+    IrSender.begin(IR_SEND_PIN, ENABLE_LED_FEEDBACK); // Specify send pin and enable feedback LED at default feedback LED pin
+
     Serial.print(F("Ready to receive IR signals of protocols: "));
     printActiveIRProtocols(&Serial);
     Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
 
-    /*
-     * No IR send setup required :-)
-     * Default is to use IR_SEND_PIN -which is defined in PinDefinitionsAndMore.h- as send pin
-     * and use feedback LED at default feedback LED pin if not disabled by #define NO_LED_SEND_FEEDBACK_CODE
-     */
     Serial.println(F("Ready to send IR signals at pin " STR(IR_SEND_PIN)));
 }
 
@@ -169,7 +114,6 @@ void loop() {
          * !!!Important!!! Enable receiving of the next value,
          * since receiving has stopped after the end of the current received data packet.
          */
-        IrReceiver.restartAfterSend(); // Is a NOP if sending does not require a timer.
         IrReceiver.resume(); // Enable receiving of the next value
     }
 }
@@ -199,9 +143,9 @@ void sendSamsungSmartHubMacro(bool aDoSelect) {
         tWaitTimeAfterBoot = INITIAL_WAIT_TIME_SMARTHUB_READY_MILLIS;
     }
 
-#if !defined(ESP32)  // ESP32 uses another timer for tone(), so the receiver must not be stopped and restarted for it
-    IrReceiver.stopTimer();
-#endif
+#    if !defined(ESP32)
+    IrReceiver.stop(); // ESP32 uses another timer for tone()
+#    endif
     if (millis() < tWaitTimeAfterBoot) {
         // division by 1000 and printing requires much (8%) program memory
         Serial.print(F("It is "));
@@ -210,12 +154,10 @@ void sendSamsungSmartHubMacro(bool aDoSelect) {
         Serial.print(tWaitTimeAfterBoot / 1000);
         Serial.println(F(" seconds after boot to be ready for the command"));
 
-#if defined(TONE_PIN)
         tone(TONE_PIN, 2200, 100);
         delay(200);
         tone(TONE_PIN, 2200, 100);
         delay(100);
-#endif
 
         if (millis() < tWaitTimeAfterBoot) {
             Serial.print(F("Now do a blocking wait for "));
@@ -226,14 +168,12 @@ void sendSamsungSmartHubMacro(bool aDoSelect) {
     }
 
     // Do beep feedback for special key to be received
-#if defined(TONE_PIN)
     tone(TONE_PIN, 2200, 200);
     delay(200);
-#endif
 
-#if !defined(ESP32)
-    IrReceiver.restartTimer(); // Restart IR timer.
-#endif
+#    if !defined(ESP32)
+    IrReceiver.start(200000); // to compensate for 200 ms stop of receiver. This enables a correct gap measurement.
+#    endif
 
     Serial.println(F("Wait for \"not supported\" to disappear"));
     delay(2000);

@@ -9,9 +9,10 @@
 #ifndef _IR_BOSEWAVE_HPP
 #define _IR_BOSEWAVE_HPP
 
-// This block must be located after the includes of other *.hpp files
-//#define LOCAL_DEBUG // This enables debug output only for this file - only for development
-#include "LocalDebugLevelStart.h"
+#include <Arduino.h>
+
+//#define DEBUG // Activate this for lots of lovely debug output from this decoder.
+#include "IRremoteInt.h" // evaluates the DEBUG for IR_DEBUG_PRINT
 
 /** \addtogroup Decoder Decoders and encoders for different protocols
  * @{
@@ -28,10 +29,10 @@
 //
 // Support for Bose Wave Radio CD initially provided by https://github.com/uvotguy.
 //
-// As seen on my oscilloscope, there is no repeat code. Instead, when I
+// As seen on my trusty oscilloscope, there is no repeat code.  Instead, when I
 // press and hold a button on my remote, it sends a command, makes a 51.2ms space,
-// and resends the command again, and so on.
-// 38 kHz, LSB first, 1 start bit + 8 bit data + 8 bit inverted data + 1 stop bit.
+// and resends the command, etc, etc.
+// LSB first, 1 start bit + 8 bit data + 8 bit inverted data + 1 stop bit.
 #define BOSEWAVE_BITS             16 // Command and inverted command
 
 #define BOSEWAVE_HEADER_MARK    1014    // 1014 are 39 clock periods (I counted 3 times!)
@@ -40,44 +41,71 @@
 #define BOSEWAVE_ZERO_SPACE      468    // 468 are 18 clock periods
 #define BOSEWAVE_ONE_SPACE      1468    // 1468(measured), 1456 are 56 clock periods
 
-#define BOSEWAVE_REPEAT_PERIOD              75000
-#define BOSEWAVE_REPEAT_DISTANCE            50000
-#define BOSEWAVE_MAXIMUM_REPEAT_DISTANCE    62000
+#define BOSEWAVE_REPEAT_SPACE  50000
 
-struct PulseDistanceWidthProtocolConstants const BoseWaveProtocolConstants PROGMEM = {BOSEWAVE, BOSEWAVE_KHZ, BOSEWAVE_HEADER_MARK,
-    BOSEWAVE_HEADER_SPACE, BOSEWAVE_BIT_MARK, BOSEWAVE_ONE_SPACE, BOSEWAVE_BIT_MARK, BOSEWAVE_ZERO_SPACE, PROTOCOL_IS_LSB_FIRST | PROTOCOL_IS_PULSE_DISTANCE
-    , (BOSEWAVE_REPEAT_PERIOD / MICROS_IN_ONE_MILLI), nullptr};
+//+=============================================================================
 
-/************************************
- * Start of send and decode functions
- ************************************/
+void IRsend::sendBoseWave(uint8_t aCommand, uint_fast8_t aNumberOfRepeats) {
+    // Set IR carrier frequency
+    enableIROut(BOSEWAVE_KHZ); // 38 kHz
 
-void IRsend::sendBoseWave(uint8_t aCommand, int_fast8_t aNumberOfRepeats) {
+    uint_fast8_t tNumberOfCommands = aNumberOfRepeats + 1;
+    while (tNumberOfCommands > 0) {
 
-    // send 8 command bits and then 8 inverted command bits LSB first
-    uint16_t tData = ((~aCommand) << 8) | aCommand;
-    sendPulseDistanceWidth_P(&BoseWaveProtocolConstants, tData, BOSEWAVE_BITS, aNumberOfRepeats);
+        // Header
+        mark(BOSEWAVE_HEADER_MARK);
+        space(BOSEWAVE_HEADER_SPACE);
+        // send 8 command bits and then 8 inverted command bits LSB first
+        uint16_t tData = ((~aCommand) << 8) | aCommand;
+
+        sendPulseDistanceWidthData(BOSEWAVE_BIT_MARK, BOSEWAVE_ONE_SPACE, BOSEWAVE_BIT_MARK, BOSEWAVE_ZERO_SPACE, tData,
+        BOSEWAVE_BITS, PROTOCOL_IS_LSB_FIRST, SEND_STOP_BIT);
+
+        tNumberOfCommands--;
+        // skip last delay!
+        if (tNumberOfCommands > 0) {
+            // send repeated command with a fixed space gap
+            delay( BOSEWAVE_REPEAT_SPACE / MICROS_IN_ONE_MILLI);
+        }
+    }
+    IrReceiver.restartAfterSend();
 }
 
+//+=============================================================================
 bool IRrecv::decodeBoseWave() {
 
-    if (!checkHeader_P(&BoseWaveProtocolConstants)) {
+    // Check header "mark"
+    if (!matchMark(decodedIRData.rawDataPtr->rawbuf[1], BOSEWAVE_HEADER_MARK)) {
+        // no debug output, since this check is mainly to determine the received protocol
         return false;
     }
 
     // Check we have enough data +4 for initial gap, start bit mark and space + stop bit mark
-    if (decodedIRData.rawlen != (2 * BOSEWAVE_BITS) + 4) {
-        DEBUG_PRINT(F("Bose: Data length="));
-        DEBUG_PRINT(decodedIRData.rawlen);
-        DEBUG_PRINTLN(F(" is not 36"));
+    if (decodedIRData.rawDataPtr->rawlen != (2 * BOSEWAVE_BITS) + 4) {
+        IR_DEBUG_PRINT(F("Bose: "));
+        IR_DEBUG_PRINT(F("Data length="));
+        IR_DEBUG_PRINT(decodedIRData.rawDataPtr->rawlen);
+        IR_DEBUG_PRINTLN(F(" is not 36"));
+        return false;
+    }
+    // Check header "space"
+    if (!matchSpace(decodedIRData.rawDataPtr->rawbuf[2], BOSEWAVE_HEADER_SPACE)) {
+        IR_DEBUG_PRINT(F("Bose: "));
+        IR_DEBUG_PRINTLN(F("Header space length is wrong"));
         return false;
     }
 
-    decodePulseDistanceWidthData_P(&BoseWaveProtocolConstants, BOSEWAVE_BITS);
+    if (!decodePulseDistanceData(BOSEWAVE_BITS, 3, BOSEWAVE_BIT_MARK, BOSEWAVE_ONE_SPACE, BOSEWAVE_ZERO_SPACE,
+            PROTOCOL_IS_LSB_FIRST)) {
+        IR_DEBUG_PRINT(F("Bose: "));
+        IR_DEBUG_PRINTLN(F("Decode failed"));
+        return false;
+    }
 
     // Stop bit
-    if (!matchMark(irparams.rawbuf[3 + (2 * BOSEWAVE_BITS)], BOSEWAVE_BIT_MARK)) {
-        DEBUG_PRINTLN(F("Bose: Stop bit mark length is wrong"));
+    if (!matchMark(decodedIRData.rawDataPtr->rawbuf[3 + (2 * BOSEWAVE_BITS)], BOSEWAVE_BIT_MARK)) {
+        IR_DEBUG_PRINT(F("Bose: "));
+        IR_DEBUG_PRINTLN(F("Stop bit mark length is wrong"));
         return false;
     }
 
@@ -88,20 +116,22 @@ bool IRrecv::decodeBoseWave() {
     uint8_t tCommandInverted = tDecodedValue >> 8;
     // parity check for command. Use this variant to avoid compiler warning "comparison of promoted ~unsigned with unsigned [-Wsign-compare]"
     if ((tCommandNotInverted ^ tCommandInverted) != 0xFF) {
-        DEBUG_PRINTLN(F("Bose: Command and inverted command check failed"));
+        IR_DEBUG_PRINT(F("Bose: "));
+        IR_DEBUG_PRINT(F("Command and inverted command check failed"));
         return false;
     }
-    decodedIRData.command = tCommandNotInverted;
-    decodedIRData.numberOfBits = BOSEWAVE_BITS;
-    decodedIRData.protocol = BOSEWAVE;
 
     // check for repeat
-    checkForRepeatSpaceTicksAndSetFlag(BOSEWAVE_MAXIMUM_REPEAT_DISTANCE / MICROS_PER_TICK);
+    if (decodedIRData.rawDataPtr->rawbuf[0] < ((BOSEWAVE_REPEAT_SPACE + (BOSEWAVE_REPEAT_SPACE / 4)) / MICROS_PER_TICK)) {
+        decodedIRData.flags = IRDATA_FLAGS_IS_REPEAT | IRDATA_FLAGS_IS_LSB_FIRST;
+    }
+
+    decodedIRData.command = tCommandNotInverted;
+    decodedIRData.protocol = BOSEWAVE;
+    decodedIRData.numberOfBits = BOSEWAVE_BITS;
 
     return true;
 }
 
 /** @}*/
-#include "LocalDebugLevelEnd.h"
-
 #endif // _IR_BOSEWAVE_HPP

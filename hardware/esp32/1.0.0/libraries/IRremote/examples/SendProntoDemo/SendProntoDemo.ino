@@ -32,13 +32,7 @@
  */
 #include <Arduino.h>
 
-#if !defined(ARDUINO_ESP32C3_DEV) // This is due to a bug in RISC-V compiler, which requires unused function sections :-(.
-#define DISABLE_CODE_FOR_RECEIVER // Disables static receiver code like receive timer ISR handler and static IRReceiver and irparams data. Saves 450 bytes program memory and 269 bytes RAM if receiving functions are not required.
-#endif
-
-//#define NO_LED_FEEDBACK_CODE          // Saves 266 bytes program memory
-
-#include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc. Sets FLASHEND and RAMSIZE and evaluates value of SEND_PWM_BY_TIMER.
+#include "PinDefinitionsAndMore.h" //Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
 #define NUMBER_OF_REPEATS 3U
@@ -46,10 +40,7 @@
 // The first number, here 0000, denotes the type of the signal. 0000 denotes a raw IR signal with modulation.
 // The second number, here 006C, denotes a frequency code. 006C corresponds to 1000000/(0x006c * 0.241246) = 38381 Hertz.
 // The third and the forth number denote the number of pairs (= half the number of durations) in the start- and the repeat sequence respectively.
-const char yamahaVolDown[]
-#if defined(__AVR__)
-PROGMEM
-#endif
+const char yamahaVolDown[] PROGMEM
 = "0000 006C 0022 0002 015B 00AD " /* Pronto header + start bit */
         "0016 0016 0016 0041 0016 0016 0016 0041 0016 0041 0016 0041 0016 0041 0016 0016 " /* Lower address byte */
         "0016 0041 0016 0016 0016 0041 0016 0016 0016 0016 0016 0016 0016 0016 0016 0041 " /* Upper address byte (inverted at 8 bit mode) */
@@ -61,21 +52,20 @@ IRsend irsend;
 
 void setup() {
     Serial.begin(115200);
-
-#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/ \
-    || defined(SERIALUSB_PID)  || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_attiny3217)
-    delay(4000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
-#endif
+    while (!Serial)
+        ;
 
     // Just to know which program is running on my Arduino
     Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-    Serial.println(F("Send IR signals at pin " STR(IR_SEND_PIN)));
 
-    /*
-     * No IR library setup required :-)
-     * Default is to use IR_SEND_PIN -which is defined in PinDefinitionsAndMore.h- as send pin
-     * and use feedback LED at default feedback LED pin if not disabled by #define NO_LED_SEND_FEEDBACK_CODE
-     */
+#if defined(IR_SEND_PIN)
+    IrSender.begin(); // Start with IR_SEND_PIN as send pin and enable feedback LED at default feedback LED pin
+#else
+    IrSender.begin(3, ENABLE_LED_FEEDBACK); // Specify send pin and enable feedback LED at default feedback LED pin
+#endif
+
+    Serial.print(F("Ready to send IR signals at pin "));
+    Serial.println(IR_SEND_PIN);
 }
 
 void loop() {

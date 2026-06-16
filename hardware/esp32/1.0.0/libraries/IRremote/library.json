@@ -1,20 +1,20 @@
 {
   "name": "IRremote",
-  "version": "4.7.1",
-  "description": "Send and receive infrared signals with multiple protocols",
   "keywords": "communication, infrared, ir, remote",
-  "homepage": "https://github.com/Arduino-IRremote/Arduino-IRremote",
+  "description": "Send and receive infrared signals with multiple protocols",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/Arduino-IRremote/Arduino-IRremote.git"
+    "url": "https://github.com/z3t0/Arduino-IRremote.git"
   },
+  "version": "3.8.0",
+  "frameworks": "arduino",
+  "platforms": ["atmelavr", "atmelmegaavr", "atmelsam", "espressif8266", "espressif32", "ststm32"],
   "authors" :
   [
      {
        "name":"Armin Joachimsmeyer",
-       "email":"armin.arduino@gmail.com",
-       "maintainer": true
+       "email":"armin.arduino@gmail.com"
      },
      {
        "name":"Rafi Khan",
@@ -25,10 +25,5 @@
        "email":"ken.shirriff@gmail.com"
      }
   ],
-  "license": "MIT",
-  "frameworks": "arduino",
-  "platforms": ["atmelavr", "atmelmegaavr", "atmelsam", "espressif8266", "espressif32", "ststm32", "raspberrypi"],
-  "headers": "IRRemote.hpp",
-  "examples": "examples/*/*.ino",
-  "export": {"exclude": [".github", "pictures"]}
+  "headers": "IRRemote.hpp"
 }

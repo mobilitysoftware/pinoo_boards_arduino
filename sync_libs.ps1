@@ -86,17 +86,5 @@ if (Test-Path "C:\Users\SemihNoir\AppData\Local\Arduino15") {
     Copy-Item -Path "$PSScriptRoot/hardware/*" -Destination $AppDataHardware -Recurse -Force
 }
 
-# 2. Sketchbook hardware directory (for Arduino IDE 1.8.x)
-$SketchbookHardware = "D:\Belgeler\Arduino\hardware\pinoo_sdk"
-if (Test-Path "D:\Belgeler\Arduino") {
-    Write-Host "Syncing to Sketchbook (IDE 1.8.x): $SketchbookHardware" -ForegroundColor Gray
-    $null = New-Item -ItemType Directory -Path "$SketchbookHardware/avr" -Force
-    $null = New-Item -ItemType Directory -Path "$SketchbookHardware/esp32" -Force
-    
-    # For sketchbook manual installation, the files must be directly under the architecture directory (no version folder)
-    Copy-Item -Path "$PSScriptRoot/hardware/avr/1.0.0/*" -Destination "$SketchbookHardware/avr" -Recurse -Force
-    Copy-Item -Path "$PSScriptRoot/hardware/esp32/1.0.0/*" -Destination "$SketchbookHardware/esp32" -Recurse -Force
-}
-
 Write-Host "==========================================" -ForegroundColor Green
 Write-Host "Synchronization and deployment completed successfully!" -ForegroundColor Green

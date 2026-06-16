@@ -12,7 +12,11 @@
 #define PINOO_SERVO_H
 
 #include <Arduino.h>
+#if defined(ARDUINO_ARCH_ESP32)
+#include <ServoESP32.h>
+#else
 #include <Servo.h>
+#endif
 
 #include "../Pinoo_Config.h"
 

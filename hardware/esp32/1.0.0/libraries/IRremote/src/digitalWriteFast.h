@@ -4,24 +4,12 @@
  * Optimized digital functions for AVR microcontrollers
  * by Watterott electronic (www.watterott.com)
  * based on https://code.google.com/p/digitalwritefast
- *
- * The value of DigitalReadFast() is the content of the input register e.g. 0x04 for pin2 and NOT always 0 or 1.
- *
- * License: BSD 3-Clause License (https://opensource.org/licenses/BSD-3-Clause)
  */
 
 #ifndef __digitalWriteFast_h_
 #define __digitalWriteFast_h_ 1
 
-//#define THROW_ERROR_IF_NOT_FAST // If activated, an error is thrown if pin is not a compile time constant
-void NonConstantsUsedForPinModeFast( void )  __attribute__ (( error("Parameter for pinModeFast() function is not constant") ));
-void NonConstantsUsedForDigitalWriteFast( void )  __attribute__ (( error("Parameter for digitalWriteFast() function is not constant") ));
-void NonConstantsUsedForDigitalToggleFast( void )  __attribute__ (( error("Parameter for digitalToggleFast() function is not constant") ));
-int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Parameter for digitalReadFast() function is not constant") ));
-
-#if !defined(MEGATINYCORE) // megaTinyCore has it own digitalWriteFast function set, except digitalToggleFast().
-
-//#define SANGUINO_PINOUT // define for Sanguino pinout
+//#define SANGUINO_PINOUT //define for Sanguino pinout
 
 // general macros/defines
 #if !defined(BIT_READ)
@@ -37,16 +25,139 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 # define BIT_WRITE(value, bit, bitvalue) (bitvalue ? BIT_SET(value, bit) : BIT_CLEAR(value, bit))
 #endif
 
-#include <Arduino.h> // declarations for the fallback to digitalWrite(), digitalRead() etc.
+#if !defined(SWAP)
+# define SWAP(x,y) do{ (x)=(x)^(y); (y)=(x)^(y); (x)=(x)^(y); }while(0)
+#endif
+
+#if !defined(DEC)
+# define DEC (10)
+#endif
+#if !defined(HEX)
+# define HEX (16)
+#endif
+#if !defined(OCT)
+# define OCT (8)
+#endif
+#if !defined(BIN)
+# define BIN (2)
+#endif
+
+// workarounds for ARM microcontrollers
+#if (!defined(__AVR__) || \
+     defined(ARDUINO_ARCH_SAM) || \
+     defined(ARDUINO_ARCH_SAMD))
+
+#if !defined(PROGMEM)
+# define PROGMEM
+#endif
+#if !defined(PGM_P)
+# define PGM_P const char *
+#endif
+#if !defined(PSTR)
+# define PSTR(str) (str)
+#endif
+
+#if !defined(memcpy_P)
+# define memcpy_P(dest, src, num) memcpy((dest), (src), (num))
+#endif
+#if !defined(strcpy_P)
+# define strcpy_P(dst, src)       strcpy((dst), (src))
+#endif
+#if !defined(strcat_P)
+# define strcat_P(dst, src)       strcat((dst), (src))
+#endif
+#if !defined(strcmp_P)
+# define strcmp_P(a, b)           strcmp((a), (b))
+#endif
+#if !defined(strcasecmp_P)
+# define strcasecmp_P(a, b)       strcasecmp((a), (b))
+#endif
+#if !defined(strncmp_P)
+# define strncmp_P(a, b, n)       strncmp((a), (b), (n))
+#endif
+#if !defined(strncasecmp_P)
+# define strncasecmp_P(a, b, n)   strncasecmp((a), (b), (n))
+#endif
+#if !defined(strstr_P)
+# define strstr_P(a, b)           strstr((a), (b))
+#endif
+#if !defined(strlen_P)
+# define strlen_P(a)              strlen((a))
+#endif
+#if !defined(sprintf_P)
+# define sprintf_P(s, f, ...)     sprintf((s), (f), __VA_ARGS__)
+#endif
+
+#if !defined(pgm_read_byte)
+# define pgm_read_byte(addr)      (*(const unsigned char *)(addr))
+#endif
+#if !defined(pgm_read_word)
+# define pgm_read_word(addr)      (*(const unsigned short *)(addr))
+#endif
+#if !defined(pgm_read_dword)
+# define pgm_read_dword(addr)     (*(const unsigned long *)(addr))
+#endif
+
+#endif
+
+// digital functions
+//#if !defined(digitalPinToPortReg)
+#define SPI_SW_SS_PIN   (10) //SS on Uno (for software SPI)
+#define SPI_SW_MOSI_PIN (11) //MOSI on Uno (for software SPI)
+#define SPI_SW_MISO_PIN (12) //MISO on Uno (for software SPI)
+#define SPI_SW_SCK_PIN  (13) //SCK on Uno (for software SPI)
+
+// --- Arduino Due and SAM3X8E based boards ---
+#if (defined(ARDUINO_SAM_DUE) || \
+     defined(__SAM3X8E__))
+
+#define UART_RX_PIN     (0)
+#define UART_TX_PIN     (1)
+
+#define I2C_SDA_PIN     (20)
+#define I2C_SCL_PIN     (21)
+
+#define SPI_HW_SS_PIN   (78) //SS0:77, SS1:87, SS2:86, SS3:78
+#define SPI_HW_MOSI_PIN (75) //75
+#define SPI_HW_MISO_PIN (74) //74
+#define SPI_HW_SCK_PIN  (76) //76
+
+
+// --- Arduino Zero and SAMD21G18 based boards ---
+#elif (defined(ARDUINO_SAMD_ZERO) || \
+       defined(__SAMD21G18A__))
+
+#define UART_RX_PIN     (0)
+#define UART_TX_PIN     (1)
+
+#define I2C_SDA_PIN     (16)
+#define I2C_SCL_PIN     (17)
+
+#define SPI_HW_SS_PIN   (14) //14
+#define SPI_HW_MOSI_PIN (21) //21
+#define SPI_HW_MISO_PIN (18) //18
+#define SPI_HW_SCK_PIN  (20) //20
+
 
 // --- Arduino Mega and ATmega128x/256x based boards ---
-#if (defined(ARDUINO_AVR_MEGA) || \
+#elif (defined(ARDUINO_AVR_MEGA) || \
        defined(ARDUINO_AVR_MEGA1280) || \
        defined(ARDUINO_AVR_MEGA2560) || \
        defined(__AVR_ATmega1280__) || \
        defined(__AVR_ATmega1281__) || \
        defined(__AVR_ATmega2560__) || \
        defined(__AVR_ATmega2561__))
+
+#define UART_RX_PIN     (0) //PE0
+#define UART_TX_PIN     (1) //PE1
+
+#define I2C_SDA_PIN     (20)
+#define I2C_SCL_PIN     (21)
+
+#define SPI_HW_SS_PIN   (53) //PB0
+#define SPI_HW_MOSI_PIN (51) //PB2
+#define SPI_HW_MISO_PIN (50) //PB3
+#define SPI_HW_SCK_PIN  (52) //PB1
 
 #define __digitalPinToPortReg(P) \
 (((P) >= 22 && (P) <= 29) ? &PORTA : \
@@ -119,6 +230,17 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
        defined(__AVR_ATmega8535__))  && \
       !defined(BOBUINO_PINOUT)
 
+#define UART_RX_PIN     (8) //PD0
+#define UART_TX_PIN     (9) //PD1
+
+#define I2C_SDA_PIN     (17) //PC1
+#define I2C_SCL_PIN     (16) //PC0
+
+#define SPI_HW_SS_PIN   (4) //PB4
+#define SPI_HW_MOSI_PIN (5) //PB5
+#define SPI_HW_MISO_PIN (6) //PB6
+#define SPI_HW_SCK_PIN  (7) //PB7
+
 #if defined(__AVR_ATmega324PB__)
 #define __digitalPinToPortReg(P) \
 (((P) <= 7) ? &PORTB : (((P) >= 8 && (P) <= 15) ? &PORTD : (((P) >= 16 && (P) <= 23) ? &PORTC : (((P) >= 24 && (P) <= 31) ? &PORTA : &PORTE))))
@@ -133,27 +255,13 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 #define __digitalPinToBit(P) \
 (((P) <= 7) ? (P) : (((P) >= 8 && (P) <= 15) ? (P) - 8 : (((P) >= 16 && (P) <= 23) ? (P) - 16 : (((P) >= 16 && (P) <= 23) ? (P) - 24 : (P) - 32))))
 # endif
-#elif defined(PORTA)
+#else
 #define __digitalPinToPortReg(P) \
 (((P) <= 7) ? &PORTB : (((P) >= 8 && (P) <= 15) ? &PORTD : (((P) >= 16 && (P) <= 23) ? &PORTC : &PORTA)))
 #define __digitalPinToDDRReg(P) \
 (((P) <= 7) ? &DDRB : (((P) >= 8 && (P) <= 15) ? &DDRD : (((P) >= 16 && (P) <= 23) ? &DDRC : &DDRA)))
 #define __digitalPinToPINReg(P) \
 (((P) <= 7) ? &PINB : (((P) >= 8 && (P) <= 15) ? &PIND : (((P) >= 16 && (P) <= 23) ? &PINC : &PINA)))
-# if defined(SANGUINO_PINOUT)
-#define __digitalPinToBit(P) \
-(((P) <= 7) ? (P) : (((P) >= 8 && (P) <= 15) ? (P) - 8 : (((P) >= 16 && (P) <= 23) ? (P) - 16 : (7 - ((P) - 24)))))
-# else //MightyCore Pinout
-#define __digitalPinToBit(P) \
-(((P) <= 7) ? (P) : (((P) >= 8 && (P) <= 15) ? (P) - 8 : (((P) >= 16 && (P) <= 23) ? (P) - 16 : (P) - 24)))
-# endif
-#else
-#define __digitalPinToPortReg(P) \
-(((P) <= 7) ? &PORTB : (((P) >= 8 && (P) <= 15) ? &PORTD : &PORTC))
-#define __digitalPinToDDRReg(P) \
-(((P) <= 7) ? &DDRB : (((P) >= 8 && (P) <= 15) ? &DDRD : &DDRC))
-#define __digitalPinToPINReg(P) \
-(((P) <= 7) ? &PINB : (((P) >= 8 && (P) <= 15) ? &PIND : &PINC))
 # if defined(SANGUINO_PINOUT)
 #define __digitalPinToBit(P) \
 (((P) <= 7) ? (P) : (((P) >= 8 && (P) <= 15) ? (P) - 8 : (((P) >= 16 && (P) <= 23) ? (P) - 16 : (7 - ((P) - 24)))))
@@ -169,6 +277,16 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
        defined(__AVR_ATmega16U4__) || \
        defined(__AVR_ATmega32U4__))
 #  if defined(TEENSYDUINO)
+#define UART_RX_PIN     (7) //PD2
+#define UART_TX_PIN     (8) //PD3
+
+#define I2C_SDA_PIN     (6) //PD1
+#define I2C_SCL_PIN     (5) //PD0
+
+#define SPI_HW_SS_PIN   (0) //PB0
+#define SPI_HW_MOSI_PIN (2) //PB2
+#define SPI_HW_MISO_PIN (3) //PB3
+#define SPI_HW_SCK_PIN  (1) //PB1
 
 #define __digitalPinToPortReg(P) \
 ((((P) <= 4) || ((P) >= 13 && (P) <= 15)) ? &PORTB : (((P) == 9 || (P) == 10) ? &PORTC : (((P) >= 16 && (P) <= 21)) ? &PORTF : &PORTD))
@@ -186,6 +304,17 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 (((P) <= 19) ? 23 - (P) : \
 (((P) <= 21) ? 21 - (P) : (P) - 18))))))))
 #  else
+
+#define UART_RX_PIN     (0) //PD2
+#define UART_TX_PIN     (1) //PD3
+
+#define I2C_SDA_PIN     (2) //PD1
+#define I2C_SCL_PIN     (3) //PD0
+
+#define SPI_HW_SS_PIN   (17) //PB0
+#define SPI_HW_MOSI_PIN (16) //PB2
+#define SPI_HW_MISO_PIN (14) //PB3
+#define SPI_HW_SCK_PIN  (15) //PB1
 
 #define __digitalPinToPortReg(P) \
 ((((P) <= 4) || (P) == 6 || (P) == 12 || (P) == 24 || (P) == 25 || (P) == 29) ? &PORTD : (((P) == 5 || (P) == 13) ? &PORTC : (((P) >= 18 && (P) <= 23)) ? &PORTF : (((P) == 7) ? &PORTE : &PORTB)))
@@ -217,6 +346,17 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
        defined(__AVR_ATmega328P__) || \
        defined(__AVR_ATmega328PB__))
 
+#define UART_RX_PIN     (0) //PD0
+#define UART_TX_PIN     (1) //PD1
+
+#define I2C_SDA_PIN     (18) //A4
+#define I2C_SCL_PIN     (19) //A5
+
+#define SPI_HW_SS_PIN   (10) //PB0
+#define SPI_HW_MOSI_PIN (11) //PB2
+#define SPI_HW_MISO_PIN (12) //PB3
+#define SPI_HW_SCK_PIN  (13) //PB1
+
 #if defined(__AVR_ATmega48PB__) || defined(__AVR_ATmega88PB__) || defined(__AVR_ATmega168PB__) || defined(__AVR_ATmega328PB__)
 #define __digitalPinToPortReg(P) \
 (((P) <= 7) ? &PORTD : (((P) >= 8 && (P) <= 13) ? &PORTB : (((P) >= 14 && (P) <= 19) ? &PORTC : &PORTE)))
@@ -240,6 +380,17 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 // --- Arduino Uno WiFi Rev 2, Nano Every ---
 #elif defined(__AVR_ATmega4809__)
 
+#define UART_RX_PIN     (0) //PB0
+#define UART_TX_PIN     (1) //PB1
+
+#define I2C_SDA_PIN     (22) //PA2
+#define I2C_SCL_PIN     (23) //PA3
+
+#define SPI_HW_SS_PIN   (8)  //PE3
+#define SPI_HW_MOSI_PIN (11) //PE0
+#define SPI_HW_MISO_PIN (12) //PE1
+#define SPI_HW_SCK_PIN  (13) //PE2
+
 #define __digitalPinToPortReg(P) \
 (((P) == 2 || (P) == 7 ) ? &VPORTA.OUT : ((P) == 5 || (P) == 9 || (P) == 10) ? &VPORTB.OUT : ((P) == 4) ? &VPORTC.OUT : (((P) >= 14 && (P) <= 17) || (P) == 20 || (P) == 21) ? &VPORTD.OUT : ((P) == 8 || (P) == 11 || (P) == 12 || (P) == 13) ? &VPORTE.OUT : &VPORTF.OUT)
 #define __digitalPinToDDRReg(P) \
@@ -253,24 +404,12 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 // TinyCore
 // https://raw.githubusercontent.com/xukangmin/TinyCore/master/avr/package/package_tinycore_index.json
 // https://docs.tinycore.dev/en/latest/
-#elif  defined(__AVR_ATtiny1616__) || defined(__AVR_ATtiny3216__) || defined(__AVR_ATtiny3217__)
+#elif  defined(__AVR_ATtiny1616__)  || defined(__AVR_ATtiny3216__) || defined(__AVR_ATtiny3217__)
 #define __digitalPinToPortReg(P) ((P) <= 5 ? &VPORTB.OUT : ((P) <= 9 ? &VPORTC.OUT : ((P) <= 16 ? &VPORTA.OUT : ((P) <= 18 ? &VPORTB.OUT : &VPORTC.OUT))))
 #define __digitalPinToDDRReg(P) ((P) <= 5 ? &VPORTB.DIR : ((P) <= 9 ? &VPORTC.DIR : ((P) <= 16 ? &VPORTA.DIR : ((P) <= 18 ? &VPORTB.DIR : &VPORTC.DIR))))
 #define __digitalPinToPINReg(P) ((P) <= 5 ? &VPORTB.IN : ((P) <= 9 ? &VPORTC.IN : ((P) <= 16 ? &VPORTA.IN : ((P) <= 18 ? &VPORTB.IN : &VPORTC.IN))))
 #define __digitalPinToBit(P) ( (P) <= 3 ? (3 - P) : ((P) <= 5 ? (P) : ((P) <= 9 ? (P - 6) : ((P) <= 16 ? ((P) - 9) : ((P) <= 18 ? ((P) - 11) : ((P) - 15))))) )
 
-#elif defined(__AVR_ATtiny1614__)
-#define __digitalPinToPortReg(P) ((P) <= 3 ? &VPORTA.OUT : ((P) <= 7 ? &VPORTB.OUT : &VPORTA.OUT))
-#define __digitalPinToDDRReg(P) ((P) <= 3 ? &VPORTA.DIR : ((P) <= 7 ? &VPORTB.DIR : &VPORTA.DIR))
-#define __digitalPinToPINReg(P) ((P) <= 3 ? &VPORTA.IN : ((P) <= 7 ? &VPORTB.IN : &VPORTA.IN))
-#define __digitalPinToBit(P) ( (P) <= 3 ? (P + 4) : ((P) <= 7 ? (7 - P) : ((P) <= 10 ? (P - 7) : (P) - 11)) )
-
-#elif  defined(__AVR_ATtiny816__)
-// https://github.com/Arduino-IRremote/Arduino-IRremote/discussions/1029
-#define __digitalPinToPortReg(P) ((P) <= 3 ? &VPORTA.OUT : ((P) <= 9 ? &VPORTB.OUT : ((P) <= 13 ? &VPORTC.OUT : ((P) <= 17 ? &VPORTA.OUT : &VPORTC.OUT))))
-#define __digitalPinToDDRReg(P) ((P) <= 3 ? &VPORTA.DIR : ((P) <= 9 ? &VPORTB.DIR : ((P) <= 13 ? &VPORTC.DIR : ((P) <= 17 ? &VPORTA.DIR : &VPORTC.DIR))))
-#define __digitalPinToPINReg(P) ((P) <= 3 ? &VPORTA.IN : ((P) <= 9 ? &VPORTB.IN : ((P) <= 13 ? &VPORTC.IN : ((P) <= 17 ? &VPORTA.IN : &VPORTC.IN))))
-#define __digitalPinToBit(P) ( (P) <= 3 ? (P + 4) : ((P) <= 9 ? (9 - P) : ((P) <= 13 ? (P - 10) : ((P) <= 16 ? (P - 13) : ((P) - 17)))) )
 
 // --- ATtinyX5 ---
 #elif defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
@@ -297,8 +436,7 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 
 
 // --- ATtinyX4 + ATtinyX7 ---
-#elif  defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) \
-    || defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny841__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#elif  defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
 # if defined(ARDUINO_AVR_DIGISPARKPRO) || PIN_PA7 == 5
 // Strange enumeration of pins on Digispark board and core library
 #define __digitalPinToPortReg(P) (((P) <= 4) ? &PORTB : &PORTA)
@@ -311,37 +449,32 @@ int NonConstantsUsedForDigitalReadFast( void )  __attribute__ (( error("Paramete
 #define __digitalPinToPortReg(P) (((P) <= 7) ? &PORTA : &PORTB)
 #define __digitalPinToDDRReg(P)  (((P) <= 7) ? &DDRA : &DDRB)
 #define __digitalPinToPINReg(P)  (((P) <= 7) ? &PINA : &PINB)
-#  if  defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny441__) || defined(__AVR_ATtiny841__)
-// https://github.com/SpenceKonde/ATTinyCore/blob/v2.0.0-devThis-is-the-head-submit-PRs-against-this/avr/variants/tinyx41_cw/pins_arduino.h#L334
-// Clockwise layout
-#define __digitalPinToBit(P)     (((P) <= 7) ? (P) : ((P) == 11 ? (3) : 10 - (P)))
-#  else
 #define __digitalPinToBit(P)     (((P) <= 7) ? (P) : (P) - 8 )
-#  endif
 # endif
+
+// --- Other ---
+#else
+
+#define I2C_SDA_PIN     SDA
+#define I2C_SCL_PIN     SCL
+
+#define SPI_HW_SS_PIN   SS
+#define SPI_HW_MOSI_PIN MOSI
+#define SPI_HW_MISO_PIN MISO
+#define SPI_HW_SCK_PIN  SCK
+
+
 #endif
+//#endif  //#if !defined(digitalPinToPortReg)
 
 #if !defined(digitalWriteFast)
 #  if (defined(__AVR__) || defined(ARDUINO_ARCH_AVR)) && defined(__digitalPinToPortReg)
-#    if defined(THROW_ERROR_IF_NOT_FAST)
 #define digitalWriteFast(P, V) \
-do { \
-  if (__builtin_constant_p(P)) { \
-    BIT_WRITE(*__digitalPinToPortReg(P), __digitalPinToBit(P), (V)); \
-  } else { \
-    NonConstantsUsedForDigitalWriteFast(); \
-  } \
-} while (0)
-#    else
-#define digitalWriteFast(P, V) \
-do { \
-  if (__builtin_constant_p(P)) { \
-    BIT_WRITE(*__digitalPinToPortReg(P), __digitalPinToBit(P), (V)); \
-  } else { \
-    digitalWrite((P), (V)); \
-  } \
-} while (0)
-#    endif // defined(THROW_ERROR_IF_NOT_FAST)
+if (__builtin_constant_p(P)) { \
+  BIT_WRITE(*__digitalPinToPortReg(P), __digitalPinToBit(P), (V)); \
+} else { \
+  digitalWrite((P), (V)); \
+}
 #  else
 #define digitalWriteFast digitalWrite
 #  endif
@@ -349,35 +482,17 @@ do { \
 
 #if !defined(pinModeFast)
 #  if (defined(__AVR__) || defined(ARDUINO_ARCH_AVR)) && defined(__digitalPinToPortReg)
-#    if defined(THROW_ERROR_IF_NOT_FAST)
 #define pinModeFast(P, V) \
-do { \
-  if (__builtin_constant_p(P) && __builtin_constant_p(V)) { \
-    if (V == INPUT_PULLUP) {\
-      BIT_CLEAR(*__digitalPinToDDRReg(P), __digitalPinToBit(P)); \
-      BIT_SET(*__digitalPinToPortReg(P), __digitalPinToBit(P)); \
-    } else { \
-      BIT_WRITE(*__digitalPinToDDRReg(P), __digitalPinToBit(P), (V)); \
-    } \
+if (__builtin_constant_p(P) && __builtin_constant_p(V)) { \
+  if (V == INPUT_PULLUP) {\
+    BIT_CLEAR(*__digitalPinToDDRReg(P), __digitalPinToBit(P)); \
+    BIT_SET(*__digitalPinToPortReg(P), __digitalPinToBit(P)); \
   } else { \
-    NonConstantsUsedForPinModeFast(); \
+    BIT_WRITE(*__digitalPinToDDRReg(P), __digitalPinToBit(P), (V)); \
   } \
-} while (0)
-#    else
-#define pinModeFast(P, V) \
-do { \
-  if (__builtin_constant_p(P) && __builtin_constant_p(V)) { \
-    if (V == INPUT_PULLUP) {\
-      BIT_CLEAR(*__digitalPinToDDRReg(P), __digitalPinToBit(P)); \
-      BIT_SET(*__digitalPinToPortReg(P), __digitalPinToBit(P)); \
-    } else { \
-      BIT_WRITE(*__digitalPinToDDRReg(P), __digitalPinToBit(P), (V)); \
-    } \
-  } else { \
-    pinMode((P), (V)); \
-  } \
-} while (0)
-#    endif // defined(THROW_ERROR_IF_NOT_FAST)
+} else { \
+  pinMode((P), (V)); \
+}
 #  else
 #define pinModeFast pinMode
 #  endif
@@ -385,15 +500,12 @@ do { \
 
 #if !defined(digitalReadFast)
 #  if (defined(__AVR__) || defined(ARDUINO_ARCH_AVR)) && defined(__digitalPinToPINReg)
-#    if defined(THROW_ERROR_IF_NOT_FAST)
 #define digitalReadFast(P) ( (int) __digitalReadFast((P)) )
 // since we have return values, it is easier to implement it by ?:
-#define __digitalReadFast(P ) ( (__builtin_constant_p(P) ) ? (( BIT_READ(*__digitalPinToPINReg(P), __digitalPinToBit(P))) ? HIGH:LOW ) : NonConstantsUsedForDigitalReadFast() )
-#    else
-#define digitalReadFast(P) ( (int) __digitalReadFast((P)) )
-// since we have return values, it is easier to implement it by ?:
-#define __digitalReadFast(P ) ( (__builtin_constant_p(P) ) ? (( BIT_READ(*__digitalPinToPINReg(P), __digitalPinToBit(P))) ? HIGH:LOW ) : digitalRead((P)) )
-#    endif // defined(THROW_ERROR_IF_NOT_FAST)
+#define __digitalReadFast(P ) \
+  (__builtin_constant_p(P) ) ? \
+  (( BIT_READ(*__digitalPinToPINReg(P), __digitalPinToBit(P))) ? HIGH:LOW ) : \
+  digitalRead((P))
 #  else
 #define digitalReadFast digitalRead
 #  endif
@@ -401,29 +513,15 @@ do { \
 
 #if !defined(digitalToggleFast)
 #  if (defined(__AVR__) || defined(ARDUINO_ARCH_AVR)) && defined(__digitalPinToPINReg)
-#    if defined(THROW_ERROR_IF_NOT_FAST)
 #define digitalToggleFast(P) \
-do { \
-  if (__builtin_constant_p(P)) { \
-    BIT_SET(*__digitalPinToPINReg(P), __digitalPinToBit(P)); \
-  } else { \
-    NonConstantsUsedForDigitalToggleFast(); \
-  } \
-} while (0)
-#    else
-#define digitalToggleFast(P) \
-do { \
-  if (__builtin_constant_p(P)) { \
-    BIT_SET(*__digitalPinToPINReg(P), __digitalPinToBit(P)); \
-  } else { \
-    digitalWrite(P, ! digitalRead(P)); \
-  } \
-} while (0)
-#    endif // defined(THROW_ERROR_IF_NOT_FAST)
+if (__builtin_constant_p(P)) { \
+  BIT_SET(*__digitalPinToPINReg(P), __digitalPinToBit(P)); \
+} else { \
+  digitalWrite(P, ! digitalRead(P)); \
+}
 #  else
 #define digitalToggleFast(P) digitalWrite(P, ! digitalRead(P))
 #  endif
 #endif // !defined(digitalToggleFast)
 
-#endif // !defined(MEGATINYCORE)
 #endif //__digitalWriteFast_h_
