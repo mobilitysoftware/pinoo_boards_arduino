@@ -11,7 +11,7 @@
 # =============================================================================
 
 param(
-    [string]$Version    = "1.0.0",
+    [string]$Version    = "1.0.1",
     [string]$GithubUser = "mobilitysoftware",
     [string]$GithubRepo = "pinoo_sdk"
 )
@@ -79,7 +79,7 @@ function Get-FileSize {
 Write-Host ""
 Write-Host "[1/4] AVR paketi hazirlaniyor..." -ForegroundColor Yellow
 
-$AvrSourceDir = Join-Path $ScriptDir "hardware\avr\1.0.0"
+$AvrSourceDir = Join-Path $ScriptDir "hardware\avr\1.0.1"
 if (-not (Test-Path $AvrSourceDir)) {
     Write-Error "HATA: AVR kaynak klasoru bulunamadi: $AvrSourceDir"
     exit 1
@@ -104,7 +104,7 @@ Write-Host "[OK] AVR paketi olusturuldu." -ForegroundColor Green
 Write-Host ""
 Write-Host "[2/4] ESP32 paketi hazirlaniyor..." -ForegroundColor Yellow
 
-$Esp32SourceDir = Join-Path $ScriptDir "hardware\esp32\1.0.0"
+$Esp32SourceDir = Join-Path $ScriptDir "hardware\esp32\1.0.1"
 if (-not (Test-Path $Esp32SourceDir)) {
     Write-Error "HATA: ESP32 kaynak klasoru bulunamadi: $Esp32SourceDir"
     exit 1
