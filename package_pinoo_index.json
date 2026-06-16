@@ -3,7 +3,7 @@
     {
       "name": "pinoo",
       "maintainer": "Pinoo Robotics",
-      "websiteURL": "https://github.com/mobilitysoftware/pinoo_sdk",
+      "websiteURL": "https://github.com/mobilitysoftware/pinoo_boards_arduino",
       "email": "semih@mobilitysoftware.net",
       "help": {
         "online": "https://pinoo.io"
@@ -14,7 +14,7 @@
           "architecture": "avr",
           "version": "1.0.0",
           "category": "Contributed",
-          "url": "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.0/pinoo-avr-1.0.0.zip",
+          "url": "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.0/pinoo-avr-1.0.0.zip",
           "archiveFileName": "pinoo-avr-1.0.0.zip",
           "checksum": "SHA-256:FF0D2C8E00E987164DA4338C24B548FCDE0DFE3F0E47571BCD42F1EA2F6C4A9E",
           "size": "1123980",
@@ -50,7 +50,7 @@
           "architecture": "esp32",
           "version": "1.0.0",
           "category": "Contributed",
-          "url": "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.0/pinoo-esp32-1.0.0.zip",
+          "url": "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.0/pinoo-esp32-1.0.0.zip",
           "archiveFileName": "pinoo-esp32-1.0.0.zip",
           "checksum": "SHA-256:1C1465C571F0F2FAC246442F067D9A20994DE507F717FB2926D732602ADB1AAD",
           "size": "1126619",
