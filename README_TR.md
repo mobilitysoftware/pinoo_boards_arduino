@@ -27,20 +27,20 @@ Aşağıdaki şemada, Pinoo SDK'nın kullanıcı kodu ile donanım ve alt kütü
 
 ```mermaid
 graph TD
-    UserCode[Kullanıcı Kodu / Sketch] -->|Pinoo.h ve Modül API'leri| SDK[Pinoo SDK Core]
-    SDK -->|Boards Konfigürasyonu| PinConfig[Pin Haritaları / src/boards]
+    UserCode["Kullanıcı Kodu - Sketch"] -->|"Pinoo.h ve Modül API'leri"| SDK[Pinoo SDK Core]
+    SDK -->|Boards Konfigürasyonu| PinConfig["Pin Haritaları - src/boards"]
     SDK -->|Üçüncü Parti Alt Yapı| ExtLibs[Açık Kaynak Kütüphaneler]
 
-    subgraph Donanım Desteği
-        PinConfig -->|AVR Platformu| AVR[Pinoo ONE / Shield / Bricky / Moto]
+    subgraph Donanim ["Donanım Desteği"]
+        PinConfig -->|AVR Platformu| AVR["Pinoo ONE - Shield - Bricky - Moto"]
         PinConfig -->|ESP32 Platformu| ESP[Pinoo ESP32]
     end
 
-    subgraph libraries/ (Bağımlılıklar)
-        ExtLibs --> Adafruit[Adafruit NeoPixel / PWM Sürücü]
+    subgraph Bagimliliklar ["libraries - Bağımlılıklar"]
+        ExtLibs --> Adafruit["Adafruit NeoPixel - PWM Sürücü"]
         ExtLibs --> IR[IRremote]
         ExtLibs --> LCD[LiquidCrystal I2C]
-        ExtLibs --> TB[ThingsBoard / TBPubSubClient]
+        ExtLibs --> TB["ThingsBoard - TBPubSubClient"]
         ExtLibs --> WM[WiFiManager]
         ExtLibs --> JSON[ArduinoJson]
     end

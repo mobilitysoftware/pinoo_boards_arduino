@@ -27,20 +27,20 @@ The diagram below shows how the Pinoo SDK acts as a bridge between user code, ha
 
 ```mermaid
 graph TD
-    UserCode[User Code / Sketch] -->|Pinoo.h and Module APIs| SDK[Pinoo SDK Core]
-    SDK -->|Boards Configuration| PinConfig[Pin Maps / src/boards]
+    UserCode["User Code - Sketch"] -->|"Pinoo.h and Module APIs"| SDK[Pinoo SDK Core]
+    SDK -->|Boards Configuration| PinConfig["Pin Maps - src/boards"]
     SDK -->|Third-Party Underlay| ExtLibs[Open Source Libraries]
-    
-    subgraph Hardware Support
-        PinConfig -->|AVR Platform| AVR[Pinoo ONE / Shield / Bricky / Moto]
+
+    subgraph Hardware ["Hardware Support"]
+        PinConfig -->|AVR Platform| AVR["Pinoo ONE - Shield - Bricky - Moto"]
         PinConfig -->|ESP32 Platform| ESP[Pinoo ESP32]
     end
-    
-    subgraph libraries/ (Dependencies)
-        ExtLibs --> Adafruit[Adafruit NeoPixel / PWM Driver]
+
+    subgraph Dependencies ["libraries - Dependencies"]
+        ExtLibs --> Adafruit["Adafruit NeoPixel - PWM Driver"]
         ExtLibs --> IR[IRremote]
         ExtLibs --> LCD[LiquidCrystal I2C]
-        ExtLibs --> TB[ThingsBoard / TBPubSubClient]
+        ExtLibs --> TB["ThingsBoard - TBPubSubClient"]
         ExtLibs --> WM[WiFiManager]
         ExtLibs --> JSON[ArduinoJson]
     end
