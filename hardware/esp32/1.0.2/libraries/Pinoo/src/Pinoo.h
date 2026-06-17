@@ -27,6 +27,14 @@ namespace Pinoo {
      */
     template <typename PortType>
     inline int digitalRead(PortType port) {
+        #if defined(ARDUINO_ARCH_ESP32)
+            #if defined(ESP_ARDUINO_VERSION) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+                ledcDetach(port.pin4);
+            #else
+                ledcDetachPin(port.pin4);
+            #endif
+            pinMode(port.pin4, INPUT);
+        #endif
         return ::digitalRead(port.pin4);
     }
 
@@ -38,6 +46,7 @@ namespace Pinoo {
      */
     template <typename PortType>
     inline void digitalWrite(PortType port, int value) {
+        PINOO_PREPARE_GPIO(port.pin4);
         ::digitalWrite(port.pin4, value);
     }
 
@@ -66,8 +75,21 @@ namespace Pinoo {
     }
 
     // Overloads for raw pins (fallback/advanced use)
-    inline int digitalRead(uint8_t pin) { return ::digitalRead(pin); }
-    inline void digitalWrite(uint8_t pin, int value) { ::digitalWrite(pin, value); }
+    inline int digitalRead(uint8_t pin) {
+        #if defined(ARDUINO_ARCH_ESP32)
+            #if defined(ESP_ARDUINO_VERSION) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+                ledcDetach(pin);
+            #else
+                ledcDetachPin(pin);
+            #endif
+            pinMode(pin, INPUT);
+        #endif
+        return ::digitalRead(pin);
+    }
+    inline void digitalWrite(uint8_t pin, int value) {
+        PINOO_PREPARE_GPIO(pin);
+        ::digitalWrite(pin, value);
+    }
     inline int analogRead(uint8_t pin) { return ::analogRead(pin); }
     inline void analogWrite(uint8_t pin, int value) { ::analogWrite(pin, value); }
 

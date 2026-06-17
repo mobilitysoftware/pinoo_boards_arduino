@@ -93,17 +93,21 @@ void Pinoo_DcMotor::setSpeed(int speed) {
 #else
     if (_isRight) {
         if (speed > 0) {
+            PINOO_PREPARE_GPIO(_in1);
             digitalWrite(_in1, LOW);
             analogWrite(_in2, speed);
         } else {
+            PINOO_PREPARE_GPIO(_in2);
             analogWrite(_in1, -speed);
             digitalWrite(_in2, LOW);
         }
     } else {
         if (speed > 0) {
+            PINOO_PREPARE_GPIO(_in2);
             analogWrite(_in1, speed);
             digitalWrite(_in2, LOW);
         } else {
+            PINOO_PREPARE_GPIO(_in1);
             digitalWrite(_in1, LOW);
             analogWrite(_in2, -speed);
         }
@@ -117,6 +121,8 @@ void Pinoo_DcMotor::stop() {
     PinooMotoDriver::setPWM(_in1, 0, 0);
     PinooMotoDriver::setPWM(_in2, 0, 0);
 #else
+    PINOO_PREPARE_GPIO(_in1);
+    PINOO_PREPARE_GPIO(_in2);
     digitalWrite(_in1, LOW);
     digitalWrite(_in2, LOW);
 #endif
@@ -128,6 +134,8 @@ void Pinoo_DcMotor::brake() {
     PinooMotoDriver::setPWM(_in1, 0, 4095);
     PinooMotoDriver::setPWM(_in2, 0, 4095);
 #else
+    PINOO_PREPARE_GPIO(_in1);
+    PINOO_PREPARE_GPIO(_in2);
     digitalWrite(_in1, HIGH);
     digitalWrite(_in2, HIGH);
 #endif

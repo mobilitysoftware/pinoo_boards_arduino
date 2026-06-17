@@ -11,17 +11,19 @@
 Pinoo_Led::Pinoo_Led(uint8_t pin) : _pin(pin), _state(false) {}
 
 void Pinoo_Led::begin() {
-    pinMode(_pin, OUTPUT);
+    PINOO_PREPARE_GPIO(_pin);
     digitalWrite(_pin, LOW);
     _state = false;
 }
 
 void Pinoo_Led::turnOn() {
+    PINOO_PREPARE_GPIO(_pin);
     digitalWrite(_pin, HIGH);
     _state = true;
 }
 
 void Pinoo_Led::turnOff() {
+    PINOO_PREPARE_GPIO(_pin);
     digitalWrite(_pin, LOW);
     _state = false;
 }

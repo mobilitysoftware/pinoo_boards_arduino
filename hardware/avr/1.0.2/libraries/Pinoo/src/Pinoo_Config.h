@@ -163,4 +163,25 @@ namespace Pinoo {
     #define PINOO_ANALOG_READ(pin) (analogRead(pin))       // AVR native 10-bit
 #endif
 
+// =============================================================================
+// ESP32 Pin Reconfiguration Helper
+// =============================================================================
+// On ESP32 Arduino Core 3.x, if a pin was previously used for PWM (analogWrite/LEDC)
+// or by a peripheral (like NeoPixel/RMT), calling digitalWrite or digitalRead
+// directly triggers a warning and fails. PINOO_PREPARE_GPIO(pin) safely detaches
+// the pin from LEDC/PWM and reconfigures it as a standard GPIO output.
+// =============================================================================
+#if defined(ARDUINO_ARCH_ESP32)
+    #if __has_include(<esp_arduino_version.h>)
+        #include <esp_arduino_version.h>
+    #endif
+    #if defined(ESP_ARDUINO_VERSION) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+        #define PINOO_PREPARE_GPIO(pin) do { ledcDetach(pin); pinMode(pin, OUTPUT); } while(0)
+    #else
+        #define PINOO_PREPARE_GPIO(pin) do { ledcDetachPin(pin); pinMode(pin, OUTPUT); } while(0)
+    #endif
+#else
+    #define PINOO_PREPARE_GPIO(pin) do { } while(0)
+#endif
+
 #endif // PINOO_CONFIG_H

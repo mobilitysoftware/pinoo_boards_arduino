@@ -21,12 +21,13 @@
 Pinoo_Buzzer::Pinoo_Buzzer(uint8_t pin, BuzzerMode mode) : _pin(pin), _mode(mode) {}
 
 void Pinoo_Buzzer::begin() {
-    pinMode(_pin, OUTPUT);
+    PINOO_PREPARE_GPIO(_pin);
     digitalWrite(_pin, LOW);
 }
 
 void Pinoo_Buzzer::turnOn() {
     if (_mode == ACTIVE_BUZZER) {
+        PINOO_PREPARE_GPIO(_pin);
         digitalWrite(_pin, HIGH);
     } else {
         // tone() is available on both AVR and ESP32-Arduino core v2.x+
@@ -36,6 +37,7 @@ void Pinoo_Buzzer::turnOn() {
 
 void Pinoo_Buzzer::turnOff() {
     if (_mode == ACTIVE_BUZZER) {
+        PINOO_PREPARE_GPIO(_pin);
         digitalWrite(_pin, LOW);
     } else {
         noTone(_pin);
