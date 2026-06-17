@@ -17,30 +17,29 @@
     #warning "PINOO WARNING: Safety checks are bypassed globally. Using non-standard port connections may cause physical damage to sensors, actuators, or the Pinoo control board. Pinoo Robotics & Mobility Software accepts no responsibility for hardware damage."
 #endif
 
-// --- ERROR MESSAGE CONSTANTS ---
 #define PINOO_ERR_E01 \
     "PINOO ERROR [E01]: Analog sensors can only be connected to analog ports (Port 7, Port 8, Port 9, or Port 10). Digital ports (Ports 1-6) are not allowed. " \
-    "For support visit: https://pinoo.io/support/errors/E01"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E01.md"
 
 #define PINOO_ERR_E02 \
     "PINOO ERROR [E02]: The selected module requires a Dual-Signal port (Port 5, Port 6, Port 9, or Port 10). " \
-    "For support visit: https://pinoo.io/support/errors/E02"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E02.md"
 
 #define PINOO_ERR_E03 \
     "PINOO ERROR [E03]: LCD Screen must be connected to the hardware I2C port (Port 10). " \
-    "For support visit: https://pinoo.io/support/errors/E03"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E03.md"
 
 #define PINOO_ERR_E04 \
     "PINOO ERROR [E04]: Joystick requires a port with two analog inputs (Port 9 or Port 10). " \
-    "For support visit: https://pinoo.io/support/errors/E04"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E04.md"
 
 #define PINOO_ERR_E12 \
     "PINOO ERROR [E12]: Pinoo::analogWrite requires a PWM-capable port (Port 2 or Port 5). " \
-    "For support visit: https://pinoo.io/support/errors/E12"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E12.md"
 
 #define PINOO_ERR_E13 \
     "PINOO ERROR [E13]: Digital modules can only be connected to digital ports (Port 1, Port 2, Port 3, Port 4, Port 5, or Port 6). Analog ports (Ports 7-10) are not allowed. " \
-    "For support visit: https://pinoo.io/support/errors/E13"
+    "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E13.md"
 
 // --- COMPILE-TIME ASSERTION HELPER MACROS ---
 #ifdef PINOO_BYPASS_SAFETY
