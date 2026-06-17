@@ -20,6 +20,7 @@
  */
 
 // Include the full IRremote implementation FIRST and ONLY in this file.
+#define NO_LED_FEEDBACK_CODE
 #include <IRremote.hpp>
 
 #include "Pinoo_IrReceiver.h"
