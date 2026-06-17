@@ -19,6 +19,9 @@
  * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software
  */
 
+// Arduino.h must be included BEFORE IRremote.hpp to ensure __FlashStringHelper
+// and other Arduino types are defined. Some global IRremote versions omit this.
+#include <Arduino.h>
 // Include the full IRremote implementation FIRST and ONLY in this file.
 #define NO_LED_FEEDBACK_CODE
 #include <IRremote.hpp>

@@ -27,13 +27,13 @@ public:
      * @param address I2C address of the LCD (defaults to 0x27).
      */
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
-    Pinoo_Lcd(PortType port, uint8_t address = 0x27) : _lcd(address, 16, 2) {
+    Pinoo_Lcd(PortType port, uint8_t address = 0x27) : _lcd(address, 16, 2), _cols(16), _rows(2) {
         PINOO_ASSERT_I2C(PortType);
     }
 
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
-    Pinoo_Lcd(PortType port, bool bypass, uint8_t address = 0x27) : _lcd(address, 16, 2) {
+    Pinoo_Lcd(PortType port, bool bypass, uint8_t address = 0x27) : _lcd(address, 16, 2), _cols(16), _rows(2) {
     }
 
     /**
@@ -96,6 +96,8 @@ public:
 
 private:
     LiquidCrystal_I2C _lcd;
+    uint8_t _cols;
+    uint8_t _rows;
 };
 
 #endif // PINOO_LCD_H
