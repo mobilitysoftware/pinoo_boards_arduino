@@ -11,7 +11,7 @@
 # =============================================================================
 
 param(
-    [string]$Version    = "1.0.2",
+    [string]$Version    = "1.0.3",
     [string]$GithubUser = "mobilitysoftware",
     [string]$GithubRepo = "pinoo_sdk"
 )
@@ -102,7 +102,7 @@ Write-Host "[OK] AVR paketi olusturuldu." -ForegroundColor Green
 # 2. ESP32 Paketi
 # =============================================================================
 Write-Host ""
-Write-Host "[2/4] ESP32 paketi hazirlaniyor..." -ForegroundColor Yellow
+Write-Host "[2/5] ESP32 paketi hazirlaniyor..." -ForegroundColor Yellow
 
 $Esp32SourceDir = Join-Path $ScriptDir "hardware\esp32\$Version"
 if (-not (Test-Path $Esp32SourceDir)) {
@@ -124,10 +124,35 @@ Write-Host "  URL     : $Esp32Url" -ForegroundColor Gray
 Write-Host "[OK] ESP32 paketi olusturuldu." -ForegroundColor Green
 
 # =============================================================================
-# 3. package_pinoo_index.json güncelle
+# 3. ESP8266 Paketi
 # =============================================================================
 Write-Host ""
-Write-Host "[3/4] package_pinoo_index.json guncelleniyor..." -ForegroundColor Yellow
+Write-Host "[3/5] ESP8266 paketi hazirlaniyor..." -ForegroundColor Yellow
+
+$Esp8266SourceDir = Join-Path $ScriptDir "hardware\esp8266\$Version"
+if (-not (Test-Path $Esp8266SourceDir)) {
+    Write-Error "HATA: ESP8266 kaynak klasoru bulunamadi: $Esp8266SourceDir"
+    exit 1
+}
+
+$Esp8266ZipName  = "pinoo-esp8266-$Version.zip"
+$Esp8266ZipPath  = New-PinooZip -SourceDir $Esp8266SourceDir -ZipName $Esp8266ZipName -InternalFolderName "pinoo-esp8266-$Version"
+
+$Esp8266Checksum = Get-FileChecksum -FilePath $Esp8266ZipPath
+$Esp8266Size     = Get-FileSize -FilePath $Esp8266ZipPath
+$Esp8266Url      = "https://github.com/$GithubUser/$GithubRepo/releases/download/v$Version/$Esp8266ZipName"
+
+Write-Host "  ZIP     : $Esp8266ZipPath" -ForegroundColor Gray
+Write-Host "  Checksum: $Esp8266Checksum" -ForegroundColor Gray
+Write-Host "  Boyut   : $Esp8266Size byte" -ForegroundColor Gray
+Write-Host "  URL     : $Esp8266Url" -ForegroundColor Gray
+Write-Host "[OK] ESP8266 paketi olusturuldu." -ForegroundColor Green
+
+# =============================================================================
+# 4. package_pinoo_index.json güncelle
+# =============================================================================
+Write-Host ""
+Write-Host "[4/5] package_pinoo_index.json guncelleniyor..." -ForegroundColor Yellow
 
 $IndexTemplatePath = Join-Path $ScriptDir "package_pinoo_index.json"
 if (-not (Test-Path $IndexTemplatePath)) {
@@ -135,27 +160,42 @@ if (-not (Test-Path $IndexTemplatePath)) {
     exit 1
 }
 
-$IndexContent = Get-Content $IndexTemplatePath -Raw -Encoding UTF8
+$json = Get-Content $IndexTemplatePath -Raw -Encoding UTF8 | ConvertFrom-Json
+$pinooPkg = $json.packages | Where-Object { $_.name -eq "pinoo" }
 
-# AVR değerleri
-$IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-avr-[^"]+\.zip"', "`"url`": `"$AvrUrl`""
-$IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-avr-[^"]*\.zip"', "`"archiveFileName`": `"$AvrZipName`""
-$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-avr-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`${1}$AvrChecksum`${2}$AvrSize`${3}"
+$avrPlat = $pinooPkg.platforms | Where-Object { $_.architecture -eq "avr" }
+if ($avrPlat) {
+    $avrPlat.url = $AvrUrl
+    $avrPlat.archiveFileName = $AvrZipName
+    $avrPlat.checksum = $AvrChecksum
+    $avrPlat.size = "$AvrSize"
+}
 
-# ESP32 değerleri
-$IndexContent = $IndexContent -replace '"url": "https://github.com/[^"]+/releases/download/[^"]+/pinoo-esp32-[^"]+\.zip"', "`"url`": `"$Esp32Url`""
-$IndexContent = $IndexContent -replace '"archiveFileName": "pinoo-esp32-[^"]*\.zip"', "`"archiveFileName`": `"$Esp32ZipName`""
-$IndexContent = $IndexContent -replace '("archiveFileName":\s*"pinoo-esp32-[^"]*\.zip",\s*"checksum":\s*")[^"]*(",\s*"size":\s*")[^"]*(")', "`${1}$Esp32Checksum`${2}$Esp32Size`${3}"
+$esp32Plat = $pinooPkg.platforms | Where-Object { $_.architecture -eq "esp32" }
+if ($esp32Plat) {
+    $esp32Plat.url = $Esp32Url
+    $esp32Plat.archiveFileName = $Esp32ZipName
+    $esp32Plat.checksum = $Esp32Checksum
+    $esp32Plat.size = "$Esp32Size"
+}
+
+$esp8266Plat = $pinooPkg.platforms | Where-Object { $_.architecture -eq "esp8266" }
+if ($esp8266Plat) {
+    $esp8266Plat.url = $Esp8266Url
+    $esp8266Plat.archiveFileName = $Esp8266ZipName
+    $esp8266Plat.checksum = $Esp8266Checksum
+    $esp8266Plat.size = "$Esp8266Size"
+}
 
 # Çıkış JSON'ı yaz
 $OutputIndexPath = Join-Path $OutputDir "package_pinoo_index.json"
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
-[System.IO.File]::WriteAllText($OutputIndexPath, $IndexContent, $utf8NoBom)
+[System.IO.File]::WriteAllText($OutputIndexPath, ($json | ConvertTo-Json -Depth 100), $utf8NoBom)
 
 Write-Host "[OK] JSON guncellendi: $OutputIndexPath" -ForegroundColor Green
 
 # =============================================================================
-# 4. Özet
+# 5. Özet
 # =============================================================================
 Write-Host ""
 Write-Host "======================================================" -ForegroundColor Cyan
@@ -164,17 +204,19 @@ Write-Host "======================================================" -ForegroundC
 Write-Host ""
 Write-Host "Olusturulan dosyalar:" -ForegroundColor White
 Write-Host "  $OutputDir\" -ForegroundColor Gray
-Write-Host "  ├── $AvrZipName" -ForegroundColor Gray
-Write-Host "  ├── $Esp32ZipName" -ForegroundColor Gray
-Write-Host "  └── package_pinoo_index.json" -ForegroundColor Gray
+Write-Host "  |-- $AvrZipName" -ForegroundColor Gray
+Write-Host "  |-- $Esp32ZipName" -ForegroundColor Gray
+Write-Host "  |-- $Esp8266ZipName" -ForegroundColor Gray
+Write-Host "  \-- package_pinoo_index.json" -ForegroundColor Gray
 Write-Host ""
 Write-Host "Sonraki adimlar:" -ForegroundColor White
-Write-Host "  1. GitHub'da repo'yu public yap" -ForegroundColor Yellow
-Write-Host "  2. 'v$Version' tag'i ile bir GitHub Release olustur" -ForegroundColor Yellow
-Write-Host "  3. release_output\ icerisindeki ZIP dosyalarini Release'e ekle" -ForegroundColor Yellow
-Write-Host "  4. release_output\package_pinoo_index.json icerigini" -ForegroundColor Yellow
-Write-Host "     repo kok dizinindeki package_pinoo_index.json'a kopyala ve commit'le" -ForegroundColor Yellow
+Write-Host "  1. GitHub uzerinde repoyu public yap" -ForegroundColor Yellow
+Write-Host "  2. v$Version etiketi ile bir GitHub Release olustur" -ForegroundColor Yellow
+Write-Host "  3. release_output icerisindeki ZIP dosyalarini Release ekle" -ForegroundColor Yellow
+Write-Host "  4. release_output/package_pinoo_index.json icerigini" -ForegroundColor Yellow
+Write-Host "     repo kok dizinindeki package_pinoo_index.json dosyasina kopyala ve commit yap" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "  Arduino IDE'de eklenecek URL:" -ForegroundColor White
+Write-Host "  Arduino IDE Ek Kart Yoneticisi URL:" -ForegroundColor White
 Write-Host "  https://raw.githubusercontent.com/$GithubUser/$GithubRepo/main/package_pinoo_index.json" -ForegroundColor Cyan
 Write-Host ""
+

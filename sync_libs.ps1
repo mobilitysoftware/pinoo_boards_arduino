@@ -11,14 +11,15 @@ $KeywordsFile = Join-Path $PSScriptRoot "keywords.txt"
 
 # External Library Sources
 $ExtLibsSrcDir = Join-Path $PSScriptRoot "pinoostudiodan_cekilen_libraries/libraries"
-$ExtLibs = @("Adafruit_NeoPixel", "IRremote", "LiquidCrystal_I2C", "Adafruit_PWM_Servo_Driver_Library", "Adafruit_BusIO")
+$ExtLibs = @("Adafruit_NeoPixel", "IRremote", "LiquidCrystal_I2C", "Adafruit_PWM_Servo_Driver_Library", "Adafruit_BusIO", "SmartProv", "TBPubSubClient")
 
-$Version = "1.0.2"
+$Version = "1.0.3"
 
 # Platform Destinations
 $Destinations = @(
     (Join-Path $PSScriptRoot "hardware/avr/$Version/libraries"),
-    (Join-Path $PSScriptRoot "hardware/esp32/$Version/libraries")
+    (Join-Path $PSScriptRoot "hardware/esp32/$Version/libraries"),
+    (Join-Path $PSScriptRoot "hardware/esp8266/$Version/libraries")
 )
 
 # Function to copy files recursively and sync external dependencies

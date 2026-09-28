@@ -1,2 +1,0 @@
-name=Pinoo ESP32 Boards
-version=1.0.2

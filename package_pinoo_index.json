@@ -12,12 +12,12 @@
                                            {
                                                "name":  "Pinoo AVR Boards",
                                                "architecture":  "avr",
-                                               "version":  "1.0.2",
+                                               "version":  "1.0.3",
                                                "category":  "Contributed",
-                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.2/pinoo-avr-1.0.2.zip",
-                                               "archiveFileName":  "pinoo-avr-1.0.2.zip",
-                                               "checksum":  "SHA-256:4828991CE2EB88C372F8BCD04A2FE14387B5819E28C3F7A181DADAE98DC6B7E8",
-                                               "size":  "1154853",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-avr-1.0.3.zip",
+                                               "archiveFileName":  "pinoo-avr-1.0.3.zip",
+                                               "checksum":  "SHA-256:D01E0B5C6E29B6F3CF32EA90E2524CDCC89FB48E0E686B8593AE1936358CA8ED",
+                                               "size":  "1226677",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -56,12 +56,12 @@
                                            {
                                                "name":  "Pinoo ESP32 Boards",
                                                "architecture":  "esp32",
-                                               "version":  "1.0.2",
+                                               "version":  "1.0.3",
                                                "category":  "Contributed",
-                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.2/pinoo-esp32-1.0.2.zip",
-                                               "archiveFileName":  "pinoo-esp32-1.0.2.zip",
-                                               "checksum":  "SHA-256:E884673B25A7A2AE1B771249941FF8E2276D002E7DED4E9164F742C6B4974478",
-                                               "size":  "19279155",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-esp32-1.0.3.zip",
+                                               "archiveFileName":  "pinoo-esp32-1.0.3.zip",
+                                               "checksum":  "SHA-256:F4400BC324F0C8E17BE7A8003C3F4F9E0385C2854154855D0C0871B8ED2D6ADD",
+                                               "size":  "19308904",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -85,6 +85,46 @@
                                                                              "packager":  "esp32",
                                                                              "name":  "mkspiffs",
                                                                              "version":  "0.2.3"
+                                                                         }
+                                                                     ]
+                                           },
+                                           {
+                                               "name":  "Pinoo ESP8266 Boards",
+                                               "architecture":  "esp8266",
+                                               "version":  "1.0.3",
+                                               "category":  "Contributed",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-esp8266-1.0.3.zip",
+                                               "archiveFileName":  "pinoo-esp8266-1.0.3.zip",
+                                               "checksum":  "SHA-256:82378D4C5D76C8688CC7584E0BB96FF47A5747E5DCB75DD91BC6F4FEE843C0D6",
+                                               "size":  "36725502",
+                                               "help":  {
+                                                            "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
+                                                        },
+                                               "boards":  [
+                                                              {
+                                                                  "name":  "Pinoo ESP-01 (ESP8266)"
+                                                              }
+                                                          ],
+                                               "toolsDependencies":  [
+                                                                         {
+                                                                             "packager":  "esp8266",
+                                                                             "name":  "xtensa-lx106-elf-gcc",
+                                                                             "version":  "3.1.0-gcc10.3-e5f9fec"
+                                                                         },
+                                                                         {
+                                                                             "packager":  "esp8266",
+                                                                             "name":  "mklittlefs",
+                                                                             "version":  "3.1.0-gcc10.3-e5f9fec"
+                                                                         },
+                                                                         {
+                                                                             "packager":  "esp8266",
+                                                                             "name":  "mkspiffs",
+                                                                             "version":  "3.1.0-gcc10.3-e5f9fec"
+                                                                         },
+                                                                         {
+                                                                             "packager":  "esp8266",
+                                                                             "name":  "python3",
+                                                                             "version":  "3.7.2-post1"
                                                                          }
                                                                      ]
                                            }
