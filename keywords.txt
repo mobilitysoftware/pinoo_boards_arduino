@@ -68,6 +68,7 @@ digitalRead	KEYWORD2
 digitalWrite	KEYWORD2
 analogRead	KEYWORD2
 analogWrite	KEYWORD2
+analogReadResolution	KEYWORD2
 
 # Constants & Ports (LITERAL1)
 DOOR1	LITERAL1

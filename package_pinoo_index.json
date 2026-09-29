@@ -16,8 +16,8 @@
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-avr-1.0.3.zip",
                                                "archiveFileName":  "pinoo-avr-1.0.3.zip",
-                                               "checksum":  "SHA-256:D01E0B5C6E29B6F3CF32EA90E2524CDCC89FB48E0E686B8593AE1936358CA8ED",
-                                               "size":  "1226677",
+                                               "checksum":  "SHA-256:CB961B9CDD732A4FBD815D1D029B4E40D9F8774389878B014F21FAB2FDED1DC8",
+                                               "size":  "1226994",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -60,8 +60,8 @@
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-esp32-1.0.3.zip",
                                                "archiveFileName":  "pinoo-esp32-1.0.3.zip",
-                                               "checksum":  "SHA-256:F4400BC324F0C8E17BE7A8003C3F4F9E0385C2854154855D0C0871B8ED2D6ADD",
-                                               "size":  "19308904",
+                                               "checksum":  "SHA-256:954580CC7F64ACA52E5F5A7A65DCD6E8D7AC6620F78790F589A77A8485E42D16",
+                                               "size":  "19309221",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -95,8 +95,8 @@
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_sdk/releases/download/v1.0.3/pinoo-esp8266-1.0.3.zip",
                                                "archiveFileName":  "pinoo-esp8266-1.0.3.zip",
-                                               "checksum":  "SHA-256:82378D4C5D76C8688CC7584E0BB96FF47A5747E5DCB75DD91BC6F4FEE843C0D6",
-                                               "size":  "36725502",
+                                               "checksum":  "SHA-256:D47A5584F3E37D0E4B5AC5479475C3EB0AEEFCF48B2B3F52B80287FBB0ED66AA",
+                                               "size":  "36725819",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },

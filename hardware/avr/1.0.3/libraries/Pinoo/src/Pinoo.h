@@ -93,7 +93,38 @@ namespace Pinoo {
     inline int analogRead(uint8_t pin) { return ::analogRead(pin); }
     inline void analogWrite(uint8_t pin, int value) { ::analogWrite(pin, value); }
 
+    /**
+     * @brief Sets the analog read resolution in bits.
+     * @param bits The resolution bits (defaults to 10 on AVR/ESP8266, 12 on ESP32).
+     */
+    inline void analogReadResolution(uint8_t bits = 10) {
+        #if defined(ARDUINO_ARCH_ESP32)
+            ::analogReadResolution(bits);
+        #else
+            (void)bits;
+        #endif
+    }
+
 } // namespace Pinoo
+
+// =============================================================================
+// Global analogReadResolution Compatibility Shims
+// =============================================================================
+// AVR and ESP8266 Arduino Cores lack analogReadResolution().
+// ESP32 provides analogReadResolution(uint8_t bits) natively but lacks a parameterless overload.
+// These shims ensure seamless cross-platform compatibility across all Pinoo boards.
+// =============================================================================
+#if defined(ARDUINO_ARCH_ESP32)
+    inline void analogReadResolution() {
+        ::analogReadResolution(10);
+    }
+#else
+    inline void analogReadResolution(uint8_t bits = 10) {
+        (void)bits;
+    }
+#endif
+
+
 
 // =============================================================================
 // Include Modules

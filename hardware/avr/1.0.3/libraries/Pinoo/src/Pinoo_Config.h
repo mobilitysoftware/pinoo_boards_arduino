@@ -97,6 +97,24 @@ namespace Pinoo {
     #endif
 #endif
 
+#if defined(ESP8266) || defined(ARDUINO_ARCH_ESP8266)
+    #ifndef A1
+        #define A1 A0
+    #endif
+    #ifndef A2
+        #define A2 A0
+    #endif
+    #ifndef A3
+        #define A3 A0
+    #endif
+    #ifndef A4
+        #define A4 A0
+    #endif
+    #ifndef A5
+        #define A5 A0
+    #endif
+#endif
+
 // =============================================================================
 // Load Pin Definitions & Map Board Components
 // =============================================================================
