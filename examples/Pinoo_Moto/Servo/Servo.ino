@@ -2,14 +2,16 @@
  * @file Servo.ino
  * @brief Bilingual (TR/EN) example for Pinoo Servo motor module.
  * 
- * Bu örnek Door 2'ye bağlı Servo motor modülünün nasıl kontrol edileceğini gösterir.
- * This example demonstrates how to control a Servo motor module connected to Door 2.
+ * Bu örnek Pinoo Moto'nun motor sürücüsünün (PCA9685) 8. kanalına bağlı servo motorun nasıl kontrol edileceğini gösterir.
+ * Pinoo Moto'da servo bir kapıya (DOOR) değil, motor sürücü kanalına (0-15) bağlanır.
+ * This example demonstrates how to control a servo motor connected to channel 8 of the Pinoo Moto motor driver (PCA9685).
+ * On Pinoo Moto a servo connects to a motor driver channel (0-15), not to a door.
  */
 
 #include <Pinoo.h>
 
-// Door 2'ye bağlı Servo motor / Servo motor connected to Door 2
-Pinoo_Servo myServo(DOOR2);
+// PCA9685 kanal 8'e (Sürücü 3) bağlı Servo motor / Servo motor connected to PCA9685 channel 8 (driver block 3)
+Pinoo_Servo myServo(8);
 
 void setup() {
   myServo.begin(); // Servo motoru başlat / Initialize servo

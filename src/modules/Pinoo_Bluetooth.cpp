@@ -1,6 +1,6 @@
 /**
  * @file Pinoo_Bluetooth.cpp
- * @brief Bluetooth module (HM10) source implementation using Hardware Serial.
+ * @brief Bluetooth module (JDY-23 / HM-10 compatible) source implementation using Hardware Serial.
  * 
  * @author Semih Aydın <semih@mobilitysoftware.net>
  * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software

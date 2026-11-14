@@ -6,7 +6,7 @@
  * 
  * ÖZELLİKLER:
  * 1. SmartProv Captive Portal:
- *    - İlk açılışta veya ağa bağlanamadığında "Pinoo_IoT_Setup" adında bir Wi-Fi erişim noktası (AP) açar.
+ *    - İlk açılışta veya ağa bağlanamadığında "Pinoo_Moto_IoT_XXXX" adında bir Wi-Fi erişim noktası (AP) açar.
  *    - Kullanıcı telefon/bilgisayarla bağlanarak Wi-Fi ağını, şifresini ve ThingsBoard Token / Sunucu bilgilerini girer.
  *    - Kod içine hiçbir Wi-Fi veya API bilgisi sabit (hardcoded) yazılmaz!
  * 
@@ -20,9 +20,10 @@
  *   - ESP-01 (ESP8266, 1MB Flash)
  *   - Seri Port: 9600 Baud (Pinoo Moto ile uyumlu)
  * 
- * Kütüphaneler:
+ * Kütüphaneler (hepsi "Pinoo ESP8266 Boards" paketiyle birlikte gelir, ayrıca kurulmaz):
  *   - SmartProv (v2.1.3+)
- *   - PubSubClient
+ *   - PubSubClient (TBPubSubClient)
+ * Arduino IDE kartı: Araçlar > Kart > Pinoo ESP8266 Boards > Pinoo ESP-01 (ESP8266)
  * 
  * @author Pinoo Robotics
  */

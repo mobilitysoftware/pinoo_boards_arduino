@@ -51,3 +51,12 @@ E01 hatasını gidermek için modülü bağlayabileceğiniz kapılar şunlardır
 * **DOOR8** (Port 8)
 * **DOOR9** (Port 9)
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
+
+* **Pinoo Moto'da geçerli kapılar:** DOOR3, DOOR4
+* Analog modüller (ışık, potansiyometre, toprak nem, su seviye) DOOR3 ya da DOOR4'e takılır.
+* Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).

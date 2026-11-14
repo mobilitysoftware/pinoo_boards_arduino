@@ -31,9 +31,12 @@ public:
         PINOO_ASSERT_DIGITAL(PortType);
     }
 
-    template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
+    // The bypass flag is a template parameter that only accepts a real bool. Otherwise
+    // Pinoo_RgbLed(DOOR1, 4) would be ambiguous between (port, count) and (port, bypass).
+    template <typename PortType, typename BypassType,
+              typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value && Pinoo::is_bool<BypassType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
-    Pinoo_RgbLed(PortType port, bool bypass, uint16_t count = 2) 
+    Pinoo_RgbLed(PortType port, BypassType bypass, uint16_t count = 2) 
         : _strip(count, PortType::pin4, NEO_GRB + NEO_KHZ800) {
     }
 

@@ -57,6 +57,7 @@ graph TD
 | **Pinoo Bricky** | AVR | ATmega328P | LEGO-compatible miniature robotics board |
 | **Pinoo Moto** | AVR | ATmega328P | Advanced board with 8x DC / 4x Stepper motor drivers & Bluetooth |
 | **Pinoo ESP32** | ESP32 | ESP32-WROOM-32 | Development board with built-in Wi-Fi, Bluetooth & IoT features |
+| **Pinoo ESP-01** | ESP8266 | ESP-01 (ESP8266EX) | Wi-Fi module that plugs into Pinoo Moto (SmartProv + ThingsBoard bridge) |
 
 ---
 
@@ -75,8 +76,11 @@ pinoo_sdk/
 │   ├── Pinoo_Moto/               # Pinoo Moto (Multi-Motor) example projects
 │   └── Pinoo_ESP32/              # Pinoo ESP32 (IoT/Wi-Fi) example projects
 ├── hardware/                     # Arduino IDE Board Manager Packages
-│   ├── avr/                      # AVR Board Definitions & Libraries (1.0.2)
-│   └── esp32/                    # ESP32 Board Definitions & Libraries (1.0.2)
+│   ├── avr/                      # AVR Board Definitions & Libraries (1.0.4)
+│   ├── esp32/                    # ESP32 Board Definitions & Libraries (1.0.4)
+│   └── esp8266/                  # ESP-01 (ESP8266) board definition: Pinoo Moto Wi-Fi bridge (1.0.4)
+├── example_projects/             # Ready-made project examples (e.g. Pinoo Moto 4x4 car)
+├── errors/                       # Compile-time error code guide (E01...E14)
 ├── library.properties            # Arduino Library Metadata File
 └── package_pinoo_index.json      # Arduino Board Manager JSON File
 ```
@@ -102,8 +106,10 @@ Follow these steps to integrate Pinoo boards and SDK libraries into your Arduino
 1. Go to **Tools** -> **Board** -> **Boards Manager...** (or click the board manager icon on the left sidebar).
 2. Search for **Pinoo**.
 3. Locate **Pinoo AVR Boards** and **Pinoo ESP32 Boards**, and click **Install** for both.
+4. If you will program the **ESP-01 (Wi-Fi)** module that plugs into Pinoo Moto, also install **Pinoo ESP8266 Boards**. The `SmartProv` and MQTT (`PubSubClient`) libraries are included in the package, you do not need to install them separately.
+5. Before uploading, select your board under **Tools > Board** (for Pinoo Moto: **Pinoo AVR Boards > Pinoo Moto**). If you pick a generic "Arduino Uno", the Pinoo SDK assumes a Pinoo ONE and the Moto motor channels will not behave as expected.
 
-### 3. Sürücü (Driver) Installation (If Required)
+### 3. Driver Installation (If Required)
 Pinoo boards use the **CH340** USB-to-Serial converter chip to communicate with computers. If your board does not appear under the `Port` menu when connected, [download and install the CH340 Driver](https://www.wch-ic.com/downloads/ch341ser_zip.html).
 
 ---
@@ -120,7 +126,7 @@ Once installation is complete, you can access example codes directly from the Ar
 #include <Pinoo.h>
 
 // Initialize a LED module connected to Port 1 (RJ11) of Pinoo ONE
-Pinoo_Led led(DOOR1, 1);
+Pinoo_Led led(DOOR1);
 
 void setup() {
   // Start the LED module
@@ -128,9 +134,9 @@ void setup() {
 }
 
 void loop() {
-  led.ledOn();   // Turn on the LED
+  led.turnOn();  // Turn on the LED
   delay(1000);   // Wait 1 second
-  led.ledOff();  // Turn off the LED
+  led.turnOff(); // Turn off the LED
   delay(1000);   // Wait 1 second
 }
 ```

@@ -8,8 +8,9 @@
 
 #include <Pinoo.h>
 
-// Varsayılan motor sürücü pinleri ile Step Motor nesnesi oluştur / Create Stepper motor object with default driver pins (IN1=11, IN2=10, IN3=6, IN4=5)
-Pinoo_Stepper stepper;
+// STEPPER2 kanalındaki Step Motor (Sürücü 2, PCA9685 kanal 4-7) / Stepper motor on channel STEPPER2 (driver block 2, PCA9685 channels 4-7)
+// Kanallar: STEPPER1=0-3, STEPPER2=4-7, STEPPER3=8-11, STEPPER4=12-15 / Channels: STEPPER1=0-3, STEPPER2=4-7, STEPPER3=8-11, STEPPER4=12-15
+Pinoo_Stepper stepper(STEPPER2);
 
 void setup() {
   stepper.begin(); // Step motoru başlat / Initialize Stepper motor

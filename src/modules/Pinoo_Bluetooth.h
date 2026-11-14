@@ -1,6 +1,6 @@
 /**
  * @file Pinoo_Bluetooth.h
- * @brief Bluetooth module class (HM10). Wraps the hardware Serial communication.
+ * @brief Bluetooth module class (JDY-23 / HM-10 compatible BLE). Wraps the hardware Serial communication.
  * 
  * Connected directly to the hardware RX/TX pins of the Pinoo card.
  * 
@@ -22,7 +22,7 @@ public:
 
     /**
      * @brief Initializes the Bluetooth module communication. Must be called in setup().
-     * @param baud Baud rate for Serial communication (defaults to 9600 for HM10).
+     * @param baud Baud rate for Serial communication (defaults to 9600 for JDY-23 / HM-10).
      */
     void begin(long baud = 9600);
 

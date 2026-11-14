@@ -39,9 +39,9 @@ void setup() {
   led.begin();
 }
 void loop() {
-  led.ledOn();
+  led.turnOn();
   delay(1000);
-  led.ledOff();
+  led.turnOff();
   delay(1000);
 }
 ```
@@ -56,3 +56,12 @@ E13 hatasını gidermek için modülü bağlayabileceğiniz dijital kapılar şu
 * **DOOR4** (Port 4)
 * **DOOR5** (Port 5)
 * **DOOR6** (Port 6)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
+
+* **Pinoo Moto'da geçerli kapılar:** DOOR1, DOOR2
+* Dijital modüller (LED, buzzer, buton, PIR, eğim, DHT11, RGB LED) DOOR1 ya da DOOR2'ye takılır. DOOR3 yalnız analog, DOOR4 ise I2C hattıdır.
+* Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).

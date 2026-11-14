@@ -50,3 +50,12 @@ void loop() {
 E04 hatasını gidermek için modülü bağlayabileceğiniz kapılar şunlardır:
 * **DOOR9** (Port 9)
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
+
+* **Pinoo Moto'da geçerli kapılar:** DOOR3, DOOR4
+* Joystick iki analog giriş kullanır (X = pin4, Y = pin2), bu yüzden DOOR3 ya da DOOR4'e takılır.
+* Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).

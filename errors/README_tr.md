@@ -16,6 +16,7 @@ Aşağıdaki tablodan karşılaştığınız hata koduna tıklayarak detaylı ç
 | **E04** | Joystick modülü çift analog giriş gerektirir (Yalnızca Port 9 veya 10 kullanılabilir). | [E04_tr.md](E04_tr.md) |
 | **E12** | `analogWrite` işlemi PWM destekli port gerektirir (Yalnızca Port 2 veya 5 kullanılabilir). | [E12_tr.md](E12_tr.md) |
 | **E13** | Dijital modüller analog portlara bağlanamaz (Yalnızca Port 1, 2, 3, 4, 5, 6 kullanılabilir). | [E13_tr.md](E13_tr.md) |
+| **E14** | Pinoo Moto'da servo kapıya değil motor sürücü kanalına (0-15) bağlanır. | [E14_tr.md](E14_tr.md) |
 
 ---
 

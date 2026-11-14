@@ -51,3 +51,12 @@ To resolve the E02 error, connect the module to any of these dual-signal ports:
 * **DOOR6** (Port 6)
 * **DOOR9** (Port 9)
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in the generic message belong to Pinoo ONE. On Pinoo Moto the compiler message already lists the Moto doors.
+
+* **Valid dual-signal digital doors on Pinoo Moto:** DOOR1, DOOR2
+* Dual-signal modules (ultrasonic distance, line tracker) use two digital pins, so they connect to DOOR1 or DOOR2. DOOR3 is analog-only and DOOR4 is the I2C bus shared with the motor driver.
+* See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).

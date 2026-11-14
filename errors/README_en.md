@@ -16,6 +16,7 @@ Click the error code you encountered in the table below to go to the detailed tr
 | **E04** | Joystick requires a port with two analog inputs (Only Port 9 or 10 are allowed). | [E04_en.md](E04_en.md) |
 | **E12** | `analogWrite` requires a PWM-capable port (Only Port 2 or 5 are allowed). | [E12_en.md](E12_en.md) |
 | **E13** | Digital modules cannot be connected to analog ports (Only Ports 1, 2, 3, 4, 5, 6 are allowed). | [E13_en.md](E13_en.md) |
+| **E14** | On Pinoo Moto, servos connect to motor driver channels (0-15), not to doors. | [E14_en.md](E14_en.md) |
 
 ---
 

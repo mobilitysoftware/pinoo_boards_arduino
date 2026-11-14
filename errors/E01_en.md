@@ -51,3 +51,12 @@ To resolve the E01 error, you can connect the module to any of these analog port
 * **DOOR8** (Port 8)
 * **DOOR9** (Port 9)
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in the generic message belong to Pinoo ONE. On Pinoo Moto the compiler message already lists the Moto doors.
+
+* **Valid analog doors on Pinoo Moto:** DOOR3, DOOR4
+* Analog sensors (light, potentiometer, soil moisture, water level) connect to DOOR3 or DOOR4.
+* See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).

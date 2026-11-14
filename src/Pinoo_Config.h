@@ -40,6 +40,12 @@ namespace Pinoo {
         static constexpr bool value = false;
     };
 
+    template <typename T>
+    struct is_bool {
+        static constexpr bool value = false;
+    };
+    template <> struct is_bool<bool> { static constexpr bool value = true; };
+
     template <> struct is_integral<bool> { static constexpr bool value = true; };
     template <> struct is_integral<char> { static constexpr bool value = true; };
     template <> struct is_integral<signed char> { static constexpr bool value = true; };

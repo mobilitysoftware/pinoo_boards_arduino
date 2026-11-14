@@ -57,15 +57,15 @@
 // RJ11 Ports Matrix (Digital & Analog Interfaces)
 // =============================================================================
 
-// Port 1 (Purple/Green) -> Pin 4: D13, Pin 2: D12
+// Port 1 (Purple/Green) -> Pin 4: D12, Pin 2: D13 (D13 is also the on-board USER LED)
 #define PINOO_MOTO_PORT1_PIN4         12
 #define PINOO_MOTO_PORT1_PIN2         13
 
-// Port 2 (Purple/Green) -> Pin 4: D11 (PWM), Pin 2: D10 (PWM)
+// Port 2 (Purple/Green) -> Pin 4: D10 (PWM), Pin 2: D11 (PWM)
 #define PINOO_MOTO_PORT2_PIN4         10
 #define PINOO_MOTO_PORT2_PIN2         11
 
-// Port 3 (Red/Yellow) -> Pin 4: A7 (Analog-only), Pin 2: A6 (Analog-only)
+// Port 3 (Red/Yellow) -> Pin 4: A6 (Analog-only), Pin 2: A7 (Analog-only)
 #define PINOO_MOTO_PORT3_PIN4         A6
 #define PINOO_MOTO_PORT3_PIN2         A7
 
@@ -105,7 +105,7 @@ struct PinooMotoDoor3 {
     static constexpr bool is_digital = false; // A6/A7 are input-only analog on ATmega328p
     static constexpr bool is_analog = true;
     static constexpr bool is_pwm = false;
-    static constexpr bool is_dual = true;
+    static constexpr bool is_dual = false; // dual-signal DIGITAL modules (ultrasonic, line tracker) need DOOR1/DOOR2 (E02)
     static constexpr bool has_dual_analog = true;
     static constexpr bool is_i2c = false;
 };
@@ -116,7 +116,7 @@ struct PinooMotoDoor4 {
     static constexpr bool is_digital = false;
     static constexpr bool is_analog = true;
     static constexpr bool is_pwm = false;
-    static constexpr bool is_dual = true;
+    static constexpr bool is_dual = false; // I2C bus shared with the PCA9685 motor driver: no digital dual-signal modules (E02)
     static constexpr bool has_dual_analog = true;
     static constexpr bool is_i2c = true;
 };

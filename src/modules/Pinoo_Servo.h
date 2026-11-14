@@ -30,18 +30,25 @@ public:
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_Servo(PortType port) {
         PINOO_ASSERT_DIGITAL(PortType);
+#if defined(PINOO_BOARD_MOTO)
+        // On Pinoo Moto the servo is driven by a PCA9685 channel (0-15), not by a door pin.
+        static_assert(sizeof(PortType) == 0, PINOO_ERR_E14);
+#endif
         _pin = PortType::pin4;
     }
 
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     [[deprecated("PINOO WARNING: Local safety checks bypassed. Non-standard connections can damage hardware. Pinoo Robotics accepts no liability.")]]
     Pinoo_Servo(PortType port, bool bypass) {
+#if defined(PINOO_BOARD_MOTO)
+        static_assert(sizeof(PortType) == 0, PINOO_ERR_E14);
+#endif
         _pin = PortType::pin4;
     }
 
     /**
      * @brief Constructor for raw Arduino pin connections.
-     * @param pin The Arduino pin number (e.g., 9).
+     * @param pin The Arduino pin number (e.g., 9). On Pinoo Moto this is the motor driver (PCA9685) channel, 0-15.
      */
     Pinoo_Servo(uint8_t pin);
 

@@ -35,7 +35,12 @@ public:
      * @param in3 Stepper motor control pin 3 (defaults to 6).
      * @param in4 Stepper motor control pin 4 (defaults to 5).
      */
+#if defined(PINOO_BOARD_MOTO)
+    // On Pinoo Moto there is no default pin set: use Pinoo_Stepper(STEPPER1 ... STEPPER4).
+    Pinoo_Stepper(uint8_t in1, uint8_t in2, uint8_t in3, uint8_t in4);
+#else
     Pinoo_Stepper(uint8_t in1 = 11, uint8_t in2 = 10, uint8_t in3 = 6, uint8_t in4 = 5);
+#endif
 
     /**
      * @brief Initializes the stepper motor pins. Must be called in setup().

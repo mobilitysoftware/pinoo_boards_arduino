@@ -28,7 +28,7 @@ void loop() {
   rightMotor.stop();
   delay(1000);
 
-  // Motorları geri yarım hız sür / Drive motors backward half speed
+  // Motorları geri tam hız sür / Drive motors backward full speed
   leftMotor.setSpeed(-255);
   rightMotor.setSpeed(-255);
   delay(2000);

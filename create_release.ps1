@@ -11,9 +11,9 @@
 # =============================================================================
 
 param(
-    [string]$Version    = "1.0.3",
+    [string]$Version    = "1.0.4",
     [string]$GithubUser = "mobilitysoftware",
-    [string]$GithubRepo = "pinoo_sdk"
+    [string]$GithubRepo = "pinoo_boards_arduino"
 )
 
 $ErrorActionPreference = "Stop"

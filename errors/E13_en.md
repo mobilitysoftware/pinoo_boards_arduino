@@ -39,9 +39,9 @@ void setup() {
   led.begin();
 }
 void loop() {
-  led.ledOn();
+  led.turnOn();
   delay(1000);
-  led.ledOff();
+  led.turnOff();
   delay(1000);
 }
 ```
@@ -56,3 +56,12 @@ To resolve the E13 error, connect the module to any of these digital ports:
 * **DOOR4** (Port 4)
 * **DOOR5** (Port 5)
 * **DOOR6** (Port 6)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in the generic message belong to Pinoo ONE. On Pinoo Moto the compiler message already lists the Moto doors.
+
+* **Valid digital doors on Pinoo Moto:** DOOR1, DOOR2
+* Digital modules (LED, buzzer, button, PIR, tilt, DHT11, RGB LED) connect to DOOR1 or DOOR2. DOOR3 is analog-only and DOOR4 is the I2C bus.
+* See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).

@@ -51,16 +51,20 @@ unsigned long lastTelemetryTime = 0;
  * Yeni bir kontrol eklemek istediğinizde (örn: servo, diğer motorlar)
  * sadece bu fonksiyona yeni bir "else if" eklemeniz yeterlidir!
  */
-void handleRpc(String requestId, String method, String params) {
+bool handleRpc(String requestId, String method, String params) {
+  bool handled = false;  // Komut tanındı ve uygulandı mı? / Was the command recognised and applied?
+
   // 1. DC Motor Hız ve Yön Kontrolü
   // Örnek ThingsBoard çağrısı: method = "setMotor", params = 150 (-255 ile 255 arası)
   if (method.equalsIgnoreCase("setMotor") || method.equalsIgnoreCase("motorSpeed")) {
     int speed = params.toInt();
     motor1.setSpeed(speed);
+    handled = true;
   }
   // 2. Motor Durdurma
   else if (method.equalsIgnoreCase("stopMotor")) {
     motor1.stop();
+    handled = true;
   }
   // 3. Buzzer Kontrolü (Aç/Kapat veya Frekans)
   // Örnek: method = "setBuzzer", params = true / false / 1 / 0 / 1500
@@ -75,32 +79,80 @@ void handleRpc(String requestId, String method, String params) {
       if (freq > 0) buzzer.playTone(freq);
       else buzzer.stop();
     }
+    handled = true;
   }
   // 4. Dahili RGB LED Renk Kontrolü
   else if (method.equalsIgnoreCase("setLed")) {
     if (params == "true" || params == "1") {
       rgb.setColorAll(0, 255, 0); // Yeşil
+      handled = true;
     } else if (params == "false" || params == "0") {
       rgb.clear();
+      handled = true;
     } else if (params.equalsIgnoreCase("red") || params.equalsIgnoreCase("kirmizi")) {
       rgb.setColorAll(255, 0, 0);
+      handled = true;
     } else if (params.equalsIgnoreCase("blue") || params.equalsIgnoreCase("mavi")) {
       rgb.setColorAll(0, 0, 255);
+      handled = true;
     }
   }
   // 5. Uzaktan Wi-Fi / Token Ayarlarını Sıfırlama (Provisioning Moduna Alma)
   else if (method.equalsIgnoreCase("resetWifi")) {
     Serial.println("SYS:RESET_WIFI");
     rgb.setColorAll(0, 0, 255);
+    handled = true;
   }
 
   // ThingsBoard'a RPC yanıtı (Response) döndür
   // Format: RPC_RESP:<requestId>:<payload>
+  // Komut tanınmadıysa "error" döner, böylece ThingsBoard hatayı görebilir.
   if (requestId.length() > 0) {
     Serial.print("RPC_RESP:");
     Serial.print(requestId);
-    Serial.println(":{\"status\":\"ok\"}");
+    Serial.println(handled ? ":{\"status\":\"ok\"}" : ":{\"status\":\"error\"}");
   }
+  return handled;
+}
+
+// =============================================================================
+// JSON DEĞER OKUYUCU (JSON VALUE READER)
+// =============================================================================
+/**
+ * {"method":"setMotor","params":180} gibi bir satırdan verilen anahtarın değerini döndürür.
+ * - Alanların sırası fark etmez ("params" "method"tan önce gelebilir).
+ * - Sayı, true/false ve metin değerlerini okur (tırnaklar kaldırılır).
+ * - İç içe nesne ya da dizi değerini ham metin olarak döndürür ({r:255,g:0} gibi).
+ * Reads the value of a key from a one-line JSON object. Key order does not matter.
+ */
+String jsonValue(const String& payload, const char* key) {
+  char needle[24];
+  snprintf(needle, sizeof(needle), "\"%s\":", key);
+
+  int i = payload.indexOf(needle);
+  if (i == -1) return "";
+  i += strlen(needle);
+  while (i < (int)payload.length() && payload[i] == ' ') i++;
+
+  int depth = 0;
+  bool inString = false;
+  int j = i;
+  for (; j < (int)payload.length(); j++) {
+    char c = payload[j];
+    if (c == '"') inString = !inString;
+    if (inString) continue;
+    if (c == '{' || c == '[') depth++;
+    else if (c == '}' || c == ']') {
+      if (depth == 0) break;  // Üst nesnenin sonu / end of the outer object
+      depth--;
+    }
+    else if (c == ',' && depth == 0) break;
+  }
+
+  String value = payload.substring(i, j);
+  value.replace("\"", "");
+  value.trim();
+  return value;
 }
 
 // =============================================================================
@@ -117,26 +169,11 @@ void processIncomingSerial(String line) {
       String requestId = line.substring(firstColon + 1, secondColon);
       String payload = line.substring(secondColon + 1);
 
-      // Metod ve parametreyi JSON içerisinden ayrıştır
-      int methodStart = payload.indexOf("\"method\":\"");
-      if (methodStart != -1) {
-        methodStart += 10;
-        int methodEnd = payload.indexOf("\"", methodStart);
-        String method = payload.substring(methodStart, methodEnd);
+      // Metod ve parametreyi JSON içerisinden ayrıştır (alan sırası fark etmez)
+      String method = jsonValue(payload, "method");
+      String params = jsonValue(payload, "params");
 
-        int paramsStart = payload.indexOf("\"params\":", methodEnd);
-        String params = "";
-        if (paramsStart != -1) {
-          paramsStart += 9;
-          while (paramsStart < (int)payload.length() && payload[paramsStart] == ' ') paramsStart++;
-          int paramsEnd = payload.indexOf("}", paramsStart);
-          if (paramsEnd != -1) {
-            params = payload.substring(paramsStart, paramsEnd);
-            params.replace("\"", "");
-            params.trim();
-          }
-        }
-
+      if (method.length() > 0) {
         handleRpc(requestId, method, params);
       }
     }

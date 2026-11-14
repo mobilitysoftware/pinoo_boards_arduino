@@ -57,6 +57,7 @@ graph TD
 | **Pinoo Bricky** | AVR    | ATmega328P        | LEGO uyumlu minyatür robotik kart                                 |
 | **Pinoo Moto**   | AVR    | ATmega328P        | 8x DC / 4x Step motor sürücülü, Bluetooth özellikli gelişmiş kart |
 | **Pinoo ESP32**  | ESP32  | ESP32-WROOM-32    | Dahili Wi-Fi, Bluetooth ve IoT özellikli geliştirme kartı         |
+| **Pinoo ESP-01** | ESP8266 | ESP-01 (ESP8266EX) | Pinoo Moto'ya takılan Wi-Fi modülü (SmartProv + ThingsBoard köprüsü) |
 
 ---
 
@@ -75,8 +76,11 @@ pinoo_sdk/
 │   ├── Pinoo_Moto/               # Pinoo Moto (Çoklu Motor) örnek projeleri
 │   └── Pinoo_ESP32/              # Pinoo ESP32 (IoT/Wi-Fi) örnek projeleri
 ├── hardware/                     # Arduino IDE Kart Yöneticisi Paketleri
-│   ├── avr/                      # AVR Kart Tanımları ve Kütüphaneleri (1.0.2)
-│   └── esp32/                    # ESP32 Kart Tanımları ve Kütüphaneleri (1.0.2)
+│   ├── avr/                      # AVR Kart Tanımları ve Kütüphaneleri (1.0.4)
+│   ├── esp32/                    # ESP32 Kart Tanımları ve Kütüphaneleri (1.0.4)
+│   └── esp8266/                  # ESP-01 (ESP8266) Kart Tanımı: Pinoo Moto Wi-Fi köprüsü (1.0.4)
+├── example_projects/             # Hazır proje örnekleri (Örn: Pinoo Moto 4x4 araba)
+├── errors/                       # Derleme hata kodları kılavuzu (E01...E14)
 ├── library.properties            # Arduino Kütüphane Metadata Dosyası
 └── package_pinoo_index.json      # Arduino Kart Yöneticisi JSON Dosyası
 ```
@@ -104,6 +108,8 @@ Pinoo kartlarını ve SDK kütüphanelerini Arduino IDE'ye entegre etmek için a
 1. **Araçlar (Tools)** -> **Kart (Board)** -> **Kart Yöneticisi... (Boards Manager...)** menüsüne girin.
 2. Arama çubuğuna **Pinoo** yazın.
 3. Çıkan **Pinoo AVR Boards** ve **Pinoo ESP32 Boards** paketlerinin yanındaki **Kur (Install)** butonlarına tıklayarak kurulumları tamamlayın.
+4. Pinoo Moto'ya takılan **ESP-01 (Wi-Fi)** modülünü programlayacaksanız **Pinoo ESP8266 Boards** paketini de kurun. `SmartProv` ve MQTT (`PubSubClient`) kütüphaneleri pakete dahildir, ayrıca kurmanız gerekmez.
+5. Kodu yüklemeden önce **Araçlar > Kart** menüsünden kartınızı seçin (Pinoo Moto için **Pinoo AVR Boards > Pinoo Moto**). Genel bir "Arduino Uno" seçerseniz Pinoo SDK kartı Pinoo ONE sanar ve Moto'nun motor kanalları beklediğiniz gibi çalışmaz.
 
 ### 3. Sürücü (Driver) Kurulumu (Gerekliyse)
 
@@ -123,7 +129,7 @@ Kurulum adımları tamamlandıktan sonra, örnek kodlara Arduino IDE içinden ko
 #include <Pinoo.h>
 
 // Pinoo ONE ve 1. Kapıya (RJ11) bağlı LED nesnesi oluşturma
-Pinoo_Led led(DOOR1, 1);
+Pinoo_Led led(DOOR1);
 
 void setup() {
   // LED modülünü başlat
@@ -131,9 +137,9 @@ void setup() {
 }
 
 void loop() {
-  led.ledOn();   // LED'i yak
+  led.turnOn();  // LED'i yak
   delay(1000);   // 1 saniye bekle
-  led.ledOff();  // LED'i söndür
+  led.turnOff(); // LED'i söndür
   delay(1000);   // 1 saniye bekle
 }
 ```

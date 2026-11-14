@@ -47,3 +47,12 @@ void loop() {}
 ## 🔌 Uyumlu Kapılar Listesi
 E03 hatasını gidermek için modülü bağlayabileceğiniz tek kapı şudur:
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
+
+* **Pinoo Moto'da geçerli kapılar:** DOOR4
+* LCD ekran DOOR4'e takılır (SDA = A4, SCL = A5).
+* Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).

@@ -47,3 +47,12 @@ void loop() {}
 ## 🔌 Compatible Ports List
 To resolve the E03 error, the module must be connected to:
 * **DOOR10** (Port 10)
+
+---
+
+## 🏎️ Pinoo Moto
+Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in the generic message belong to Pinoo ONE. On Pinoo Moto the compiler message already lists the Moto doors.
+
+* **Valid I2C door on Pinoo Moto:** DOOR4
+* The LCD screen connects to DOOR4 (SDA = A4, SCL = A5).
+* See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).
