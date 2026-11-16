@@ -76,9 +76,9 @@ pinoo_sdk/
 │   ├── Pinoo_Moto/               # Pinoo Moto (Multi-Motor) example projects
 │   └── Pinoo_ESP32/              # Pinoo ESP32 (IoT/Wi-Fi) example projects
 ├── hardware/                     # Arduino IDE Board Manager Packages
-│   ├── avr/                      # AVR Board Definitions & Libraries (1.0.4)
-│   ├── esp32/                    # ESP32 Board Definitions & Libraries (1.0.4)
-│   └── esp8266/                  # ESP-01 (ESP8266) board definition: Pinoo Moto Wi-Fi bridge (1.0.4)
+│   ├── avr/                      # AVR Board Definitions & Libraries (1.0.5)
+│   ├── esp32/                    # ESP32 Board Definitions & Libraries (1.0.5)
+│   └── esp8266/                  # ESP-01 (ESP8266) board definition: Pinoo Moto Wi-Fi bridge (1.0.5)
 ├── example_projects/             # Ready-made project examples (e.g. Pinoo Moto 4x4 car)
 ├── errors/                       # Compile-time error code guide (E01...E14)
 ├── library.properties            # Arduino Library Metadata File

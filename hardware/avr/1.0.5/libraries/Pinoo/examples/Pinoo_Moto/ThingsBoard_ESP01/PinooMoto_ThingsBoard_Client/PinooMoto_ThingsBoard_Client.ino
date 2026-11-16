@@ -39,6 +39,12 @@ Pinoo_RgbLed rgb(PINOO_MOTO_INTERNAL_RGB, 2);
 // Motor 1 (DC Motor Kontrolü için)
 Pinoo_DcMotor motor1(MOTOR1);
 
+// Son verilen komutların durumu (ThingsBoard "get" sorgularına yanıt vermek için)
+// Last commanded state (used to answer ThingsBoard "get" requests)
+int  motorSpeed = 0;        // -255 .. 255
+bool buzzerOn   = false;
+bool ledOn      = false;
+
 // Telemetri gönderim periyodu (ms)
 const unsigned long TELEMETRY_INTERVAL = 3000;
 unsigned long lastTelemetryTime = 0;
@@ -53,17 +59,21 @@ unsigned long lastTelemetryTime = 0;
  */
 bool handleRpc(String requestId, String method, String params) {
   bool handled = false;  // Komut tanındı ve uygulandı mı? / Was the command recognised and applied?
+  bool resetRequested = false;
+  String reply = "";     // Boşsa {"status":"ok"} / {"status":"error"} döner / empty -> status JSON
 
   // 1. DC Motor Hız ve Yön Kontrolü
   // Örnek ThingsBoard çağrısı: method = "setMotor", params = 150 (-255 ile 255 arası)
   if (method.equalsIgnoreCase("setMotor") || method.equalsIgnoreCase("motorSpeed")) {
     int speed = params.toInt();
     motor1.setSpeed(speed);
+    motorSpeed = constrain(speed, -255, 255);
     handled = true;
   }
   // 2. Motor Durdurma
   else if (method.equalsIgnoreCase("stopMotor")) {
     motor1.stop();
+    motorSpeed = 0;
     handled = true;
   }
   // 3. Buzzer Kontrolü (Aç/Kapat veya Frekans)
@@ -71,13 +81,15 @@ bool handleRpc(String requestId, String method, String params) {
   else if (method.equalsIgnoreCase("setBuzzer")) {
     if (params == "true" || params == "1") {
       buzzer.playTone(1000); // 1000 Hz ses üret
+      buzzerOn = true;
     } else if (params == "false" || params == "0") {
       buzzer.stop();
+      buzzerOn = false;
     } else {
       // Sayısal frekans verildiyse o tonda çal
       int freq = params.toInt();
-      if (freq > 0) buzzer.playTone(freq);
-      else buzzer.stop();
+      if (freq > 0) { buzzer.playTone(freq); buzzerOn = true; }
+      else { buzzer.stop(); buzzerOn = false; }
     }
     handled = true;
   }
@@ -85,22 +97,45 @@ bool handleRpc(String requestId, String method, String params) {
   else if (method.equalsIgnoreCase("setLed")) {
     if (params == "true" || params == "1") {
       rgb.setColorAll(0, 255, 0); // Yeşil
+      ledOn = true;
       handled = true;
     } else if (params == "false" || params == "0") {
       rgb.clear();
+      ledOn = false;
       handled = true;
     } else if (params.equalsIgnoreCase("red") || params.equalsIgnoreCase("kirmizi")) {
       rgb.setColorAll(255, 0, 0);
+      ledOn = true;
       handled = true;
     } else if (params.equalsIgnoreCase("blue") || params.equalsIgnoreCase("mavi")) {
       rgb.setColorAll(0, 0, 255);
+      ledOn = true;
       handled = true;
     }
   }
   // 5. Uzaktan Wi-Fi / Token Ayarlarını Sıfırlama (Provisioning Moduna Alma)
   else if (method.equalsIgnoreCase("resetWifi")) {
-    Serial.println("SYS:RESET_WIFI");
-    rgb.setColorAll(0, 0, 255);
+    // Önce yanıtı gönder, sonra sıfırla (ESP-01 sıfırlamada yeniden başlar, yanıt kaybolmasın)
+    // Send the reply first, then reset (the ESP-01 restarts on reset)
+    resetRequested = true;
+    handled = true;
+  }
+  // 6. Durum sorguları (ThingsBoard widget'larının "Get value method" alanı için)
+  //    Anahtar/Düğme widget'ı başlangıçta mevcut değeri sorar. Yanıt düz değerdir.
+  else if (method.equalsIgnoreCase("getMotor")) {
+    reply = String(motorSpeed);
+    handled = true;
+  }
+  else if (method.equalsIgnoreCase("getBuzzer")) {
+    reply = buzzerOn ? "true" : "false";
+    handled = true;
+  }
+  else if (method.equalsIgnoreCase("getLed")) {
+    reply = ledOn ? "true" : "false";
+    handled = true;
+  }
+  else if (method.equalsIgnoreCase("getLight")) {
+    reply = String(ldr.getLightPercentage());
     handled = true;
   }
 
@@ -110,7 +145,19 @@ bool handleRpc(String requestId, String method, String params) {
   if (requestId.length() > 0) {
     Serial.print("RPC_RESP:");
     Serial.print(requestId);
-    Serial.println(handled ? ":{\"status\":\"ok\"}" : ":{\"status\":\"error\"}");
+    Serial.print(":");
+    if (reply.length() > 0) {
+      Serial.println(reply);
+    } else {
+      Serial.println(handled ? "{\"status\":\"ok\"}" : "{\"status\":\"error\"}");
+    }
+  }
+
+  if (resetRequested) {
+    Serial.flush();
+    delay(300);
+    Serial.println("SYS:RESET_WIFI");
+    rgb.setColorAll(0, 0, 255);
   }
   return handled;
 }
@@ -180,8 +227,9 @@ void processIncomingSerial(String line) {
   }
   // ESP-01 Durum Bildirimleri
   else if (line == "[STATUS:SETUP_MODE]") {
-    // ESP-01 kurulum modunda (AP açık); RGB LED'i sarı yaparak kullanıcıya bildir
-    rgb.setColorAll(255, 150, 0);
+    // ESP-01 kurulum modunda (AP açık); RGB LED'i turuncu yaparak kullanıcıya bildir
+    // (NeoPixel'de yeşil bileşen 100'ün üstünde sarıya kaçar, bu yüzden 40)
+    rgb.setColorAll(255, 40, 0);
   }
   else if (line == "[STATUS:TB_CONNECTED]") {
     // ThingsBoard'a başarıyla bağlandı; yeşil flaş
