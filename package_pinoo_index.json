@@ -14,10 +14,10 @@
                                                "architecture":  "avr",
                                                "version":  "1.0.5",
                                                "category":  "Contributed",
-                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.5/pinoo-avr-1.0.5.zip",
-                                               "archiveFileName":  "pinoo-avr-1.0.5.zip",
-                                               "checksum":  "SHA-256:AE1CF296F209CF0007A2E6FF8DB8628028F186037CFB24DC1D3B5DB477A53DB9",
-                                               "size":  "1229233",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.6/pinoo-avr-1.0.6.zip",
+                                               "archiveFileName":  "pinoo-avr-1.0.6.zip",
+                                               "checksum":  "SHA-256:F6C3C21346C9672E03FF74C1C258080F973205A64173F579165218B2B84448BE",
+                                               "size":  "1230259",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -58,10 +58,10 @@
                                                "architecture":  "esp32",
                                                "version":  "1.0.5",
                                                "category":  "Contributed",
-                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.5/pinoo-esp32-1.0.5.zip",
-                                               "archiveFileName":  "pinoo-esp32-1.0.5.zip",
-                                               "checksum":  "SHA-256:480B62E45DC249BDA8FD05B743343830D838A167D1315E986A361FCF0BD1E57C",
-                                               "size":  "19311460",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.6/pinoo-esp32-1.0.6.zip",
+                                               "archiveFileName":  "pinoo-esp32-1.0.6.zip",
+                                               "checksum":  "SHA-256:B02D43A94CE6AB9A18B6AC57B48E6BA03DA66CB55F4339E04221B1D470F2EF9C",
+                                               "size":  "19312486",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
@@ -93,10 +93,10 @@
                                                "architecture":  "esp8266",
                                                "version":  "1.0.5",
                                                "category":  "Contributed",
-                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.5/pinoo-esp8266-1.0.5.zip",
-                                               "archiveFileName":  "pinoo-esp8266-1.0.5.zip",
-                                               "checksum":  "SHA-256:229A159915C7BCC71B001AF1CFDD849DE84379A9933976D76F5C9DDADF0FA2B4",
-                                               "size":  "36728058",
+                                               "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.6/pinoo-esp8266-1.0.6.zip",
+                                               "archiveFileName":  "pinoo-esp8266-1.0.6.zip",
+                                               "checksum":  "SHA-256:0506FAB4C6C6326131141D7BFAE39EF3C1E963C435BE55CE8220208F0561F066",
+                                               "size":  "36729084",
                                                "help":  {
                                                             "online":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/"
                                                         },
