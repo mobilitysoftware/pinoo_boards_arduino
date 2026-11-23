@@ -18,7 +18,12 @@
 
 #include "Pinoo_Buzzer.h"
 
-Pinoo_Buzzer::Pinoo_Buzzer(uint8_t pin, BuzzerMode mode) : _pin(pin), _mode(mode) {}
+Pinoo_Buzzer::Pinoo_Buzzer(uint8_t pin, BuzzerMode mode) : _pin(pin), _mode(mode) {
+    if (mode == AUTO_BUZZER) {
+        // On-board buzzer is passive, any other pin is the external (active) Pinoo module.
+        _mode = ((int)pin == (int)PINOO_INTERNAL_BUZZER) ? PASSIVE_BUZZER : ACTIVE_BUZZER;
+    }
+}
 
 void Pinoo_Buzzer::begin() {
     PINOO_PREPARE_GPIO(_pin);
@@ -47,12 +52,18 @@ void Pinoo_Buzzer::turnOff() {
 void Pinoo_Buzzer::playTone(unsigned int frequency) {
     if (_mode == PASSIVE_BUZZER) {
         tone(_pin, frequency);
+    } else {
+        turnOn();  // Active buzzer: single fixed tone
     }
 }
 
 void Pinoo_Buzzer::playTone(unsigned int frequency, unsigned long duration) {
     if (_mode == PASSIVE_BUZZER) {
         tone(_pin, frequency, duration);
+    } else {
+        turnOn();  // Active buzzer: frequency ignored, blocks for the duration
+        delay(duration);
+        turnOff();
     }
 }
 

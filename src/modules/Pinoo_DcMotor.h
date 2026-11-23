@@ -2,8 +2,11 @@
  * @file Pinoo_DcMotor.h
  * @brief DC Motor module class. Handles direction and speed control for DC motors.
  * 
- * On Pinoo Moto, channels MOTOR1-MOTOR8 map to PCA9685 channels via PinooMotoDriver.
- * On other boards, LEFT_MOTOR / RIGHT_MOTOR map to direct PWM Arduino pins.
+ * On Pinoo Moto, there are 8 independent outputs MOTOR1-MOTOR8 (no left/right);
+ * they map to PCA9685 channels via PinooMotoDriver.
+ * On Pinoo ONE / Shield / Bricky, LEFT_MOTOR / RIGHT_MOTOR map to direct PWM Arduino pins.
+ * (LEFT_MOTOR / RIGHT_MOTOR still compile on Moto as aliases of MOTOR1 / MOTOR2,
+ * only for code compatibility. Use MOTOR1..MOTOR8 on Moto.)
  * 
  * @author Semih Aydın <semih@mobilitysoftware.net>
  * @copyright Copyright (c) 2026 Pinoo Robotics & Mobility Software
@@ -35,8 +38,8 @@ enum MotorChannel {
 class Pinoo_DcMotor {
 public:
     /**
-     * @brief Constructor for predefined motor channels on the Pinoo Shield/ONE.
-     * @param channel LEFT_MOTOR or RIGHT_MOTOR.
+     * @brief Constructor for predefined motor channels.
+     * @param channel Pinoo Moto: MOTOR1..MOTOR8. Pinoo ONE/Shield/Bricky: LEFT_MOTOR or RIGHT_MOTOR.
      */
     Pinoo_DcMotor(MotorChannel channel);
 

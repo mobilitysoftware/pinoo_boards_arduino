@@ -55,7 +55,8 @@ The channels feed 4 TB6612FNG drivers. Each driver is a block of 4 channels.
 | 3 | 8-11 | `MOTOR5` (8,9), `MOTOR6` (10,11) | `STEPPER3` | 8-11 |
 | 4 | 12-15 | `MOTOR7` (12,13), `MOTOR8` (14,15) | `STEPPER4` | 12-15 |
 
-- `LEFT_MOTOR` = `MOTOR1`, `RIGHT_MOTOR` = `MOTOR2`.
+- Moto has 8 independent DC outputs `MOTOR1`..`MOTOR8`; there is no left/right. `LEFT_MOTOR`/`RIGHT_MOTOR` exist only for Pinoo ONE/Shield/Bricky code compatibility (map to `MOTOR1`/`MOTOR2`); do not use them in Moto code, examples or docs.
+- Buzzer: on-board D8 is passive (`tone()`); the external Pinoo Buzzer module is ACTIVE. `Pinoo_Buzzer` default `AUTO_BUZZER` picks passive for `PINOO_INTERNAL_BUZZER`, active for a Door.
 - DC: IN1 = direction (forward = LOW, backward = HIGH), IN2 = speed (PWM 0-4095). `setSpeed(-255..255)`.
 - Stepper: 4-step coil sequence, channels fully on/off (no PWM).
 - Servo: `Pinoo_Servo(channel)`, 0-180 degrees -> 102..512 ticks. **`begin()` sets the PCA9685 to 50 Hz for all channels** (DC default is 1000 Hz).

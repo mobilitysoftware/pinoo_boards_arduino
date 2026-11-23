@@ -76,9 +76,9 @@ pinoo_sdk/
 │   ├── Pinoo_Moto/               # Pinoo Moto (Çoklu Motor) örnek projeleri
 │   └── Pinoo_ESP32/              # Pinoo ESP32 (IoT/Wi-Fi) örnek projeleri
 ├── hardware/                     # Arduino IDE Kart Yöneticisi Paketleri
-│   ├── avr/                      # AVR Kart Tanımları ve Kütüphaneleri (1.0.5)
-│   ├── esp32/                    # ESP32 Kart Tanımları ve Kütüphaneleri (1.0.5)
-│   └── esp8266/                  # ESP-01 (ESP8266) Kart Tanımı: Pinoo Moto Wi-Fi köprüsü (1.0.5)
+│   ├── avr/                      # AVR Kart Tanımları ve Kütüphaneleri (1.0.6)
+│   ├── esp32/                    # ESP32 Kart Tanımları ve Kütüphaneleri (1.0.6)
+│   └── esp8266/                  # ESP-01 (ESP8266) Kart Tanımı: Pinoo Moto Wi-Fi köprüsü (1.0.6)
 ├── example_projects/             # Hazır proje örnekleri (Örn: Pinoo Moto 4x4 araba)
 ├── errors/                       # Derleme hata kodları kılavuzu (E01...E14)
 ├── library.properties            # Arduino Kütüphane Metadata Dosyası

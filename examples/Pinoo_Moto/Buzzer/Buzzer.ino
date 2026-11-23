@@ -1,32 +1,40 @@
 /**
  * @file Buzzer.ino
  * @brief Bilingual (TR/EN) example for Pinoo Buzzer module.
- * 
- * Bu örnek Door 2'ye bağlı Pasif Buzzer modülünün nasıl kontrol edileceğini gösterir.
- * This example demonstrates how to control a Passive Buzzer module connected to Door 2.
+ *
+ * Bu örnek Door 2'ye bağlı Buzzer modülünün (aktif buzzer) nasıl kontrol edileceğini gösterir.
+ * Aktif buzzer tek bir sabit tonda öter, yalnızca açılır ve kapanır.
+ * Kartın üzerindeki dahili buzzer pasiftir ve farklı frekanslarda melodi çalabilir:
+ * onun için Internal_Components örneğine bak.
+ *
+ * This example demonstrates how to control the Buzzer module (active buzzer) connected to Door 2.
+ * An active buzzer makes a single fixed tone, it can only be switched on and off.
+ * The on-board buzzer is passive and can play different frequencies: see the
+ * Internal_Components example.
  */
 
 #include <Pinoo.h>
 
-// Door 2'ye bağlı Pasif Buzzer / Passive Buzzer module connected to Door 2
-Pinoo_Buzzer buzzer(DOOR2, PASSIVE_BUZZER);
+// Door 2'ye bağlı Buzzer modülü / Buzzer module connected to Door 2
+// Kapı (Door) verildiğinde otomatik olarak aktif buzzer seçilir.
+// A Door means the external module, so ACTIVE_BUZZER is selected automatically.
+Pinoo_Buzzer buzzer(DOOR2);
 
 void setup() {
   buzzer.begin(); // Buzzer'ı başlat / Initialize Buzzer
 }
 
 void loop() {
-  // Belirli bir frekansta ton çal (Örn: 440Hz - La notası)
-  // Play a tone at specific frequency (e.g. 440Hz - Note A)
-  buzzer.playTone(440);
+  // Buzzer'ı aç / Turn the buzzer on
+  buzzer.turnOn();
   delay(500);
 
-  // Tonu durdur / Stop playing
-  buzzer.stop();
+  // Buzzer'ı kapat / Turn the buzzer off
+  buzzer.turnOff();
   delay(500);
 
-  // 1000Hz frekansta 200ms süren kısa bir bip sesi çal
-  // Play a short beep at 1000Hz for 200ms duration
+  // 200 ms'lik kısa bir bip sesi / A short 200 ms beep
+  // (aktif buzzer'da frekans değeri yok sayılır / the frequency is ignored on an active buzzer)
   buzzer.playTone(1000, 200);
   delay(1000);
 }
