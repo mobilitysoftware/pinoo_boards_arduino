@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 800" width="880" height="800" role="img" aria-label="Pinoo Moto modül ve kapı uyumluluğu">
+<rect width="880" height="800" fill="#ffffff"/>
+<text x="40" y="46" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#1f2933" text-anchor="start">Hangi modül hangi kapıya takılır?</text>
+<text x="40" y="72" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="400" fill="#52606d" text-anchor="start">Pinoo Moto, dört RJ11 kapısı: Kapı 1–2 dijital, Kapı 3 analog, Kapı 4 I2C + analog</text>
+<defs><linearGradient id="g12" x1="0" x2="1"><stop offset="0" stop-color="#7b3fa0"/><stop offset="1" stop-color="#2e9e5b"/></linearGradient><linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#d64545"/><stop offset="1" stop-color="#e8b923"/></linearGradient><linearGradient id="g4" x1="0" x2="1"><stop offset="0" stop-color="#d64545"/><stop offset="1" stop-color="#9aa5b1"/></linearGradient></defs>
+<rect x="40" y="100" width="380" height="44" rx="8" fill="#334e68"/>
+<text x="58" y="128" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="start">Modül</text>
+<rect x="430" y="100" width="100" height="44" rx="8" fill="url(#g12)"/>
+<text x="480" y="128" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Kapı 1</text>
+<rect x="540" y="100" width="100" height="44" rx="8" fill="url(#g12)"/>
+<text x="590" y="128" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Kapı 2</text>
+<rect x="650" y="100" width="100" height="44" rx="8" fill="url(#g3)"/>
+<text x="700" y="128" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Kapı 3</text>
+<rect x="760" y="100" width="100" height="44" rx="8" fill="url(#g4)"/>
+<text x="810" y="128" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">Kapı 4</text>
+<rect x="40" y="152" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="176" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">LED</text>
+<text x="300" y="176" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="170" r="12" fill="#2e9e5b"/><path d="M473 170 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="170" r="12" fill="#2e9e5b"/><path d="M583 170 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="170" r="12" fill="#e4e7eb"/><path d="M695 165 l10 10 M705 165 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="170" r="12" fill="#e4e7eb"/><path d="M805 165 l10 10 M815 165 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<text x="58" y="214" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Buzzer</text>
+<text x="300" y="214" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="208" r="12" fill="#2e9e5b"/><path d="M473 208 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="208" r="12" fill="#2e9e5b"/><path d="M583 208 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="208" r="12" fill="#e4e7eb"/><path d="M695 203 l10 10 M705 203 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="208" r="12" fill="#e4e7eb"/><path d="M805 203 l10 10 M815 203 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="40" y="228" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="252" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Buton</text>
+<text x="300" y="252" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="246" r="12" fill="#2e9e5b"/><path d="M473 246 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="246" r="12" fill="#2e9e5b"/><path d="M583 246 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="246" r="12" fill="#e4e7eb"/><path d="M695 241 l10 10 M705 241 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="246" r="12" fill="#e4e7eb"/><path d="M805 241 l10 10 M815 241 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<text x="58" y="290" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Hareket (PIR)</text>
+<text x="300" y="290" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="284" r="12" fill="#2e9e5b"/><path d="M473 284 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="284" r="12" fill="#2e9e5b"/><path d="M583 284 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="284" r="12" fill="#e4e7eb"/><path d="M695 279 l10 10 M705 279 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="284" r="12" fill="#e4e7eb"/><path d="M805 279 l10 10 M815 279 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="40" y="304" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="328" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Eğim ve Darbe</text>
+<text x="300" y="328" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="322" r="12" fill="#2e9e5b"/><path d="M473 322 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="322" r="12" fill="#2e9e5b"/><path d="M583 322 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="322" r="12" fill="#e4e7eb"/><path d="M695 317 l10 10 M705 317 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="322" r="12" fill="#e4e7eb"/><path d="M805 317 l10 10 M815 317 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<text x="58" y="366" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">RGB LED</text>
+<text x="300" y="366" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="360" r="12" fill="#2e9e5b"/><path d="M473 360 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="360" r="12" fill="#2e9e5b"/><path d="M583 360 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="360" r="12" fill="#e4e7eb"/><path d="M695 355 l10 10 M705 355 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="360" r="12" fill="#e4e7eb"/><path d="M805 355 l10 10 M815 355 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="40" y="380" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="404" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Sıcaklık-Nem (DHT11)</text>
+<text x="300" y="404" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Dijital</text>
+<circle cx="480" cy="398" r="12" fill="#2e9e5b"/><path d="M473 398 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="398" r="12" fill="#2e9e5b"/><path d="M583 398 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="398" r="12" fill="#e4e7eb"/><path d="M695 393 l10 10 M705 393 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="398" r="12" fill="#e4e7eb"/><path d="M805 393 l10 10 M815 393 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<text x="58" y="442" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Ultrasonik mesafe</text>
+<text x="300" y="442" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Çift sinyal</text>
+<circle cx="480" cy="436" r="12" fill="#2e9e5b"/><path d="M473 436 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="590" cy="436" r="12" fill="#2e9e5b"/><path d="M583 436 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="436" r="12" fill="#e4e7eb"/><path d="M695 431 l10 10 M705 431 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="436" r="12" fill="#e4e7eb"/><path d="M805 431 l10 10 M815 431 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<rect x="40" y="456" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="480" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Çizgi izleme</text>
+<text x="300" y="480" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">İki analog</text>
+<circle cx="480" cy="474" r="12" fill="#e4e7eb"/><path d="M475 469 l10 10 M485 469 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="474" r="12" fill="#e4e7eb"/><path d="M585 469 l10 10 M595 469 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="474" r="12" fill="#2e9e5b"/><path d="M693 474 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="474" r="12" fill="#2e9e5b"/><path d="M803 474 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="58" y="518" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Işık (LDR)</text>
+<text x="300" y="518" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Analog</text>
+<circle cx="480" cy="512" r="12" fill="#e4e7eb"/><path d="M475 507 l10 10 M485 507 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="512" r="12" fill="#e4e7eb"/><path d="M585 507 l10 10 M595 507 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="512" r="12" fill="#2e9e5b"/><path d="M693 512 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="512" r="12" fill="#2e9e5b"/><path d="M803 512 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="532" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="556" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Potansiyometre</text>
+<text x="300" y="556" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Analog</text>
+<circle cx="480" cy="550" r="12" fill="#e4e7eb"/><path d="M475 545 l10 10 M485 545 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="550" r="12" fill="#e4e7eb"/><path d="M585 545 l10 10 M595 545 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="550" r="12" fill="#2e9e5b"/><path d="M693 550 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="550" r="12" fill="#2e9e5b"/><path d="M803 550 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="58" y="594" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Toprak nem</text>
+<text x="300" y="594" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Analog</text>
+<circle cx="480" cy="588" r="12" fill="#e4e7eb"/><path d="M475 583 l10 10 M485 583 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="588" r="12" fill="#e4e7eb"/><path d="M585 583 l10 10 M595 583 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="588" r="12" fill="#2e9e5b"/><path d="M693 588 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="588" r="12" fill="#2e9e5b"/><path d="M803 588 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="608" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="632" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Su seviye</text>
+<text x="300" y="632" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Analog</text>
+<circle cx="480" cy="626" r="12" fill="#e4e7eb"/><path d="M475 621 l10 10 M485 621 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="626" r="12" fill="#e4e7eb"/><path d="M585 621 l10 10 M595 621 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="626" r="12" fill="#2e9e5b"/><path d="M693 626 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="626" r="12" fill="#2e9e5b"/><path d="M803 626 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="58" y="670" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">Joystick</text>
+<text x="300" y="670" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">İki analog</text>
+<circle cx="480" cy="664" r="12" fill="#e4e7eb"/><path d="M475 659 l10 10 M485 659 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="664" r="12" fill="#e4e7eb"/><path d="M585 659 l10 10 M595 659 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="664" r="12" fill="#2e9e5b"/><path d="M693 664 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="810" cy="664" r="12" fill="#2e9e5b"/><path d="M803 664 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="40" y="684" width="820" height="38" rx="6" fill="#f5f7fa"/>
+<text x="58" y="708" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#1f2933" text-anchor="start">LCD ekran</text>
+<text x="300" y="708" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">I2C</text>
+<circle cx="480" cy="702" r="12" fill="#e4e7eb"/><path d="M475 697 l10 10 M485 697 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="590" cy="702" r="12" fill="#e4e7eb"/><path d="M585 697 l10 10 M595 697 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="700" cy="702" r="12" fill="#e4e7eb"/><path d="M695 697 l10 10 M705 697 l-10 10" stroke="#9aa5b1" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="810" cy="702" r="12" fill="#2e9e5b"/><path d="M803 702 l5 5 l9 -10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40" y="750" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Kapı 3'ün pinleri (A6, A7) yalnız analog giriştir. Kapı 4 I2C hattıdır ve motor sürücüsüyle (PCA9685) ortaktır.</text>
+<text x="40" y="772" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#52606d" text-anchor="start">Joystick iki analog pin kullanır (X = pin4, Y = pin2), bu yüzden Kapı 3 veya Kapı 4'e takılır.</text>
+</svg>
