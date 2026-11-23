@@ -33,13 +33,13 @@ Free jumper pins: A0-A3, D2-D7.
 
 | Door | Color | pin4 | pin2 | Type | Allowed modules |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| DOOR1 | Purple / Green | D12 | D13 | Digital, dual-signal | Led, Buzzer, Button, Pir, Tilt, RgbLed, TempHumidity, DistanceSensor (TRIG = pin2, ECHO = pin4), LineTracker |
+| DOOR1 | Purple / Green | D12 | D13 | Digital, dual-signal | Led, Buzzer, Button, Pir, Tilt, RgbLed, TempHumidity, DistanceSensor (TRIG = pin2, ECHO = pin4) |
 | DOOR2 | Purple / Green | D10 (PWM) | D11 (PWM) | Digital, dual-signal | same as DOOR1 |
-| DOOR3 | Red / Yellow | A6 | A7 | **Analog input only** (A6/A7 cannot do digital I/O) | Ldr, Potentiometer, SoilMoisture, WaterSensor, Joystick (X = pin4, Y = pin2) |
-| DOOR4 | Red / White | A4 (SDA) | A5 (SCL) | I2C + analog (I2C bus shared with the PCA9685, address 0x40) | Lcd (only here, address 0x27), analog modules, Joystick |
+| DOOR3 | Red / Yellow | A6 | A7 | **Analog input only** (A6/A7 cannot do digital I/O) | Ldr, Potentiometer, SoilMoisture, WaterSensor, Joystick (X = pin4, Y = pin2), LineTracker (analog; left = pin4, right = pin2) |
+| DOOR4 | Red / White | A4 (SDA) | A5 (SCL) | I2C + analog (I2C bus shared with the PCA9685, address 0x40) | Lcd (only here, address 0x27), analog modules, Joystick, LineTracker (not recommended: I2C bus is shared with the motor driver) |
 
 Compile-time checks (`Pinoo_Errors.h`): E01 analog -> DOOR3/4, E02 dual-signal digital -> DOOR1/2, E03 LCD -> DOOR4,
-E04 joystick -> DOOR3/4, E13 digital -> DOOR1/2, E14 servo cannot be defined with a door on Moto.
+E04 joystick and line tracker (two analog inputs) -> DOOR3/4, E13 digital -> DOOR1/2, E14 servo cannot be defined with a door on Moto.
 
 ---
 

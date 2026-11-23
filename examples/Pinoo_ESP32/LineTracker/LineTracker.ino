@@ -2,11 +2,11 @@
  * @file LineTracker.ino
  * @brief Pinoo ESP32 Shield — Çizgi İzleme modülü kullanım örneği.
  *
- * Bu örnek Port 3'e bağlı olan kızılötesi Çizgi İzleme (Line Tracker) sensörünün
- * siyah/beyaz zemin algılama durumlarını okumayı gösterir.
+ * Bu örnek Port 7'ye bağlı olan kızılötesi Çizgi İzleme (Line Tracker) sensörünün
+ * siyah/beyaz zemin değerlerini okumayı gösterir.
  *
- * UYARI: Çizgi İzleme modülü çift dijital pin gerektirir. Port 3 (D18/D19)
- * donanımsal çift pindir.
+ * UYARI: Çizgi İzleme modülü ANALOGDUR (sol ve sağ sensör 0-1023 değer verir), bu yüzden
+ * iki analog girişi olan bir porta (Joystick'in bağlandığı port) takılmalıdır.
  *
  * Bilingual (TR/EN) Line Tracker sensor example for Pinoo ESP32 Shield.
  */
@@ -17,24 +17,24 @@
   #error "Bu ornek yalnizca Pinoo ESP32 Shield icin gecerlidir. / This example is only for Pinoo ESP32 Shield."
 #endif
 
-// Port 3 üzerinde Çizgi İzleme Sensörü / Line Tracker on Port 3 (Left=D18, Right=D19)
-Pinoo_LineTracker tracker(DOOR3);
+// Port 7 üzerinde Çizgi İzleme Sensörü / Line Tracker on Port 7 (two analog inputs)
+Pinoo_LineTracker tracker(DOOR7);
 
 void setup() {
   Serial.begin(115200);
   tracker.begin(); // Sensörü başlat / Initialize line tracker
+  tracker.setThreshold(512); // Çizgi eşiği (0-1023) / Line threshold (0-1023)
 }
 
 void loop() {
   // Sol ve sağ sensörlerin çizgi algılama durumlarını oku
   // Read left and right sensor detection states (black vs white)
-  bool leftDetect = tracker.isOnLineLeft();
-  bool rightDetect = tracker.isOnLineRight();
-
   Serial.print("Sol Sensör / Left: ");
-  Serial.print(leftDetect ? "SIYAH / BLACK" : "BEYAZ / WHITE");
+  Serial.print(tracker.readLeft());
+  Serial.print(tracker.isOnLineLeft() ? " (SIYAH / BLACK)" : " (BEYAZ / WHITE)");
   Serial.print(" | Sağ Sensör / Right: ");
-  Serial.println(rightDetect ? "SIYAH / BLACK" : "BEYAZ / WHITE");
+  Serial.print(tracker.readRight());
+  Serial.println(tracker.isOnLineRight() ? " (SIYAH / BLACK)" : " (BEYAZ / WHITE)");
 
   delay(200);
 }

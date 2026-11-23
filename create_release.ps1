@@ -11,7 +11,7 @@
 # =============================================================================
 
 param(
-    [string]$Version    = "1.0.6",
+    [string]$Version    = "1.0.7",
     [string]$GithubUser = "mobilitysoftware",
     [string]$GithubRepo = "pinoo_boards_arduino"
 )

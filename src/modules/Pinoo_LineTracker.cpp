@@ -17,17 +17,22 @@ void Pinoo_LineTracker::begin() {
 }
 
 int Pinoo_LineTracker::readLeft() {
-    return digitalRead(_leftPin);
+    // PINOO_ANALOG_READ normalises the 12-bit ESP32 ADC to 10-bit (0-1023).
+    return PINOO_ANALOG_READ(_leftPin);
 }
 
 int Pinoo_LineTracker::readRight() {
-    return digitalRead(_rightPin);
+    return PINOO_ANALOG_READ(_rightPin);
+}
+
+void Pinoo_LineTracker::setThreshold(int threshold) {
+    _threshold = constrain(threshold, 0, 1023);
 }
 
 bool Pinoo_LineTracker::isOnLineLeft() {
-    return (readLeft() == HIGH);
+    return (readLeft() > _threshold);
 }
 
 bool Pinoo_LineTracker::isOnLineRight() {
-    return (readRight() == HIGH);
+    return (readRight() > _threshold);
 }

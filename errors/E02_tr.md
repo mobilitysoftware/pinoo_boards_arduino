@@ -58,5 +58,5 @@ E02 hatasını gidermek için modülü bağlayabileceğiniz çift sinyalli kapı
 Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
 
 * **Pinoo Moto'da geçerli kapılar:** DOOR1, DOOR2
-* Çift sinyalli modüller (ultrasonik mesafe, çizgi izleme) iki dijital pin kullandığı için DOOR1 ya da DOOR2'ye takılır. DOOR3 yalnız analog, DOOR4 ise motor sürücüyle ortak I2C hattıdır.
+* Çift sinyalli dijital modüller (ultrasonik mesafe) iki dijital pin kullandığı için DOOR1 ya da DOOR2'ye takılır. DOOR3 yalnız analog, DOOR4 ise motor sürücüyle ortak I2C hattıdır.
 * Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).

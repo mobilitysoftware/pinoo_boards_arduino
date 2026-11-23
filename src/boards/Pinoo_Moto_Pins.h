@@ -105,7 +105,7 @@ struct PinooMotoDoor3 {
     static constexpr bool is_digital = false; // A6/A7 are input-only analog on ATmega328p
     static constexpr bool is_analog = true;
     static constexpr bool is_pwm = false;
-    static constexpr bool is_dual = false; // dual-signal DIGITAL modules (ultrasonic, line tracker) need DOOR1/DOOR2 (E02)
+    static constexpr bool is_dual = false; // dual-signal DIGITAL modules (ultrasonic) need DOOR1/DOOR2 (E02). Line tracker is analog dual: DOOR3/DOOR4 (E04)
     static constexpr bool has_dual_analog = true;
     static constexpr bool is_i2c = false;
 };

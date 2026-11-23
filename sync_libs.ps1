@@ -13,7 +13,7 @@ $KeywordsFile = Join-Path $PSScriptRoot "keywords.txt"
 $ExtLibsSrcDir = Join-Path $PSScriptRoot "pinoostudiodan_cekilen_libraries/libraries"
 $ExtLibs = @("Adafruit_NeoPixel", "IRremote", "LiquidCrystal_I2C", "Adafruit_PWM_Servo_Driver_Library", "Adafruit_BusIO", "SmartProv", "TBPubSubClient")
 
-$Version = "1.0.6"
+$Version = "1.0.7"
 
 # Platform Destinations
 $Destinations = @(

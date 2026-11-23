@@ -57,5 +57,5 @@ To resolve the E04 error, plug the module into:
 Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in the generic message belong to Pinoo ONE. On Pinoo Moto the compiler message already lists the Moto doors.
 
 * **Valid two-analog doors on Pinoo Moto:** DOOR3, DOOR4
-* The joystick uses two analog inputs (X = pin4, Y = pin2), so it connects to DOOR3 or DOOR4.
+* The joystick uses two analog inputs (X = pin4, Y = pin2), so it connects to DOOR3 or DOOR4. The line tracker also has two analog outputs (left = pin4, right = pin2) and follows the same rule: connect it to DOOR3 (DOOR4 is not recommended because it shares the I2C bus with the motor driver).
 * See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).

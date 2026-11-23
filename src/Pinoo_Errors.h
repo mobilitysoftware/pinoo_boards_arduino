@@ -32,7 +32,7 @@
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E03.md"
 
     #define PINOO_ERR_E04 \
-        "PINOO ERROR [E04]: On Pinoo Moto, the Joystick requires a door with two analog inputs (DOOR3 or DOOR4). " \
+        "PINOO ERROR [E04]: On Pinoo Moto, the Joystick and the Line Tracker require a door with two analog inputs (DOOR3 or DOOR4). " \
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E04.md"
 
     #define PINOO_ERR_E13 \
@@ -56,7 +56,7 @@
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E03.md"
 
     #define PINOO_ERR_E04 \
-        "PINOO ERROR [E04]: Joystick requires a port with two analog inputs (Port 9 or Port 10). " \
+        "PINOO ERROR [E04]: Joystick and Line Tracker require a port with two analog inputs (Port 9 or Port 10). " \
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E04.md"
 
     #define PINOO_ERR_E13 \

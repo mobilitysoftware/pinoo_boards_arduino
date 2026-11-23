@@ -57,5 +57,5 @@ E04 hatasını gidermek için modülü bağlayabileceğiniz kapılar şunlardır
 Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 6, 9, 10" numaraları Pinoo ONE'a aittir. Pinoo Moto'da derleyici mesajı zaten Moto kapılarını gösterir.
 
 * **Pinoo Moto'da geçerli kapılar:** DOOR3, DOOR4
-* Joystick iki analog giriş kullanır (X = pin4, Y = pin2), bu yüzden DOOR3 ya da DOOR4'e takılır.
+* Joystick iki analog giriş kullanır (X = pin4, Y = pin2), bu yüzden DOOR3 ya da DOOR4'e takılır. Çizgi izleme sensörü de iki analog çıkış verir (sol = pin4, sağ = pin2) ve aynı kuralla DOOR3'e takılır (DOOR4 motor sürücüyle ortak I2C olduğu için önerilmez).
 * Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).
