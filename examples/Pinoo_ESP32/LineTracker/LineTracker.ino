@@ -2,7 +2,7 @@
  * @file LineTracker.ino
  * @brief Pinoo ESP32 Shield — Çizgi İzleme modülü kullanım örneği.
  *
- * Bu örnek Port 7'ye bağlı olan kızılötesi Çizgi İzleme (Line Tracker) sensörünün
+ * Bu örnek Port 8'e bağlı olan kızılötesi Çizgi İzleme (Line Tracker) sensörünün
  * siyah/beyaz zemin değerlerini okumayı gösterir.
  *
  * UYARI: Çizgi İzleme modülü ANALOGDUR (sol ve sağ sensör 0-1023 değer verir), bu yüzden
@@ -17,8 +17,8 @@
   #error "Bu ornek yalnizca Pinoo ESP32 Shield icin gecerlidir. / This example is only for Pinoo ESP32 Shield."
 #endif
 
-// Port 7 üzerinde Çizgi İzleme Sensörü / Line Tracker on Port 7 (two analog inputs)
-Pinoo_LineTracker tracker(DOOR7);
+// Port 8 üzerinde Çizgi İzleme Sensörü / Line Tracker on Port 8 (two analog inputs, ADC1: Wi-Fi ile birlikte çalışır)
+Pinoo_LineTracker tracker(DOOR8);
 
 void setup() {
   Serial.begin(115200);
