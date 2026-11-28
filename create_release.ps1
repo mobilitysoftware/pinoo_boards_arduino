@@ -169,6 +169,7 @@ if ($avrPlat) {
     $avrPlat.archiveFileName = $AvrZipName
     $avrPlat.checksum = $AvrChecksum
     $avrPlat.size = "$AvrSize"
+    $avrPlat.version = $Version
 }
 
 $esp32Plat = $pinooPkg.platforms | Where-Object { $_.architecture -eq "esp32" }
@@ -177,6 +178,7 @@ if ($esp32Plat) {
     $esp32Plat.archiveFileName = $Esp32ZipName
     $esp32Plat.checksum = $Esp32Checksum
     $esp32Plat.size = "$Esp32Size"
+    $esp32Plat.version = $Version
 }
 
 $esp8266Plat = $pinooPkg.platforms | Where-Object { $_.architecture -eq "esp8266" }
@@ -185,6 +187,7 @@ if ($esp8266Plat) {
     $esp8266Plat.archiveFileName = $Esp8266ZipName
     $esp8266Plat.checksum = $Esp8266Checksum
     $esp8266Plat.size = "$Esp8266Size"
+    $esp8266Plat.version = $Version
 }
 
 # Çıkış JSON'ı yaz

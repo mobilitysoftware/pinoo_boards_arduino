@@ -12,7 +12,7 @@
                                            {
                                                "name":  "Pinoo AVR Boards",
                                                "architecture":  "avr",
-                                               "version":  "1.0.5",
+                                               "version":  "1.0.8",
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.8/pinoo-avr-1.0.8.zip",
                                                "archiveFileName":  "pinoo-avr-1.0.8.zip",
@@ -56,7 +56,7 @@
                                            {
                                                "name":  "Pinoo ESP32 Boards",
                                                "architecture":  "esp32",
-                                               "version":  "1.0.5",
+                                               "version":  "1.0.8",
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.8/pinoo-esp32-1.0.8.zip",
                                                "archiveFileName":  "pinoo-esp32-1.0.8.zip",
@@ -91,7 +91,7 @@
                                            {
                                                "name":  "Pinoo ESP8266 Boards",
                                                "architecture":  "esp8266",
-                                               "version":  "1.0.5",
+                                               "version":  "1.0.8",
                                                "category":  "Contributed",
                                                "url":  "https://github.com/mobilitysoftware/pinoo_boards_arduino/releases/download/v1.0.8/pinoo-esp8266-1.0.8.zip",
                                                "archiveFileName":  "pinoo-esp8266-1.0.8.zip",
