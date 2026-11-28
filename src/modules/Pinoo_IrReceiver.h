@@ -56,7 +56,7 @@ public:
      */
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_IrReceiver(PortType port) : _pin(PortType::pin4) {
-        PINOO_ASSERT_DIGITAL(PortType);
+        PINOO_ASSERT_DIGITAL_INPUT(PortType);
         _init();
     }
 

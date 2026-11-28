@@ -60,11 +60,15 @@
 /** @brief Motor 2 — Control line B (GPIO 15) */
 #define PINOO_ESP32_MOTOR2_B           15
 
-/** @brief Stepper motor uses the same pins as Motor 1 + Motor 2 (D0, D2, D4, D15) */
-#define PINOO_ESP32_STEPPER_A          PINOO_ESP32_MOTOR1_A
-#define PINOO_ESP32_STEPPER_B          PINOO_ESP32_MOTOR1_B
-#define PINOO_ESP32_STEPPER_C          PINOO_ESP32_MOTOR2_A
-#define PINOO_ESP32_STEPPER_D          PINOO_ESP32_MOTOR2_B
+/**
+ * @brief Stepper motor uses the same pins as Motor 1 + Motor 2.
+ * Coil order matches the board label: D0, D2, D15, D4 (verified on hardware, Nov 2026).
+ * The old order (D0, D2, D4, D15) made the motor vibrate instead of turning.
+ */
+#define PINOO_ESP32_STEPPER_A          PINOO_ESP32_MOTOR1_A   // D0
+#define PINOO_ESP32_STEPPER_B          PINOO_ESP32_MOTOR1_B   // D2
+#define PINOO_ESP32_STEPPER_C          PINOO_ESP32_MOTOR2_B   // D15
+#define PINOO_ESP32_STEPPER_D          PINOO_ESP32_MOTOR2_A   // D4
 
 
 // =============================================================================

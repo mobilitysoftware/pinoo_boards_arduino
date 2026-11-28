@@ -65,3 +65,16 @@ Pinoo Moto'da dört kapı vardır (**DOOR1 - DOOR4**). Genel mesajdaki "Port 5, 
 * **Pinoo Moto'da geçerli kapılar:** DOOR1, DOOR2
 * Dijital modüller (LED, buzzer, buton, PIR, eğim, DHT11, RGB LED) DOOR1 ya da DOOR2'ye takılır. DOOR3 yalnız analog, DOOR4 ise I2C hattıdır.
 * Kapı haritası için: [Pinoo Moto Dokümanları](https://pinoo-moto.gitbook.io/pinoo-moto/).
+
+---
+
+## 📟 Pinoo ESP32
+Pinoo ESP32'de **Kapı 5 (DOOR5) ve Kapı 9 (DOOR9) yalnız giriş kapısıdır.** Bu kapıların pinleri (D34, D35, D36, D39) okuma yapabilir ama çıkış veremez.
+
+| Modül | Kapı 5 ve 9'da |
+| --- | --- |
+| Buton, Hareket (PIR), Eğim-Darbe | ✅ Çalışır (giriş modülü) |
+| Işık, Potansiyometre, Toprak Nem, Su Seviye, Joystick, Çizgi İzleme | ✅ Çalışır (analog giriş) |
+| LED, Buzzer, RGB LED, Servo, Sıcaklık-Nem | ❌ Çalışmaz (çıkış gerekir) |
+
+Çıkış modülleri için **DOOR1, DOOR2, DOOR3, DOOR4, DOOR6, DOOR7, DOOR8 veya DOOR10** kullanın.

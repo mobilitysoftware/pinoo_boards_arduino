@@ -7,7 +7,7 @@
  *
  * Stepper Pin Mimarisi / Stepper Pin Mappings:
  *   Motor 1 & Motor 2 çıkışları kullanılır:
- *   IN1: D0, IN2: D2, IN3: D4, IN4: D15
+ *   IN1: D0, IN2: D2, IN3: D15, IN4: D4 (kart etiketi sırası / board label order)
  *
  * Bilingual (TR/EN) built-in Stepper Motor control example for Pinoo ESP32 Shield.
  */

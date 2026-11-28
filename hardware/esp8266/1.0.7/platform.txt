@@ -1,2 +1,0 @@
-name=Pinoo ESP8266 Boards
-version=1.0.7

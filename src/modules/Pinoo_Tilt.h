@@ -24,7 +24,7 @@ public:
      */
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_Tilt(PortType port) {
-        PINOO_ASSERT_DIGITAL(PortType);
+        PINOO_ASSERT_DIGITAL_INPUT(PortType);
         _pin = PortType::pin4;
     }
 

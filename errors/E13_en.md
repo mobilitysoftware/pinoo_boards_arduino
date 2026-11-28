@@ -65,3 +65,16 @@ Pinoo Moto has four doors (**DOOR1 - DOOR4**). The "Port 5, 6, 9, 10" numbers in
 * **Valid digital doors on Pinoo Moto:** DOOR1, DOOR2
 * Digital modules (LED, buzzer, button, PIR, tilt, DHT11, RGB LED) connect to DOOR1 or DOOR2. DOOR3 is analog-only and DOOR4 is the I2C bus.
 * See the door map: [Pinoo Moto Docs](https://pinoo-moto.gitbook.io/pinoo-moto/).
+
+---
+
+## 📟 Pinoo ESP32
+On Pinoo ESP32, **DOOR5 and DOOR9 are input-only doors.** Their pins (D34, D35, D36, D39) can read but cannot drive an output.
+
+| Module | On DOOR5 and DOOR9 |
+| --- | --- |
+| Button, Motion (PIR), Tilt | ✅ Works (input module) |
+| Light, Potentiometer, Soil Moisture, Water Level, Joystick, Line Tracker | ✅ Works (analog input) |
+| LED, Buzzer, RGB LED, Servo, Temperature-Humidity | ❌ Does not work (needs output) |
+
+For output modules use **DOOR1, DOOR2, DOOR3, DOOR4, DOOR6, DOOR7, DOOR8 or DOOR10**.

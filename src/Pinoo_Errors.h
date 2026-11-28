@@ -59,9 +59,16 @@
         "PINOO ERROR [E04]: Joystick and Line Tracker require a port with two analog inputs (Port 9 or Port 10). " \
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E04.md"
 
+  #if defined(ARDUINO_PINOO_ESP32) || defined(PINOO_BOARD_ESP32) || defined(ARDUINO_ARCH_ESP32)
+    // Pinoo ESP32: DOOR5 and DOOR9 are input-only (GPIO 34/35/36/39).
+    #define PINOO_ERR_E13 \
+        "PINOO ERROR [E13]: On Pinoo ESP32, DOOR5 and DOOR9 are input-only. Output modules (LED, Buzzer, RGB LED, Servo, Temperature-Humidity) need DOOR1, DOOR2, DOOR3, DOOR4, DOOR6, DOOR7, DOOR8 or DOOR10. Input modules (Button, Motion, Tilt) and analog sensors work on DOOR5 and DOOR9. " \
+        "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E13.md"
+  #else
     #define PINOO_ERR_E13 \
         "PINOO ERROR [E13]: Digital modules can only be connected to digital ports (Port 1, Port 2, Port 3, Port 4, Port 5, or Port 6). Analog ports (Ports 7-10) are not allowed. " \
         "For support visit: https://github.com/mobilitysoftware/pinoo_boards_arduino/blob/main/errors/E13.md"
+  #endif
 #endif
 
 #define PINOO_ERR_E12 \
@@ -80,6 +87,7 @@
     #define PINOO_ASSERT_JOYSTICK(PortType) static_assert(true, "")
     #define PINOO_ASSERT_PWM(PortType)      static_assert(true, "")
     #define PINOO_ASSERT_DIGITAL(PortType)  static_assert(true, "")
+    #define PINOO_ASSERT_DIGITAL_INPUT(PortType) static_assert(true, "")
 #else
     #define PINOO_ASSERT_ANALOG(PortType)   static_assert(PortType::is_analog, PINOO_ERR_E01)
     #define PINOO_ASSERT_DUAL(PortType)     static_assert(PortType::is_dual, PINOO_ERR_E02)
@@ -87,6 +95,13 @@
     #define PINOO_ASSERT_JOYSTICK(PortType) static_assert(PortType::has_dual_analog, PINOO_ERR_E04)
     #define PINOO_ASSERT_PWM(PortType)      static_assert(PortType::is_pwm, PINOO_ERR_E12)
     #define PINOO_ASSERT_DIGITAL(PortType)  static_assert(PortType::is_digital, PINOO_ERR_E13)
+    // Digital INPUT modules (Button, PIR, Tilt, IR receiver). On ESP32 the input-only
+    // doors (DOOR5, DOOR9) are allowed too: they can read but cannot drive outputs.
+    #if defined(ARDUINO_PINOO_ESP32) || defined(PINOO_BOARD_ESP32) || defined(ARDUINO_ARCH_ESP32)
+        #define PINOO_ASSERT_DIGITAL_INPUT(PortType) static_assert(PortType::is_digital || PortType::is_input_only, PINOO_ERR_E13)
+    #else
+        #define PINOO_ASSERT_DIGITAL_INPUT(PortType) PINOO_ASSERT_DIGITAL(PortType)
+    #endif
 #endif
 
 #endif // PINOO_ERRORS_H

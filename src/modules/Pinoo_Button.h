@@ -36,7 +36,7 @@ public:
      */
     template <typename PortType, typename = typename Pinoo::enable_if<!Pinoo::is_integral<PortType>::value>::type>
     Pinoo_Button(PortType port, bool activeLow = false) {
-        PINOO_ASSERT_DIGITAL(PortType);
+        PINOO_ASSERT_DIGITAL_INPUT(PortType);
         _pin          = PortType::pin4;
         _activeLow    = activeLow;
         _isAnalogOnly = false;
